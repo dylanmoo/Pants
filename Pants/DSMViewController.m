@@ -12,6 +12,9 @@
 
 @interface DSMViewController (){
     NSMutableData *_responseData;
+    NSArray *hourlyWeather;
+    NSString *pantsString;
+    NSString *noPantsString;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *pantsIcon;
@@ -41,6 +44,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [locationManager startUpdatingLocation];
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"Location Error: %@",error);
+}
+
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     NSLog(@"%@",[locations lastObject]);
     CLLocation *currentLocation = [locations lastObject];
@@ -57,7 +64,9 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 
 
--(void)findPants{
+-(void)findPantsAndNoPantsStrings{
+    Firebase *firebaseForPants = [[Firebase alloc] initWithUrl:@""];
+    
     
 }
 
@@ -85,7 +94,21 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
-    NSLog(@"Data: %@",_responseData);
+    NSError *error = nil;
+    
+    NSDictionary *weather = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
+
+    NSLog(@"Data: %@",weather);
+    
+    NSDictionary *hourly = weather[@"hourly"];
+    NSArray *hourlyWeather = hourly[@"data"];
+    
+    [self processHourlyWeatherForPants];
+    
+}
+
+-(void)processHourlyWeatherForPants{
+    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

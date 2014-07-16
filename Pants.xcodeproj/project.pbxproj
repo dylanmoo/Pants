@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 86A61FF11976F5DC00FAB8FE /* office.gpx */; };
 		86C4138F196246EF0011D9BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C4138E196246EF0011D9BE /* Foundation.framework */; };
 		86C41391196246EF0011D9BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C41390196246EF0011D9BE /* CoreGraphics.framework */; };
 		86C41393196246EF0011D9BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C41392196246EF0011D9BE /* UIKit.framework */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		86A61FF11976F5DC00FAB8FE /* office.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = office.gpx; sourceTree = "<group>"; };
 		86C4138B196246EF0011D9BE /* Pants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86C4138E196246EF0011D9BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86C41390196246EF0011D9BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -105,6 +107,7 @@
 		86C41382196246EF0011D9BE = {
 			isa = PBXGroup;
 			children = (
+				86A61FF11976F5DC00FAB8FE /* office.gpx */,
 				86C41394196246EF0011D9BE /* Pants */,
 				86C413B3196246EF0011D9BE /* PantsTests */,
 				86C4138D196246EF0011D9BE /* Frameworks */,
@@ -267,6 +270,7 @@
 				86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */,
 				86C41399196246EF0011D9BE /* InfoPlist.strings in Resources */,
 				86C413A2196246EF0011D9BE /* Main.storyboard in Resources */,
+				86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
