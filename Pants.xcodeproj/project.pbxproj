@@ -21,6 +21,14 @@
 		86C413B0196246EF0011D9BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C41392196246EF0011D9BE /* UIKit.framework */; };
 		86C413B8196246EF0011D9BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86C413B6196246EF0011D9BE /* InfoPlist.strings */; };
 		86C413BA196246EF0011D9BE /* PantsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C413B9196246EF0011D9BE /* PantsTests.m */; };
+		86C413C4196247660011D9BE /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413C3196247660011D9BE /* Firebase.framework */; };
+		86C413C6196248A20011D9BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413C5196248A20011D9BE /* CoreLocation.framework */; };
+		86C413C819624CF60011D9BE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413C719624CF60011D9BE /* libicucore.dylib */; };
+		86C413CA19624CFF0011D9BE /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413C919624CFF0011D9BE /* libc++.dylib */; };
+		86C413CC19624D050011D9BE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CB19624D050011D9BE /* CFNetwork.framework */; };
+		86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CD19624D0C0011D9BE /* Security.framework */; };
+		86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CF19624D140011D9BE /* SystemConfiguration.framework */; };
+		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,14 @@
 		86C413B5196246EF0011D9BE /* PantsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PantsTests-Info.plist"; sourceTree = "<group>"; };
 		86C413B7196246EF0011D9BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86C413B9196246EF0011D9BE /* PantsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PantsTests.m; sourceTree = "<group>"; };
+		86C413C3196247660011D9BE /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		86C413C5196248A20011D9BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		86C413C719624CF60011D9BE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		86C413C919624CFF0011D9BE /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		86C413CB19624D050011D9BE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		86C413CD19624D0C0011D9BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		86C413CF19624D140011D9BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +76,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */,
+				86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */,
+				86C413CC19624D050011D9BE /* CFNetwork.framework in Frameworks */,
+				86C413CA19624CFF0011D9BE /* libc++.dylib in Frameworks */,
+				86C413C819624CF60011D9BE /* libicucore.dylib in Frameworks */,
+				86C413C6196248A20011D9BE /* CoreLocation.framework in Frameworks */,
 				86C41391196246EF0011D9BE /* CoreGraphics.framework in Frameworks */,
 				86C41393196246EF0011D9BE /* UIKit.framework in Frameworks */,
 				86C4138F196246EF0011D9BE /* Foundation.framework in Frameworks */,
+				86C413C4196247660011D9BE /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +124,13 @@
 		86C4138D196246EF0011D9BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86C413CF19624D140011D9BE /* SystemConfiguration.framework */,
+				86C413CD19624D0C0011D9BE /* Security.framework */,
+				86C413CB19624D050011D9BE /* CFNetwork.framework */,
+				86C413C919624CFF0011D9BE /* libc++.dylib */,
+				86C413C719624CF60011D9BE /* libicucore.dylib */,
+				86C413C5196248A20011D9BE /* CoreLocation.framework */,
+				86C413C3196247660011D9BE /* Firebase.framework */,
 				86C4138E196246EF0011D9BE /* Foundation.framework */,
 				86C41390196246EF0011D9BE /* CoreGraphics.framework */,
 				86C41392196246EF0011D9BE /* UIKit.framework */,
@@ -126,6 +156,7 @@
 		86C41395196246EF0011D9BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				86C413D11962511A0011D9BE /* trousers_pants-128.png */,
 				86C41396196246EF0011D9BE /* Pants-Info.plist */,
 				86C41397196246EF0011D9BE /* InfoPlist.strings */,
 				86C4139A196246EF0011D9BE /* main.m */,
@@ -200,6 +231,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Dylan Moore";
 				TargetAttributes = {
+					86C4138A196246EF0011D9BE = {
+						DevelopmentTeam = PZ7N67B4VU;
+					};
 					86C413AB196246EF0011D9BE = {
 						TestTargetID = 86C4138A196246EF0011D9BE;
 					};
@@ -230,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86C413A7196246EF0011D9BE /* Images.xcassets in Resources */,
+				86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */,
 				86C41399196246EF0011D9BE /* InfoPlist.strings in Resources */,
 				86C413A2196246EF0011D9BE /* Main.storyboard in Resources */,
 			);
@@ -377,10 +412,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pants/Pants-Prefix.pch";
 				INFOPLIST_FILE = "Pants/Pants-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -390,10 +435,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pants/Pants-Prefix.pch";
 				INFOPLIST_FILE = "Pants/Pants-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -457,6 +511,7 @@
 				86C413BF196246EF0011D9BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86C413C0196246EF0011D9BE /* Build configuration list for PBXNativeTarget "PantsTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +520,7 @@
 				86C413C2196246EF0011D9BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

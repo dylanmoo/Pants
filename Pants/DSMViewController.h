@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface DSMViewController : UIViewController
+@interface DSMViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate>{
+    CLLocationManager *locationManager;
+}
 
 @end
