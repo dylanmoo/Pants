@@ -16,6 +16,7 @@
     NSString *pantsString;
     NSString *noPantsString;
     CLLocation *currentLocation;
+    NSDate *todaysMaxTempDate;
     BOOL pantsOn;
     int pantsOnHour;
     float tempThreshold;
@@ -63,6 +64,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [tapGesture requireGestureRecognizerToFail:panGesture];
     [self.view addGestureRecognizer:tapGesture];
     
+    [locationManager startUpdatingLocation];
    
 }
 
@@ -98,6 +100,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     {
         NSLog(@"LIFT");
         [self showPantsAtHour:pantsOnHour];
+        [locationManager startUpdatingLocation];
     }
 }
 
@@ -105,11 +108,14 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     //[self findPantsAndNoPantsStrings];
-    [locationManager startUpdatingLocation];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"Location Error: %@",error);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"Turn on location access inside of your settings to use Pants: Privacy->Location Services->Pants" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alert show];
+    [self.activityIndicator stopAnimating];
+    [self.backgroundImageView setUserInteractionEnabled:YES];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
@@ -178,6 +184,19 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     NSDictionary *hourly = weather[@"hourly"];
     hourlyWeather = hourly[@"data"];
     
+    NSNumber *dailyMaxEpoch = weather[@"daily"][@"data"][0][@"apparentTemperatureMaxTime"];
+    
+    // (Step 1) Create NSDate object
+    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:dailyMaxEpoch.intValue];
+    NSLog (@"Epoch time %d equates to UTC %@", dailyMaxEpoch.intValue, epochNSDate);
+    
+    // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    NSLog (@"Epoch time %d equates to %@", dailyMaxEpoch.intValue, [dateFormatter stringFromDate:epochNSDate]);
+    
+    todaysMaxTempDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
+    
     [self processHourlyWeatherForPants];
     
 }
@@ -194,6 +213,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     NSLog(@"COMPS;%@",comps);
     int secondsUntilMidnight = (23-comps.hour)*60*60;
     NSDate *outUntilDate = [date dateByAddingTimeInterval:secondsUntilMidnight];
+    
     int hourToPutOnPants = comps.hour;
 
     bool foundFirstHourForPants = false;
@@ -212,7 +232,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         NSDate *hourDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
         
-        if([hourDate compare:outUntilDate]==NSOrderedAscending){
+        if([hourDate compare:outUntilDate]==NSOrderedAscending && [hourDate compare:todaysMaxTempDate]==NSOrderedDescending){
             //Add to average Temp
             NSLog(@"%@ is earlier than %@",hourDate,outUntilDate);
            NSNumber *temp = hour[@"temperature"];
