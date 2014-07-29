@@ -101,6 +101,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         NSLog(@"LIFT");
         [self showPantsAtHour:pantsOnHour];
         [locationManager startUpdatingLocation];
+        [self.timerLabel setAlpha:0];
+        [self.activityIndicator startAnimating];
     }
 }
 
@@ -234,7 +236,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         if([hourDate compare:outUntilDate]==NSOrderedAscending && [hourDate compare:todaysMaxTempDate]==NSOrderedDescending){
             //Add to average Temp
-            NSLog(@"%@ is earlier than %@",hourDate,outUntilDate);
+            NSLog(@"%@ is between %@ and %@",hourDate,todaysMaxTempDate,outUntilDate);
            NSNumber *temp = hour[@"temperature"];
             
             if(temp.intValue<tempThreshold){
@@ -252,6 +254,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
             }
         }
         
+    }
+    
+    if(!foundFirstHourForPants){
+        hourToPutOnPants = 23;
     }
     
     [self showPantsAtHour:hourToPutOnPants];
@@ -295,6 +301,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
         [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
+        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
        // [self.pantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
        // [self.noPantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
         
