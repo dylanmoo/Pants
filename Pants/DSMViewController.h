@@ -10,7 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface DSMViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate>{
-    CLLocationManager *locationManager;
+
 }
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end

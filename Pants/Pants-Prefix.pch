@@ -13,4 +13,34 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "UIView+DSMViewAdditions.h"
 #endif
+
+
+#define DEFAULT_FONT_XLIGHT @"Gotham-XLight"
+#define DEFAULT_FONT_LIGHT @"GothamLight"
+#define DEFAULT_FONT_BOLD @"GothamBold"
+#define DEFAULT_FONT_REGULAR @"SignPainter-HouseScript"
+
+#define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define IS_IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define IS_IPHONE5 (!IsIpad && ([UIScreen mainScreen].applicationFrame.size.height > 480.0))
+
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define UIColorFromRGBAndAlpha(rgbValue,a) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
+
+#define DEFAULT_HEADER_COLOR UIColorFromRGBAndAlpha(0xffffff, .87)
+#define DEFAULT_SECONDARY_COLOR UIColorFromRGBAndAlpha(0xffffff, .54)
+
+#define DEFAULT_YELLOW_COLOR UIColorFromRGBAndAlpha(0xECB244, 1)
+#define DEFAULT_RED_COLOR UIColorFromRGBAndAlpha(0xE35645, 1)
+#define DEFAULT_BLUE_COLOR UIColorFromRGBAndAlpha(0x2D8586, 1)
+#define DEFAULT_LIGHT_BLUE_COLOR UIColorFromRGBAndAlpha(0x61B99E, 1)

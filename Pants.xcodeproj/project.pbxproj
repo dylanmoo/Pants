@@ -33,6 +33,10 @@
 		86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CD19624D0C0011D9BE /* Security.framework */; };
 		86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CF19624D140011D9BE /* SystemConfiguration.framework */; };
 		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
+		FCBCE6D319B6C1B100787C3D /* DSMStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBCE6D219B6C1A100787C3D /* DSMStore.m */; };
+		FCBCE6D619B6DB0F00787C3D /* DSMInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBCE6D519B6DB0F00787C3D /* DSMInsetLabel.m */; };
+		FCF707CC19B54DDF00D60D5C /* DSMOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF707CB19B54DDF00D60D5C /* DSMOnboardingViewController.m */; };
+		FCF707CF19B562B300D60D5C /* UIView+DSMViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +80,14 @@
 		86C413CD19624D0C0011D9BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		86C413CF19624D140011D9BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
+		FCBCE6D119B6C1A100787C3D /* DSMStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSMStore.h; sourceTree = "<group>"; };
+		FCBCE6D219B6C1A100787C3D /* DSMStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSMStore.m; sourceTree = "<group>"; };
+		FCBCE6D419B6DB0F00787C3D /* DSMInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSMInsetLabel.h; sourceTree = "<group>"; };
+		FCBCE6D519B6DB0F00787C3D /* DSMInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSMInsetLabel.m; sourceTree = "<group>"; };
+		FCF707CA19B54DDF00D60D5C /* DSMOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSMOnboardingViewController.h; sourceTree = "<group>"; };
+		FCF707CB19B54DDF00D60D5C /* DSMOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSMOnboardingViewController.m; sourceTree = "<group>"; };
+		FCF707CD19B562B300D60D5C /* UIView+DSMViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DSMViewAdditions.h"; sourceTree = "<group>"; };
+		FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DSMViewAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,11 +162,19 @@
 		86C41394196246EF0011D9BE /* Pants */ = {
 			isa = PBXGroup;
 			children = (
+				FCF707CD19B562B300D60D5C /* UIView+DSMViewAdditions.h */,
+				FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */,
 				86C4139D196246EF0011D9BE /* DSMAppDelegate.h */,
 				86C4139E196246EF0011D9BE /* DSMAppDelegate.m */,
 				86C413A0196246EF0011D9BE /* Main.storyboard */,
 				86C413A3196246EF0011D9BE /* DSMViewController.h */,
 				86C413A4196246EF0011D9BE /* DSMViewController.m */,
+				FCF707CA19B54DDF00D60D5C /* DSMOnboardingViewController.h */,
+				FCF707CB19B54DDF00D60D5C /* DSMOnboardingViewController.m */,
+				FCBCE6D419B6DB0F00787C3D /* DSMInsetLabel.h */,
+				FCBCE6D519B6DB0F00787C3D /* DSMInsetLabel.m */,
+				FCBCE6D119B6C1A100787C3D /* DSMStore.h */,
+				FCBCE6D219B6C1A100787C3D /* DSMStore.m */,
 				86C413A6196246EF0011D9BE /* Images.xcassets */,
 				86C41395196246EF0011D9BE /* Supporting Files */,
 			);
@@ -298,9 +318,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBCE6D319B6C1B100787C3D /* DSMStore.m in Sources */,
+				FCBCE6D619B6DB0F00787C3D /* DSMInsetLabel.m in Sources */,
+				FCF707CF19B562B300D60D5C /* UIView+DSMViewAdditions.m in Sources */,
 				8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */,
 				86C4139B196246EF0011D9BE /* main.m in Sources */,
 				86C413A5196246EF0011D9BE /* DSMViewController.m in Sources */,
+				FCF707CC19B54DDF00D60D5C /* DSMOnboardingViewController.m in Sources */,
 				86C4139F196246EF0011D9BE /* DSMAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

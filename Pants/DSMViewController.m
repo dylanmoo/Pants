@@ -9,6 +9,8 @@
 #import "DSMViewController.h"
 #import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
+#import "DSMOnboardingViewController.h"
+#import "DSMStore.h"
 
 @interface DSMViewController (){
     NSMutableData *_responseData;
@@ -18,6 +20,7 @@
     CLLocation *currentLocation;
     NSDate *todaysMaxTempDate;
     BOOL pantsOn;
+    BOOL viewAppeared;
     int pantsOnHour;
     float tempThreshold;
 }
@@ -45,10 +48,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     noPantsString = @"#NOPANTS";
     
     //Setup Location manager
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
      [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
@@ -58,24 +61,31 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.backgroundImageView setUserInteractionEnabled:YES];
     
     tempThreshold = 73.0f;
-    [self.activityIndicator startAnimating];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
     [tapGesture requireGestureRecognizerToFail:panGesture];
     [self.view addGestureRecognizer:tapGesture];
     
-    [locationManager startUpdatingLocation];
-   
+    viewAppeared = false;
+    
 }
 
--(void)share:(UITapGestureRecognizer*)recognizer{
+-(void)share:(UITapGestureRecognizer*)recognizer
+{
         NSMutableArray *sharingItems = [NSMutableArray new];
     [sharingItems addObject:@"I'm wearing #NOPANTS today! "];
         UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
         [self presentViewController:activityController animated:YES completion:nil];
 }
 
--(void)panned:(UIPanGestureRecognizer*)recognizer{
+-(void)findLocation{
+    [self.locationManager startUpdatingLocation];
+    [self.activityIndicator startAnimating];
+    [self.timerLabel setAlpha:0];
+}
+
+-(void)panned:(UIPanGestureRecognizer*)recognizer
+{
     
     if(recognizer.state == UIGestureRecognizerStateBegan)
     {
@@ -100,44 +110,109 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     {
         NSLog(@"LIFT");
         [self showPantsAtHour:pantsOnHour];
-        [locationManager startUpdatingLocation];
-        [self.timerLabel setAlpha:0];
-        [self.activityIndicator startAnimating];
+        [self findLocation];
     }
 }
 
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
-    //[self findPantsAndNoPantsStrings];
+    
+    if(!viewAppeared){
+        if([[DSMStore sharedInstance] isFirstTimeUser]){
+            [self showOnboarding];
+        }else{
+            [self findLocation];
+        }
+    }
+    
+    viewAppeared = true;
+}
+
+-(void)showOnboarding
+{
+    DSMOnboardingViewController *onb = [[DSMOnboardingViewController alloc] init];
+    [self presentViewController:onb animated:YES completion:^{
+        onb.titleLabel.text = @"#PANTS";
+        onb.subtitleLabel.text = @"helps you figure out whether or not you should wear pants today. We do a bunch of complicated math and analyze when the weather is just right for pants. We need your location, okay?";
+        [onb.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
+        __weak typeof(self) weakSelf = self;
+        [onb setAcceptButtonBlock:^(UIButton *actionButton){
+            NSLog(@"Accept Pressed");
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                [self findLocation];
+            }];
+        }];
+        
+        [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
+        __weak typeof(onb) weakOnb = onb;
+        [onb setDenyButtonBlock:^(UIButton *actionButton){
+            NSLog(@"Deny Pressed");
+            weakOnb.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
+    
+        }];
+    }];
+    
+}
+
+
+-(void)showLocationError
+{
+    DSMOnboardingViewController *onb = [[DSMOnboardingViewController alloc] init];
+    [self presentViewController:onb animated:YES completion:^{
+        onb.titleLabel.text = @"#PANTS";
+        onb.subtitleLabel.text = @"really needs your location. Can you go to:\n\n->Settings\n->Privacy\n->Location\n->Pants and turn it on?";
+        [onb.subtitleLabel sizeToFit];
+        [onb.subtitleLabel setTop:onb.titleLabel.bottom];
+        onb.acceptButton.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_REGULAR size:55];
+        [onb.acceptButton setTitle:@"I did that!" forState:UIControlStateNormal];
+        __weak typeof(self) weakSelf = self;
+        [onb setAcceptButtonBlock:^(UIButton *actionButton){
+            NSLog(@"Accept Pressed");
+                [self findLocation];
+        }];
+        
+        [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
+        __weak typeof(onb) weakOnb = onb;
+        [onb setDenyButtonBlock:^(UIButton *actionButton){
+            NSLog(@"Deny Pressed");
+            weakOnb.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
+        }];
+    }];
+    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"Location Error: %@",error);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"Turn on location access inside of your settings to use Pants: Privacy->Location Services->Pants" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
-    [alert show];
+    
     [self.activityIndicator stopAnimating];
     [self.backgroundImageView setUserInteractionEnabled:YES];
+    [self showLocationError];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     NSLog(@"%@",[locations lastObject]);
     currentLocation = [locations lastObject];
     
-    [locationManager stopUpdatingLocation];
+    [self.self.locationManager stopUpdatingLocation];
     [self getWeatherForLat:currentLocation.coordinate.latitude andLon:currentLocation.coordinate.longitude];
+    
+    if(!self.isFirstResponder){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)getWeatherForLat:(float)lat andLon:(float)lon{
     NSString *path = [NSString stringWithFormat:@"https://api.forecast.io/forecast/%@/%f,%f",WEATHER_API_KEY,lat,lon];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
 }
 
 
 
--(void)findPantsAndNoPantsStrings{
+-(void)findPantsAndNoPantsStrings
+{
     Firebase *firebaseForPants = [[Firebase alloc] initWithUrl:@"https://pantson.firebaseio.com/"];
     [firebaseForPants observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if(snapshot.value){
