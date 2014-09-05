@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "DSMOnboardingViewController.h"
 #import "DSMStore.h"
+#import "Mixpanel.h"
 
 @interface DSMViewController (){
     NSMutableData *_responseData;
@@ -25,9 +26,9 @@
     float tempThreshold;
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *pantsLabel;
+@property (strong, nonatomic) UILabel *pantsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noPantsLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *timerView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -53,27 +54,70 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
+    
+    
+    [self.timerLabel setCenter:self.view.center];
+    
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height/2)];
+    [self.backgroundImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
+    [self.backgroundImageView setTop:self.timerLabel.centerY];
+    [self.view insertSubview:self.backgroundImageView belowSubview:self.timerView];
+    
+    self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 102)];
+    [self.pantsLabel setText:@"#PANTS"];
+    [self.pantsLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
+    [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.pantsLabel setCenterY:self.backgroundImageView.bounds.size.height/2];
+    [self.pantsLabel setCenterX:self.view.centerX];
+    [self.backgroundImageView addSubview:self.pantsLabel];
+    
+    [self.noPantsLabel setTextColor:DEFAULT_RED_COLOR];
+    
+    [self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
+    
     [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
-     [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
+    [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
     [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:16]];
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-    [self.backgroundImageView addGestureRecognizer:panGesture];
-    [self.backgroundImageView setUserInteractionEnabled:YES];
+    
+    
     
     tempThreshold = 73.0f;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
-    [tapGesture requireGestureRecognizerToFail:panGesture];
-    [self.view addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [self.view setUserInteractionEnabled:YES];
+    [self.view addGestureRecognizer:tapGesture2];
+    
+    [self.backgroundImageView setUserInteractionEnabled:YES];
+    [self.backgroundImageView addGestureRecognizer:tapGesture];
     
     viewAppeared = false;
     
 }
 
+-(void)didBecomeActive:(NSNotification*)notification
+{
+    [self findLocation];
+}
+
 -(void)share:(UITapGestureRecognizer*)recognizer
 {
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+
         NSMutableArray *sharingItems = [NSMutableArray new];
-    [sharingItems addObject:@"I'm wearing #NOPANTS today! "];
+    if([recognizer.view isEqual:self.backgroundImageView]){
+        [sharingItems addObject:@"I'm wearing #PANTS today! "];
+        
+        [mixpanel track:@"Sharing #PANTS"];
+    }else{
+        [sharingItems addObject:@"I'm wearing #NOPANTS today! "];
+        
+        [mixpanel track:@"Sharing #NOPANTS"];
+    }
+    
         UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
         [self presentViewController:activityController animated:YES completion:nil];
 }
@@ -140,6 +184,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         __weak typeof(self) weakSelf = self;
         [onb setAcceptButtonBlock:^(UIButton *actionButton){
             NSLog(@"Accept Pressed");
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            [mixpanel track:@"Accepted Location Access"];
+            
             [weakSelf dismissViewControllerAnimated:YES completion:^{
                 [self findLocation];
             }];
@@ -149,9 +197,17 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         __weak typeof(onb) weakOnb = onb;
         [onb setDenyButtonBlock:^(UIButton *actionButton){
             NSLog(@"Deny Pressed");
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            [mixpanel track:@"Denied Location Access"];
+            
             weakOnb.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
     
         }];
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Showing Onboarding"];
     }];
     
 }
@@ -170,6 +226,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         __weak typeof(self) weakSelf = self;
         [onb setAcceptButtonBlock:^(UIButton *actionButton){
             NSLog(@"Accept Pressed");
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            [mixpanel track:@"Accepted Location Access"];
+            
                 [self findLocation];
         }];
         
@@ -177,8 +237,16 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         __weak typeof(onb) weakOnb = onb;
         [onb setDenyButtonBlock:^(UIButton *actionButton){
             NSLog(@"Deny Pressed");
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            [mixpanel track:@"Denied Location Access"];
+            
             weakOnb.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
         }];
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Showing Location Error"];
     }];
     
 }
@@ -207,6 +275,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     NSString *path = [NSString stringWithFormat:@"https://api.forecast.io/forecast/%@/%f,%f",WEATHER_API_KEY,lat,lon];
     // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    
+    [mixpanel track:@"Fetched Weather" properties:@{@"lat": [NSNumber numberWithFloat:lat],@"lng":[NSNumber numberWithFloat:lon]}];
+    
+     
 }
 
 
@@ -359,6 +433,9 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     NSString *time = [NSString stringWithFormat:@"%d %@",(hour>12?hour-12:hour),(hour>12 ? @"PM":@"AM") ];
     [self.timerLabel setText:time];
     
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    
+    [mixpanel track:@"Showing Pants Time" properties:@{@"time": time}];
     
    
     [self.pantsLabel setText:pantsString];
@@ -370,13 +447,13 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
         [self.timerLabel setAlpha:1];
-        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter)];
-        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
-        [self.backgroundImageView setFrame:CGRectMake(self.backgroundImageView.frame.origin.x,distanceFromTop,self.backgroundImageView.frame.size.width,self.backgroundImageView.frame.size.height)];
+        //[self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter)];
+        //[self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
+        //[self.backgroundImageView setFrame:CGRectMake(self.backgroundImageView.frame.origin.x,distanceFromTop,self.backgroundImageView.frame.size.width,self.backgroundImageView.frame.size.height)];
         
-        [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
-        [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
-        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
+        //[self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
+        //[self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
+        //[self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
        // [self.pantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
        // [self.noPantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
         

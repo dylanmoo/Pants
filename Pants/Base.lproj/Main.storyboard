@@ -23,41 +23,43 @@
                                 <color key="textColor" red="0.38039215686274508" green="0.72549019607843135" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4B-BT-nuc">
-                                <rect key="frame" x="0.0" y="284" width="320" height="1600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator.png" translatesAutoresizingMaskIntoConstraints="NO" id="YEY-zu-knE">
+                                <rect key="frame" x="0.0" y="258" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.92549019610000005" green="0.69803921570000005" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="ibi-Xf-Ny3"/>
+                                    <constraint firstAttribute="width" constant="320" id="tuA-je-Vju"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#PANTS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="YAQ-iM-68h">
-                                <rect key="frame" x="20" y="375" width="280" height="102"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="36"/>
-                                <color key="textColor" red="0.8901960784313725" green="0.33725490196078434" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pants_seperator.png" translatesAutoresizingMaskIntoConstraints="NO" id="YEY-zu-knE">
-                                <rect key="frame" x="-29" y="255" width="378" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b56-EH-pSB">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b56-EH-pSB">
                                 <rect key="frame" x="133" y="267" width="54" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="RUc-1T-NYd"/>
+                                    <constraint firstAttribute="height" constant="36" id="lez-5Z-8WN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="AOO-QD-E4j">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="AOO-QD-E4j">
                                 <rect key="frame" x="150" y="274" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.17647058823529413" green="0.52156862745098043" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="b56-EH-pSB" secondAttribute="centerY" constant="-1" id="18p-mn-QuX"/>
+                            <constraint firstAttribute="centerX" secondItem="b56-EH-pSB" secondAttribute="centerX" id="7WK-UK-hfk"/>
+                            <constraint firstAttribute="centerY" secondItem="YEY-zu-knE" secondAttribute="centerY" constant="-1" id="QwL-8M-9Tc"/>
+                            <constraint firstAttribute="centerX" secondItem="AOO-QD-E4j" secondAttribute="centerX" id="XXB-ph-Gbg"/>
+                            <constraint firstAttribute="centerY" secondItem="AOO-QD-E4j" secondAttribute="centerY" id="f1T-Bz-cNB"/>
+                            <constraint firstAttribute="centerX" secondItem="YEY-zu-knE" secondAttribute="centerX" id="rDP-K0-nUC"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="AOO-QD-E4j" id="QYy-IJ-3k3"/>
-                        <outlet property="backgroundImageView" destination="k4B-BT-nuc" id="od6-cP-yK3"/>
                         <outlet property="noPantsLabel" destination="DtR-t2-PdW" id="tK8-8p-Tc8"/>
-                        <outlet property="pantsLabel" destination="YAQ-iM-68h" id="2wC-a2-38s"/>
                         <outlet property="timerLabel" destination="b56-EH-pSB" id="f17-wM-6au"/>
                         <outlet property="timerView" destination="YEY-zu-knE" id="OYM-CI-UbP"/>
                     </connections>
@@ -67,7 +69,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pants_seperator.png" width="756" height="121"/>
+        <image name="separator.png" width="650" height="107"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
