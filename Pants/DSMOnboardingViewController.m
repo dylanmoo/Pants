@@ -40,27 +40,31 @@
     
     [self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
     
-    self.titleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, 30, self.view.width, 80)];
+    self.titleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, 30, self.view.width, 60)];
     [self.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:80]];
     [self.titleLabel setTextColor:DEFAULT_RED_COLOR];
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.titleLabel setCenterX:self.view.centerX];
     
-    self.subtitleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, self.titleLabel.bottom, self.view.width-40, self.view.height-80-80-20-40)];
+    self.subtitleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, self.titleLabel.bottom, self.view.width-40, self.view.height-80-80-20-140)];
     [self.subtitleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:35]];
     [self.subtitleLabel setTextColor:DEFAULT_RED_COLOR];
     [self.subtitleLabel setTextAlignment:NSTextAlignmentLeft];
     [self.subtitleLabel setAdjustsFontSizeToFitWidth:YES];
     [self.subtitleLabel setNumberOfLines:0];
+    [self.subtitleLabel setTop:self.titleLabel.bottom];
     [self.subtitleLabel setCenterX:self.view.centerX];
     
     
-    self.acceptButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.subtitleLabel.bottom, self.view.width-100, 80)];
+    self.acceptButton = [[LetterTileButton alloc] initWithFrame:CGRectMake(0, self.subtitleLabel.bottom+20, self.view.width-100, 90)];
+    
+    [self.acceptButton setTitleFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:70]];
+    [self.acceptButton setTitleColor:DEFAULT_YELLOW_COLOR forState:UIControlStateSelected];
     [self.acceptButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
-    [self.acceptButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:80]];
     [self.acceptButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.acceptButton setCenterX:self.view.centerX];
     [self.acceptButton setUserInteractionEnabled:YES];
+    [self.acceptButton setContentEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
     
     self.acceptButton.layer.cornerRadius = 7;
     self.acceptButton.layer.borderColor = DEFAULT_RED_COLOR.CGColor;
@@ -68,11 +72,14 @@
     
     
     
-    self.denyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.acceptButton.bottom, self.view.width-100, 20)];
+    self.denyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width-100, 20)];
     [self.denyButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
     [self.denyButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:16]];
     [self.denyButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.denyButton setCenterX:self.view.centerX];
+    [self.denyButton setBottom:self.view.bottom-20];
+    
+    [self.acceptButton setBottom:self.denyButton.top -20];
     
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.subtitleLabel];

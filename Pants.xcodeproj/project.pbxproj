@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8608CDA119BA66BA003E69B2 /* LetterTileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8608CDA019BA66BA003E69B2 /* LetterTileButton.m */; };
 		8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 86A61FF11976F5DC00FAB8FE /* office.gpx */; };
@@ -115,6 +116,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8608CD9F19BA66BA003E69B2 /* LetterTileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterTileButton.h; sourceTree = "<group>"; };
+		8608CDA019BA66BA003E69B2 /* LetterTileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterTileButton.m; sourceTree = "<group>"; };
 		8642E9741979F3E400F09F62 /* SignPainter.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignPainter.otf; sourceTree = "<group>"; };
 		86A61FF11976F5DC00FAB8FE /* office.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = office.gpx; sourceTree = "<group>"; };
 		86C4138B196246EF0011D9BE /* Pants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pants.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,6 +350,8 @@
 				86C413A0196246EF0011D9BE /* Main.storyboard */,
 				86C413A3196246EF0011D9BE /* DSMViewController.h */,
 				86C413A4196246EF0011D9BE /* DSMViewController.m */,
+				8608CD9F19BA66BA003E69B2 /* LetterTileButton.h */,
+				8608CDA019BA66BA003E69B2 /* LetterTileButton.m */,
 				FCF707CA19B54DDF00D60D5C /* DSMOnboardingViewController.h */,
 				FCF707CB19B54DDF00D60D5C /* DSMOnboardingViewController.m */,
 				FCBCE6D419B6DB0F00787C3D /* DSMInsetLabel.h */,
@@ -634,6 +639,7 @@
 				FCFB992119B9C5D9000CE98C /* MPABTestDesignerClearResponseMessage.m in Sources */,
 				FCFB992519B9C5D9000CE98C /* MPABTestDesignerDisconnectMessage.m in Sources */,
 				FCFB995219B9C5D9000CE98C /* MPWebSocket.m in Sources */,
+				8608CDA119BA66BA003E69B2 /* LetterTileButton.m in Sources */,
 				FCBCE6D319B6C1B100787C3D /* DSMStore.m in Sources */,
 				FCFB993219B9C5D9000CE98C /* MPClassDescription.m in Sources */,
 				FCFB994E19B9C5D9000CE98C /* MPUIEdgeInsetsToNSDictionaryValueTransformer.m in Sources */,
@@ -814,7 +820,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dylan Moore (UCM8G82UW8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dylan Moore (UCM8G82UW8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -826,7 +832,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				PROVISIONING_PROFILE = "ED78A0D4-A9CE-4CFB-A6E4-7FFF08F58900";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -837,7 +843,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -848,7 +854,7 @@
 				INFOPLIST_FILE = "Pants/Pants-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				PROVISIONING_PROFILE = "ED78A0D4-A9CE-4CFB-A6E4-7FFF08F58900";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

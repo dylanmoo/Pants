@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DSMInsetLabel.h"
+#import "LetterTileButton.h"
 
 typedef void(^actionBlock)(UIButton *actionButton);
 
 @interface DSMOnboardingViewController : UIViewController
 
-@property (nonatomic, strong) UIButton *acceptButton;
+@property (nonatomic, strong) LetterTileButton *acceptButton;
 @property (nonatomic, strong) UIButton *denyButton;
 @property (nonatomic, strong) DSMInsetLabel *titleLabel;
 @property (nonatomic, strong) DSMInsetLabel *subtitleLabel;

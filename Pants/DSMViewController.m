@@ -58,7 +58,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.timerLabel setCenter:self.view.center];
     
-    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height/2)];
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     [self.backgroundImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
     [self.backgroundImageView setTop:self.timerLabel.centerY];
     [self.view insertSubview:self.backgroundImageView belowSubview:self.timerView];
@@ -67,11 +67,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsLabel setText:@"#PANTS"];
     [self.pantsLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
     [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.pantsLabel setCenterY:self.backgroundImageView.bounds.size.height/2];
+    [self.pantsLabel setCenterY:(self.view.height*3/4)-self.backgroundImageView.top];
     [self.pantsLabel setCenterX:self.view.centerX];
     [self.backgroundImageView addSubview:self.pantsLabel];
     
     [self.noPantsLabel setTextColor:DEFAULT_RED_COLOR];
+    [self.noPantsLabel setCenterY:self.view.centerY/2];
     
     [self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
     
@@ -100,7 +101,9 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)didBecomeActive:(NSNotification*)notification
 {
-    [self findLocation];
+    if(viewAppeared){
+        [self findLocation];
+    }
 }
 
 -(void)share:(UITapGestureRecognizer*)recognizer
@@ -109,11 +112,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
         NSMutableArray *sharingItems = [NSMutableArray new];
     if([recognizer.view isEqual:self.backgroundImageView]){
-        [sharingItems addObject:@"I'm wearing #PANTS today! "];
+        [sharingItems addObject:@"I'm wearing #PANTS today! @SomeDumbApp told me to."];
         
         [mixpanel track:@"Sharing #PANTS"];
     }else{
-        [sharingItems addObject:@"I'm wearing #NOPANTS today! "];
+        [sharingItems addObject:@"I'm wearing #NOPANTS today! @SomeDumbApp told me to."];
         
         [mixpanel track:@"Sharing #NOPANTS"];
     }
@@ -179,18 +182,21 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     DSMOnboardingViewController *onb = [[DSMOnboardingViewController alloc] init];
     [self presentViewController:onb animated:YES completion:^{
         onb.titleLabel.text = @"#PANTS";
-        onb.subtitleLabel.text = @"helps you figure out whether or not you should wear pants today. We do a bunch of complicated math and analyze when the weather is just right for pants. We need your location, okay?";
+        onb.subtitleLabel.text = @"does a bunch of complicated math and analyzes when the weather is just right for pants. We need your location, okay?";
+        
         [onb.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
-        __weak typeof(self) weakSelf = self;
+        
         [onb setAcceptButtonBlock:^(UIButton *actionButton){
             NSLog(@"Accept Pressed");
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
             
             [mixpanel track:@"Accepted Location Access"];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
+
+            [self dismissViewControllerAnimated:YES completion:^{
                 [self findLocation];
             }];
+            
         }];
         
         [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
@@ -221,7 +227,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         onb.subtitleLabel.text = @"really needs your location. Can you go to:\n\n->Settings\n->Privacy\n->Location\n->Pants and turn it on?";
         [onb.subtitleLabel sizeToFit];
         [onb.subtitleLabel setTop:onb.titleLabel.bottom];
-        onb.acceptButton.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_REGULAR size:55];
+        [onb.acceptButton setTitleFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:55]];
         [onb.acceptButton setTitle:@"I did that!" forState:UIControlStateNormal];
         __weak typeof(self) weakSelf = self;
         [onb setAcceptButtonBlock:^(UIButton *actionButton){
@@ -230,7 +236,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
             
             [mixpanel track:@"Accepted Location Access"];
             
-                [self findLocation];
+            [self findLocation];
         }];
         
         [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
@@ -265,6 +271,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.self.locationManager stopUpdatingLocation];
     [self getWeatherForLat:currentLocation.coordinate.latitude andLon:currentLocation.coordinate.longitude];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"opened"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     if(!self.isFirstResponder){
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -423,7 +434,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
     int hoursLater = hour - comps.hour;
     int hoursLeft = 23-comps.hour;
-    float spacing = 60;
+    float spacing = 100;
     
     float distanceFromTop = (hoursLater*((self.view.bounds.size.height-(2*spacing))/hoursLeft))+spacing;
     
@@ -447,16 +458,13 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
         [self.timerLabel setAlpha:1];
-        //[self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter)];
-        //[self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
-        //[self.backgroundImageView setFrame:CGRectMake(self.backgroundImageView.frame.origin.x,distanceFromTop,self.backgroundImageView.frame.size.width,self.backgroundImageView.frame.size.height)];
+        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter-distanceFromTop)];
+        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
+        [self.backgroundImageView setFrame:CGRectMake(self.backgroundImageView.frame.origin.x,distanceFromTop,self.backgroundImageView.frame.size.width,self.backgroundImageView.frame.size.height)];
         
-        //[self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
-        //[self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
-        //[self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
-       // [self.pantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
-       // [self.noPantsLabel setTransform:CGAffineTransformMakeScale(1, 1)];
-        
+        [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
+        [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
+        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
     } completion:^(BOOL finished) {
         //[self.backgroundImageView setUserInteractionEnabled:YES];
     }];

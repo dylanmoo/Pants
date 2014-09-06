@@ -32,11 +32,7 @@ static bool isFirstAccess = YES;
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"opened"]){
         return NO;
     }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"opened"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
     return YES;
 }
 
