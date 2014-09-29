@@ -9,6 +9,7 @@
 #import "DSMAppDelegate.h"
 #import "Mixpanel.h"
 #import "DSMStore.h"
+#import <Parse/Parse.h>
 
 #define MIXPANEL_TOKEN @"10368102de1354bfe301c6f5212fe883"
 
@@ -28,7 +29,7 @@
     
     [mixpanel track:@"Launched"];
     
-    //[Parse setApplicationId:@"ob3tzfhqwrzyfEpbhBKvOpWvb0bPosxWbhZViook" clientKey:@"WfG2OgKUZTdU8K7ZrGw3986y1iPY3Db9bqR53BGU"];
+    [Parse setApplicationId:@"ob3tzfhqwrzyfEpbhBKvOpWvb0bPosxWbhZViook" clientKey:@"WfG2OgKUZTdU8K7ZrGw3986y1iPY3Db9bqR53BGU"];
     
     return YES;
 }
@@ -70,20 +71,20 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    /*
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
-     */
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel.people addPushDeviceToken:deviceToken];
 }
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    //[PFPush handlePush:userInfo];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+    // Show alert for push notifications recevied while the
+    // app is running
 }
 
 @end

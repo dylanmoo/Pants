@@ -11,6 +11,12 @@
 		8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 86A61FF11976F5DC00FAB8FE /* office.gpx */; };
+		86A9C99B19D8E1BC0029239E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A9C99919D8E1BC0029239E /* Bolts.framework */; };
+		86A9C99C19D8E1BC0029239E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A9C99A19D8E1BC0029239E /* Parse.framework */; };
+		86A9C99E19D8E32A0029239E /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A9C99D19D8E32A0029239E /* Twitter.framework */; };
+		86A9C9A019D8E3600029239E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A9C99F19D8E3600029239E /* Social.framework */; };
+		86A9C9A219D8E3840029239E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A9C9A119D8E3840029239E /* Accounts.framework */; };
+		86A9C9A519D93EA70029239E /* DSMWeatherStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9C9A419D93EA70029239E /* DSMWeatherStore.m */; };
 		86C4138F196246EF0011D9BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C4138E196246EF0011D9BE /* Foundation.framework */; };
 		86C41391196246EF0011D9BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C41390196246EF0011D9BE /* CoreGraphics.framework */; };
 		86C41393196246EF0011D9BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C41392196246EF0011D9BE /* UIKit.framework */; };
@@ -127,6 +133,13 @@
 		8608CDA019BA66BA003E69B2 /* LetterTileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterTileButton.m; sourceTree = "<group>"; };
 		8642E9741979F3E400F09F62 /* SignPainter.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignPainter.otf; sourceTree = "<group>"; };
 		86A61FF11976F5DC00FAB8FE /* office.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = office.gpx; sourceTree = "<group>"; };
+		86A9C99919D8E1BC0029239E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		86A9C99A19D8E1BC0029239E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		86A9C99D19D8E32A0029239E /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		86A9C99F19D8E3600029239E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		86A9C9A119D8E3840029239E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		86A9C9A319D93EA70029239E /* DSMWeatherStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSMWeatherStore.h; sourceTree = "<group>"; };
+		86A9C9A419D93EA70029239E /* DSMWeatherStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSMWeatherStore.m; sourceTree = "<group>"; };
 		86C4138B196246EF0011D9BE /* Pants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86C4138E196246EF0011D9BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86C41390196246EF0011D9BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -291,6 +304,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86A9C9A219D8E3840029239E /* Accounts.framework in Frameworks */,
+				86A9C9A019D8E3600029239E /* Social.framework in Frameworks */,
+				86A9C99E19D8E32A0029239E /* Twitter.framework in Frameworks */,
 				FCE93AAE19D8CF0500E29661 /* ImageIO.framework in Frameworks */,
 				FC4B97C319C29E4200A06304 /* StoreKit.framework in Frameworks */,
 				86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */,
@@ -301,8 +317,10 @@
 				86C413CC19624D050011D9BE /* CFNetwork.framework in Frameworks */,
 				FC4B97BB19C29E1000A06304 /* AudioToolbox.framework in Frameworks */,
 				86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */,
+				86A9C99C19D8E1BC0029239E /* Parse.framework in Frameworks */,
 				86C413CA19624CFF0011D9BE /* libc++.dylib in Frameworks */,
 				86C413C819624CF60011D9BE /* libicucore.dylib in Frameworks */,
+				86A9C99B19D8E1BC0029239E /* Bolts.framework in Frameworks */,
 				86C413C6196248A20011D9BE /* CoreLocation.framework in Frameworks */,
 				86C41393196246EF0011D9BE /* UIKit.framework in Frameworks */,
 				86C4138F196246EF0011D9BE /* Foundation.framework in Frameworks */,
@@ -346,6 +364,11 @@
 		86C4138D196246EF0011D9BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86A9C9A119D8E3840029239E /* Accounts.framework */,
+				86A9C99F19D8E3600029239E /* Social.framework */,
+				86A9C99D19D8E32A0029239E /* Twitter.framework */,
+				86A9C99919D8E1BC0029239E /* Bolts.framework */,
+				86A9C99A19D8E1BC0029239E /* Parse.framework */,
 				FCE93AAD19D8CF0500E29661 /* ImageIO.framework */,
 				FC4B97C219C29E4200A06304 /* StoreKit.framework */,
 				FC4B97C019C29E3600A06304 /* QuartzCore.framework */,
@@ -385,6 +408,8 @@
 				FCBCE6D519B6DB0F00787C3D /* DSMInsetLabel.m */,
 				FCBCE6D119B6C1A100787C3D /* DSMStore.h */,
 				FCBCE6D219B6C1A100787C3D /* DSMStore.m */,
+				86A9C9A319D93EA70029239E /* DSMWeatherStore.h */,
+				86A9C9A419D93EA70029239E /* DSMWeatherStore.m */,
 				86C413A6196246EF0011D9BE /* Images.xcassets */,
 				86C41395196246EF0011D9BE /* Supporting Files */,
 			);
@@ -596,6 +621,11 @@
 				TargetAttributes = {
 					86C4138A196246EF0011D9BE = {
 						DevelopmentTeam = PZ7N67B4VU;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					86C413AB196246EF0011D9BE = {
 						TestTargetID = 86C4138A196246EF0011D9BE;
@@ -724,6 +754,7 @@
 				86C4139F196246EF0011D9BE /* DSMAppDelegate.m in Sources */,
 				FCFB993919B9C5D9000CE98C /* MPNSAttributedStringToNSDictionaryValueTransformer.m in Sources */,
 				FCFB995119B9C5D9000CE98C /* MPVariant.m in Sources */,
+				86A9C9A519D93EA70029239E /* DSMWeatherStore.m in Sources */,
 				FCFB994A19B9C5D9000CE98C /* MPTweakInline.m in Sources */,
 				FCFB993119B9C5D9000CE98C /* MPCGSizeToNSDictionaryValueTransformer.m in Sources */,
 			);
@@ -863,7 +894,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				PROVISIONING_PROFILE = "cf4d286a-95d2-4cd8-93c0-b3d9e9099e4e";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -886,7 +917,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F813611-6B8A-4661-BE21-F29ADDF771C1";
+				PROVISIONING_PROFILE = "cf4d286a-95d2-4cd8-93c0-b3d9e9099e4e";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
