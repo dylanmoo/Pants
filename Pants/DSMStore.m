@@ -7,6 +7,7 @@
 //
 
 #import "DSMStore.h"
+#import "Mixpanel.h"
 
 @implementation DSMStore
 
@@ -33,7 +34,33 @@ static bool isFirstAccess = YES;
         return NO;
     }
 
+    
     return YES;
+}
+
+- (void)setDateForFirstUse
+{
+    
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"dateForFirstUse"]){
+        
+        NSDate *dateForFirstUse = [NSDate date];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:dateForFirstUse forKey:@"dateForFirstUse"];
+    
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        int timeInterval = dateForFirstUse.timeIntervalSince1970;
+        
+        NSString *identifier = [NSString stringWithFormat:@"%d",timeInterval];
+        
+        [mixpanel createAlias: identifier
+                forDistinctID:mixpanel.distinctId];
+        
+        [mixpanel identify:identifier];
+        
+    }
 }
 
 #pragma mark - Life Cycle

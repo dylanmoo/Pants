@@ -12,13 +12,16 @@
 #import "DSMOnboardingViewController.h"
 #import "DSMStore.h"
 #import "Mixpanel.h"
+#import "UIImage+animatedGIF.h"
 
 @interface DSMViewController (){
     NSMutableData *_responseData;
     NSArray *hourlyWeather;
     NSString *pantsString;
     NSString *noPantsString;
+    NSURL *urlForGif;
     CLLocation *currentLocation;
+    NSURLConnection *currentConnection;
     NSDate *todaysMaxTempDate;
     BOOL pantsOn;
     BOOL viewAppeared;
@@ -32,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *timerView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *gifImageView;
 
 @end
 
@@ -53,10 +57,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     self.locationManager.delegate = self;
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    
-    
-    [self.timerLabel setCenter:self.view.center];
     
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     [self.backgroundImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
@@ -81,7 +81,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:16]];
     
     
-    
     tempThreshold = 73.0f;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
@@ -95,7 +94,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.backgroundImageView setUserInteractionEnabled:YES];
     [self.backgroundImageView addGestureRecognizer:tapGesture];
     
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    [self.view addGestureRecognizer:panGesture];
+    
     viewAppeared = false;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
 }
 
@@ -103,6 +107,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 {
     if(viewAppeared){
         [self findLocation];
+        [self findPantsAndNoPantsStrings];
     }
 }
 
@@ -126,9 +131,22 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 }
 
 -(void)findLocation{
+    if(IS_IOS8 && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+        [self.locationManager requestWhenInUseAuthorization];
+        return;
+    }
+    
     [self.locationManager startUpdatingLocation];
     [self.activityIndicator startAnimating];
     [self.timerLabel setAlpha:0];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    if(status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedAlways){
+        [self findLocation];
+    }else if(status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted){
+        [self showLocationError];
+    }
 }
 
 -(void)panned:(UIPanGestureRecognizer*)recognizer
@@ -136,21 +154,37 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     if(recognizer.state == UIGestureRecognizerStateBegan)
     {
+        [currentConnection cancel];
         NSLog(@"BEGAN");
-        CGPoint location = [recognizer locationInView:self.view];
         /*
-        recognizer.view.frame = CGRectMake(recognizer.view.frame.origin.x,location.y,recognizer.view.frame.size.width,recognizer.view.frame.size.height);
-        [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, location.y)];
-        [self.timerView setCenter:CGPointMake(self.timerView.center.x, location.y)];
-    */
-         }
+        CGPoint location = [recognizer locationInView:self.view];
+        
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            [self.pantsLabel setAlpha:0];
+            [self.noPantsLabel setAlpha:0];
+            [self.backgroundImageView setTop:location.y];
+            [self.activityIndicator setCenterY:location.y];
+            [self.timerLabel setAlpha:0];
+            [self.activityIndicator setAlpha:1];
+            [self.activityIndicator startAnimating];
+            [self.backgroundImageView setHeight:self.view.height-location.y];
+            [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, location.y)];
+            [self.timerView setCenter:CGPointMake(self.timerView.center.x, location.y)];
+        } completion:^(BOOL finished) {
+            //Nothing
+        }];
+         */
+        
+    }
     
     CGPoint translation = [recognizer translationInView:self.view];
     
-    recognizer.view.frame = CGRectMake(recognizer.view.frame.origin.x,recognizer.view.frame.origin.y + translation.y,recognizer.view.frame.size.width,recognizer.view.frame.size.height);
-    [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, self.timerLabel.center.y + translation.y)];
-     [self.timerView setCenter:CGPointMake(self.timerView.center.x, self.timerView.center.y + translation.y)];
-    
+    [self.backgroundImageView setTop:self.backgroundImageView.top + translation.y];
+    [self.backgroundImageView setHeight:self.backgroundImageView.height - translation.y];
+    [self.timerLabel setCenterY:self.timerLabel.center.y + translation.y];
+     [self.timerView setCenterY:self.timerView.center.y + translation.y];
+    [self.activityIndicator setCenterY:self.activityIndicator.center.y + translation.y];
+    //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
     
     if(recognizer.state == UIGestureRecognizerStateEnded)
@@ -272,10 +306,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.self.locationManager stopUpdatingLocation];
     [self getWeatherForLat:currentLocation.coordinate.latitude andLon:currentLocation.coordinate.longitude];
     
+    
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"opened"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
-
     
     if(!self.isFirstResponder){
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -285,7 +319,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)getWeatherForLat:(float)lat andLon:(float)lon{
     NSString *path = [NSString stringWithFormat:@"https://api.forecast.io/forecast/%@/%f,%f",WEATHER_API_KEY,lat,lon];
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
+    currentConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
     
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
@@ -299,17 +333,30 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)findPantsAndNoPantsStrings
 {
     Firebase *firebaseForPants = [[Firebase alloc] initWithUrl:@"https://pantson.firebaseio.com/"];
+    
+    __weak typeof(self) weakSelf = self;
+    
     [firebaseForPants observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if(snapshot.value){
-            noPantsString = snapshot.value[@"noPantsString"];
-            pantsString = snapshot.value[@"pantsString"];
-            if(pantsOn){
-                [self.pantsLabel setText:pantsString];
-            }else{
-                [self.pantsLabel setText:noPantsString];
-            }
+            noPantsString = snapshot.value[@"no_pants_string"];
+            pantsString = snapshot.value[@"pants_string"];
+            urlForGif = [NSURL URLWithString:snapshot.value[@"gif_url"]];
+            [weakSelf refreshFromFirebase];
         }
     }];
+    
+}
+
+- (void)refreshFromFirebase
+{
+    NSLog(@"Firebase:\n%@\n%@\n%@",pantsString,noPantsString, urlForGif);
+    
+    if(pantsOn){
+        [self.pantsLabel setText:pantsString];
+    }else{
+        [self.pantsLabel setText:noPantsString];
+    }
+    [self.gifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:urlForGif]];
     
 }
 
@@ -426,17 +473,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)showPantsAtHour:(int)hour{
     pantsOnHour = hour;
     //Find placement of bar
-    NSDate *date = [NSDate date];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [[NSDateComponents alloc] init];
     
-    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:date];
-
-    int hoursLater = hour - comps.hour;
-    int hoursLeft = 23-comps.hour;
-    float spacing = 100;
-    
-    float distanceFromTop = (hoursLater*((self.view.bounds.size.height-(2*spacing))/hoursLeft))+spacing;
+    float distanceFromTop = 200;
     
     float noPantsCenter = distanceFromTop/2;
     float pantsCenter = ((self.view.bounds.size.height-distanceFromTop)/2) + distanceFromTop;
@@ -454,26 +492,31 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.activityIndicator setHidesWhenStopped:YES];
     [self.activityIndicator stopAnimating];
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    
+    float heightOfBGView = self.view.height-distanceFromTop;
+    
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
         [self.timerLabel setAlpha:1];
         [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter-distanceFromTop)];
         [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
-        [self.backgroundImageView setFrame:CGRectMake(self.backgroundImageView.frame.origin.x,distanceFromTop,self.backgroundImageView.frame.size.width,self.backgroundImageView.frame.size.height)];
-        
+        [self.backgroundImageView setTop:distanceFromTop];
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
         [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
         [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
+        [self.backgroundImageView setHeight:heightOfBGView];
     } completion:^(BOOL finished) {
         //[self.backgroundImageView setUserInteractionEnabled:YES];
     }];
+    
+    
     
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.backgroundImageView setAlpha:1];
+    //[self.backgroundImageView setAlpha:1];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -491,6 +534,30 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [components setDay:day];
     NSDate *date = [calendar dateFromComponents:components];
     return [date timeIntervalSince1970];
+}
+
+- (void)showNotificationAlert
+{
+    [[[UIAlertView alloc] initWithTitle:@"Turn on Auto Pants?" message:@"The following alert will ask for permission to send you notifications in the morning so you don't even have to open up the app. Please press \"Okay\"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Okay", nil] show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==0){
+        //Cancel Pressed
+        
+    }else{
+        [self.locationManager requestAlwaysAuthorization];
+        
+        //Okay Pressed
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+         UIRemoteNotificationTypeAlert|
+         UIRemoteNotificationTypeSound];
+    }
+}
+
+- (IBAction)infoPressed:(id)sender {
+    [self showNotificationAlert];
 }
 
 - (void)didReceiveMemoryWarning

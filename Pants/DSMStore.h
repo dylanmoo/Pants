@@ -16,4 +16,6 @@
 
 - (BOOL)isFirstTimeUser;
 
+- (void)setDateForFirstUse;
+
 @end

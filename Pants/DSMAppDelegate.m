@@ -8,6 +8,7 @@
 
 #import "DSMAppDelegate.h"
 #import "Mixpanel.h"
+#import "DSMStore.h"
 
 #define MIXPANEL_TOKEN @"10368102de1354bfe301c6f5212fe883"
 
@@ -26,6 +27,8 @@
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
     [mixpanel track:@"Launched"];
+    
+    //[Parse setApplicationId:@"ob3tzfhqwrzyfEpbhBKvOpWvb0bPosxWbhZViook" clientKey:@"WfG2OgKUZTdU8K7ZrGw3986y1iPY3Db9bqR53BGU"];
     
     return YES;
 }
@@ -53,14 +56,34 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [[DSMStore sharedInstance] setDateForFirstUse];
+
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
     [mixpanel track:@"Opened"];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Store the deviceToken in the current installation and save it to Parse.
+    /*
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+     */
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    //[PFPush handlePush:userInfo];
 }
 
 @end
