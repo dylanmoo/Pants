@@ -7,7 +7,6 @@
 //
 
 #import "DSMViewController.h"
-#import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
 #import "DSMOnboardingViewController.h"
 #import "DSMStore.h"
@@ -39,8 +38,6 @@
 @property (strong, nonatomic)  UILabel *timerLabel;
 @property (strong, nonatomic)  UIImageView *timerView;
 @property (strong, nonatomic)  UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic)  UIImageView *noPantsGifImageView;
-@property (strong, nonatomic)  UIImageView *pantsGifImageView;
 @property (strong, nonatomic)  DSMInsetLabel *loadingLabel;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
@@ -93,13 +90,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
     [self.pantsImageView setTop:self.timerLabel.centerY];
     [self.pantsImageView setHeight:(self.view.height - self.timerLabel.centerY)];
-    
-    self.pantsGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
-    [self.pantsGifImageView setBackgroundColor:[UIColor clearColor]];
-    [self.pantsGifImageView setAlpha:.02];
-    [self.pantsGifImageView setClipsToBounds:YES];
-    [self.pantsGifImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.pantsImageView addSubview:self.pantsGifImageView];
+
     [self.pantsImageView setAutoresizesSubviews:YES];
     
     [self.view insertSubview:self.pantsImageView belowSubview:self.timerView];
@@ -109,12 +100,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsImageView setTop:self.view.top];
     [self.noPantsImageView setHeight:self.timerLabel.centerY];
     
-    self.noPantsGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.noPantsImageView.width, self.noPantsImageView.height)];
-    [self.noPantsGifImageView setBackgroundColor:[UIColor clearColor]];
-    [self.noPantsGifImageView setAlpha:.02];
-    [self.noPantsGifImageView setClipsToBounds:YES];
-    [self.noPantsGifImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.noPantsImageView addSubview:self.noPantsGifImageView];
     [self.noPantsImageView setAutoresizesSubviews:YES];
     
     [self.view insertSubview:self.noPantsImageView belowSubview:self.timerView];
@@ -149,21 +134,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     tempThreshold = 73.0f;
     
-    UILongPressGestureRecognizer *tapGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(flip:)];
-    UILongPressGestureRecognizer *tapGesture2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(flip:)];
-    tapGesture.minimumPressDuration = 0.001;
-    tapGesture2.minimumPressDuration = 0.001;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     [self.view setUserInteractionEnabled:YES];
     [self.pantsImageView setUserInteractionEnabled:YES];
     [self.noPantsImageView setUserInteractionEnabled:YES];
-    
-    [self.pantsGifImageView setUserInteractionEnabled:YES];
-    //[self.pantsGifImageView addGestureRecognizer:tapGesture];
-    
-    [self.noPantsGifImageView setUserInteractionEnabled:YES];
-    //[self.noPantsGifImageView addGestureRecognizer:tapGesture2];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleExplanation:)];
     [self.timerView addGestureRecognizer:tap];
@@ -216,33 +191,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         }];
     }
 }
-
-- (void)flip:(UIGestureRecognizer*)recognizer
-{
-    if(recognizer.state == UIGestureRecognizerStateBegan){
-        if([recognizer.view isEqual:self.pantsGifImageView]){
-                [self.pantsGifImageView setAlpha:1];
-                [self.pantsLabel setAlpha:0];
-            
-        }else if([recognizer.view isEqual:self.noPantsGifImageView]){
-                [self.noPantsGifImageView setAlpha:1];
-                [self.noPantsLabel setAlpha:0];
-        }
-    }
-    
-    if(recognizer.state == UIGestureRecognizerStateEnded){
-        if([recognizer.view isEqual:self.pantsGifImageView]){
-                [self.pantsGifImageView setAlpha:.02];
-                [self.pantsLabel setAlpha:1];
-        }else if([recognizer.view isEqual:self.noPantsGifImageView]){
-                [self.noPantsGifImageView setAlpha:.02];
-                [self.noPantsLabel setAlpha:1];
-        }
-    }
-   
-}
-
-
 
 - (void)awakeFromNib{
     [self.timerLabel setCenterY:self.view.centerY];
@@ -299,28 +247,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)panned:(UIPanGestureRecognizer*)recognizer
 {
-    
-    if(recognizer.state == UIGestureRecognizerStateBegan){
-        CGPoint location = [recognizer locationInView:self.view];
-        if(CGRectContainsPoint(self.pantsImageView.frame, location)){
-            [self.pantsGifImageView setAlpha:1];
-            [self.pantsLabel setAlpha:0];
-            
-        }else if(CGRectContainsPoint(self.noPantsImageView.frame, location)){
-            [self.noPantsGifImageView setAlpha:1];
-            [self.noPantsLabel setAlpha:0];
-       }
-    }
-    
-    if(recognizer.state == UIGestureRecognizerStateEnded){
-        //if([recognizer.view isEqual:self.pantsGifImageView]){
-            [self.pantsGifImageView setAlpha:.02];
-            [self.pantsLabel setAlpha:1];
-       // }else if([recognizer.view isEqual:self.noPantsGifImageView]){
-            [self.noPantsGifImageView setAlpha:.02];
-            [self.noPantsLabel setAlpha:1];
-        //}
-    }
+
 
     
     CGPoint translation = [recognizer translationInView:self.view];
@@ -333,8 +260,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsLabel setCenterY:self.noPantsImageView.height/2];
     [self.pantsLabel setCenterY:self.pantsImageView.height/2];
     [self.timerView setCenterY:self.timerView.center.y + translation.y];
-    [self.noPantsGifImageView setHeight:self.noPantsImageView.height];
-    [self.pantsGifImageView setHeight:self.pantsImageView.height];
     [self.activityIndicator setCenterY:self.activityIndicator.center.y + translation.y];
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
@@ -478,37 +403,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [mixpanel track:@"Fetched Weather" properties:@{@"lat": [NSNumber numberWithFloat:lat],@"lng":[NSNumber numberWithFloat:lon]}];
     
      
-}
-
-
-
--(void)findPantsAndNoPantsStrings
-{
-    Firebase *firebaseForPants = [[Firebase alloc] initWithUrl:@"https://pantson.firebaseio.com/"];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [firebaseForPants observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if(snapshot.value){
-            noPantsString = snapshot.value[@"no_pants_string"];
-            pantsString = snapshot.value[@"pants_string"];
-            pantsURL = [NSURL URLWithString:snapshot.value[@"pants_url"]];
-            noPantsURL = [NSURL URLWithString:snapshot.value[@"no_pants_url"]];
-            [weakSelf refreshFromFirebase];
-        }
-    }];
-    
-}
-
-- (void)refreshFromFirebase
-{
-    NSLog(@"Firebase:\n%@\n%@\n%@\n%@",pantsString,noPantsString, pantsURL,noPantsURL);
-    
-    [self.pantsLabel setText:pantsString];
-    [self.noPantsLabel setText:noPantsString];
-    [self.pantsGifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:pantsURL]];
-    [self.noPantsGifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:noPantsURL]];
-    
 }
 
 #pragma mark NSURLConnection Delegate Methods
