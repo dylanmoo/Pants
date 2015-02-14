@@ -13,13 +13,15 @@
 #import "DSMStore.h"
 #import "Mixpanel.h"
 #import "UIImage+animatedGIF.h"
+#import <Parse/Parse.h>
 
 @interface DSMViewController (){
     NSMutableData *_responseData;
     NSArray *hourlyWeather;
     NSString *pantsString;
     NSString *noPantsString;
-    NSURL *urlForGif;
+    NSURL *pantsURL;
+    NSURL *noPantsURL;
     CLLocation *currentLocation;
     NSURLConnection *currentConnection;
     NSDate *todaysMaxTempDate;
@@ -27,15 +29,20 @@
     BOOL viewAppeared;
     int pantsOnHour;
     float tempThreshold;
+    NSTimer *loadingTimer;
 }
 
-@property (strong, nonatomic) UILabel *pantsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *noPantsLabel;
-@property (strong, nonatomic) UIImageView *backgroundImageView;
-@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *timerView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *gifImageView;
+@property (strong, nonatomic)  UILabel *pantsLabel;
+@property (strong, nonatomic)  UILabel *noPantsLabel;
+@property (strong, nonatomic)  UIImageView *pantsImageView;
+@property (strong, nonatomic)  UIImageView *noPantsImageView;
+@property (strong, nonatomic)  UILabel *timerLabel;
+@property (strong, nonatomic)  UIImageView *timerView;
+@property (strong, nonatomic)  UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic)  UIImageView *noPantsGifImageView;
+@property (strong, nonatomic)  UIImageView *pantsGifImageView;
+@property (strong, nonatomic)  DSMInsetLabel *loadingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
 @end
 
@@ -52,55 +59,195 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     pantsString = @"#PANTS";
     noPantsString = @"#NOPANTS";
     
+    self.timerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 54)];
+    [self.timerView setImage:[UIImage imageNamed:@"separator.png"]];
+    [self.timerView setCenter:self.view.center];
+    [self.view addSubview:self.timerView];
+    
+    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 54, 54)];
+    [self.timerLabel setText:@""];
+    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.timerLabel setCenter:self.view.center];
+    [self.view addSubview:self.timerLabel];
+    [self.timerLabel setTextColor:[UIColor blackColor]];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator setCenter:self.view.center];
+    [self.view addSubview:self.activityIndicator];
+    
+    self.loadingLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, 0, self.timerView.bounds.size.width, self.timerView.bounds.size.height)];
+    self.loadingLabel.text = @"calculating the time to put on pants...";
+    self.loadingLabel.textAlignment = NSTextAlignmentLeft;
+    [self.loadingLabel setBackgroundColor:[UIColor whiteColor]];
+    [self.loadingLabel setCenter:self.view.center];
+    [self.loadingLabel setTextColor:[UIColor blackColor]];
+    [self.view addSubview:self.loadingLabel];
+    
     //Setup Location manager
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
-    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    [self.backgroundImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
-    [self.backgroundImageView setTop:self.timerLabel.centerY];
-    [self.view insertSubview:self.backgroundImageView belowSubview:self.timerView];
+    self.pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    [self.pantsImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
+    [self.pantsImageView setTop:self.timerLabel.centerY];
+    [self.pantsImageView setHeight:(self.view.height - self.timerLabel.centerY)];
     
-    self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 102)];
-    [self.pantsLabel setText:@"#PANTS"];
+    self.pantsGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
+    [self.pantsGifImageView setBackgroundColor:[UIColor clearColor]];
+    [self.pantsGifImageView setAlpha:.02];
+    [self.pantsGifImageView setClipsToBounds:YES];
+    [self.pantsGifImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.pantsImageView addSubview:self.pantsGifImageView];
+    [self.pantsImageView setAutoresizesSubviews:YES];
+    
+    [self.view insertSubview:self.pantsImageView belowSubview:self.timerView];
+    
+    self.noPantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    [self.noPantsImageView setBackgroundColor:DEFAULT_YELLOW_COLOR];
+    [self.noPantsImageView setTop:self.view.top];
+    [self.noPantsImageView setHeight:self.timerLabel.centerY];
+    
+    self.noPantsGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.noPantsImageView.width, self.noPantsImageView.height)];
+    [self.noPantsGifImageView setBackgroundColor:[UIColor clearColor]];
+    [self.noPantsGifImageView setAlpha:.02];
+    [self.noPantsGifImageView setClipsToBounds:YES];
+    [self.noPantsGifImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.noPantsImageView addSubview:self.noPantsGifImageView];
+    [self.noPantsImageView setAutoresizesSubviews:YES];
+    
+    [self.view insertSubview:self.noPantsImageView belowSubview:self.timerView];
+    
+    self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
+    [self.pantsLabel setText:pantsString];
+    [self.pantsLabel setNumberOfLines:0];
     [self.pantsLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
     [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.pantsLabel setCenterY:(self.view.height*3/4)-self.backgroundImageView.top];
+    [self.pantsLabel setCenterY:(self.pantsImageView.height/2)];
     [self.pantsLabel setCenterX:self.view.centerX];
-    [self.backgroundImageView addSubview:self.pantsLabel];
+    [self.pantsImageView addSubview:self.pantsLabel];
     
+    
+    self.noPantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.noPantsImageView.width, self.noPantsImageView.height)];
+    [self.noPantsLabel setText:noPantsString];
+    [self.noPantsLabel setNumberOfLines:0];
     [self.noPantsLabel setTextColor:DEFAULT_RED_COLOR];
-    [self.noPantsLabel setCenterY:self.view.centerY/2];
+    [self.noPantsLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.noPantsLabel setCenterY:(self.noPantsImageView.height/2)];
+    [self.noPantsLabel setCenterX:self.view.centerX];
+    [self.noPantsImageView addSubview:self.noPantsLabel];
     
-    [self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
+    
+    
+    //[self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
     
     [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
     [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
     [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:16]];
-    
+    [self.loadingLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:20]];
     
     tempThreshold = 73.0f;
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
-    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(share:)];
-    
+    UILongPressGestureRecognizer *tapGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(flip:)];
+    UILongPressGestureRecognizer *tapGesture2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(flip:)];
+    tapGesture.minimumPressDuration = 0.001;
+    tapGesture2.minimumPressDuration = 0.001;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     [self.view setUserInteractionEnabled:YES];
-    [self.view addGestureRecognizer:tapGesture2];
+    [self.pantsImageView setUserInteractionEnabled:YES];
+    [self.noPantsImageView setUserInteractionEnabled:YES];
     
-    [self.backgroundImageView setUserInteractionEnabled:YES];
-    [self.backgroundImageView addGestureRecognizer:tapGesture];
+    [self.pantsGifImageView setUserInteractionEnabled:YES];
+    //[self.pantsGifImageView addGestureRecognizer:tapGesture];
+    
+    [self.noPantsGifImageView setUserInteractionEnabled:YES];
+    //[self.noPantsGifImageView addGestureRecognizer:tapGesture2];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleExplanation:)];
+    [self.timerView addGestureRecognizer:tap];
+    [self.timerView setUserInteractionEnabled:YES];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    
     [self.view addGestureRecognizer:panGesture];
     
     viewAppeared = false;
     
+    [self.view bringSubviewToFront:self.infoButton];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+}
+
+-(void)showLoading
+{
+    loadingTimer = [NSTimer scheduledTimerWithTimeInterval:.15 target:self selector:@selector(changeLoadingText:) userInfo:nil repeats:YES];
+}
+
+-(void)changeLoadingText:(NSTimer*)timer{
+    NSString *text = self.loadingLabel.text;
+    if([text containsString:@"..."]){
+        self.loadingLabel.text = @"calculating the time to put on pants";
+    }else if([text containsString:@".."]){
+        self.loadingLabel.text = @"calculating the time to put on pants...";
+    }else if([text containsString:@"."]){
+        self.loadingLabel.text = @"calculating the time to put on pants..";
+    }else{
+        self.loadingLabel.text = @"calculating the time to put on pants.";
+    }
+}
+
+- (void)stopLoading{
+    [loadingTimer invalidate];
+}
+
+- (void)toggleExplanation:(UITapGestureRecognizer*)recognizer
+{
+    if(self.loadingLabel.alpha != 1){
+        
+        [UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            [self.loadingLabel setAlpha:1];
+            self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+        } completion:^(BOOL finished) {
+            [self findLocation];
+            [self findPantsAndNoPantsStrings];
+        }];
+    }
+}
+
+- (void)flip:(UIGestureRecognizer*)recognizer
+{
+    if(recognizer.state == UIGestureRecognizerStateBegan){
+        if([recognizer.view isEqual:self.pantsGifImageView]){
+                [self.pantsGifImageView setAlpha:1];
+                [self.pantsLabel setAlpha:0];
+            
+        }else if([recognizer.view isEqual:self.noPantsGifImageView]){
+                [self.noPantsGifImageView setAlpha:1];
+                [self.noPantsLabel setAlpha:0];
+        }
+    }
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded){
+        if([recognizer.view isEqual:self.pantsGifImageView]){
+                [self.pantsGifImageView setAlpha:.02];
+                [self.pantsLabel setAlpha:1];
+        }else if([recognizer.view isEqual:self.noPantsGifImageView]){
+                [self.noPantsGifImageView setAlpha:.02];
+                [self.noPantsLabel setAlpha:1];
+        }
+    }
+   
+}
+
+
+
+- (void)awakeFromNib{
+    [self.timerLabel setCenterY:self.view.centerY];
+    [self.timerView setCenterY:self.view.centerY];
+    [self.activityIndicator setCenterY:self.view.centerY];
 }
 
 -(void)didBecomeActive:(NSNotification*)notification
@@ -116,7 +263,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
         NSMutableArray *sharingItems = [NSMutableArray new];
-    if([recognizer.view isEqual:self.backgroundImageView]){
+    if([recognizer.view isEqual:self.pantsImageView]){
         [sharingItems addObject:@"I'm wearing #PANTS today! @SomeDumbApp told me to."];
         
         [mixpanel track:@"Sharing #PANTS"];
@@ -138,6 +285,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.locationManager startUpdatingLocation];
     [self.activityIndicator startAnimating];
+    [self showLoading];
     [self.timerLabel setAlpha:0];
 }
 
@@ -152,37 +300,41 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)panned:(UIPanGestureRecognizer*)recognizer
 {
     
-    if(recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [currentConnection cancel];
-        NSLog(@"BEGAN");
-        /*
+    if(recognizer.state == UIGestureRecognizerStateBegan){
         CGPoint location = [recognizer locationInView:self.view];
-        
-        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        if(CGRectContainsPoint(self.pantsImageView.frame, location)){
+            [self.pantsGifImageView setAlpha:1];
             [self.pantsLabel setAlpha:0];
+            
+        }else if(CGRectContainsPoint(self.noPantsImageView.frame, location)){
+            [self.noPantsGifImageView setAlpha:1];
             [self.noPantsLabel setAlpha:0];
-            [self.backgroundImageView setTop:location.y];
-            [self.activityIndicator setCenterY:location.y];
-            [self.timerLabel setAlpha:0];
-            [self.activityIndicator setAlpha:1];
-            [self.activityIndicator startAnimating];
-            [self.backgroundImageView setHeight:self.view.height-location.y];
-            [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, location.y)];
-            [self.timerView setCenter:CGPointMake(self.timerView.center.x, location.y)];
-        } completion:^(BOOL finished) {
-            //Nothing
-        }];
-         */
-        
+       }
     }
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded){
+        //if([recognizer.view isEqual:self.pantsGifImageView]){
+            [self.pantsGifImageView setAlpha:.02];
+            [self.pantsLabel setAlpha:1];
+       // }else if([recognizer.view isEqual:self.noPantsGifImageView]){
+            [self.noPantsGifImageView setAlpha:.02];
+            [self.noPantsLabel setAlpha:1];
+        //}
+    }
+
     
     CGPoint translation = [recognizer translationInView:self.view];
     
-    [self.backgroundImageView setTop:self.backgroundImageView.top + translation.y];
-    [self.backgroundImageView setHeight:self.backgroundImageView.height - translation.y];
+    [self.loadingLabel setCenterY:self.loadingLabel.centerY + translation.y];
+    [self.pantsImageView setTop:self.pantsImageView.top + translation.y];
+    [self.pantsImageView setHeight:self.pantsImageView.height - translation.y];
+    [self.noPantsImageView setHeight:self.noPantsImageView.height + translation.y];
     [self.timerLabel setCenterY:self.timerLabel.center.y + translation.y];
-     [self.timerView setCenterY:self.timerView.center.y + translation.y];
+    [self.noPantsLabel setCenterY:self.noPantsImageView.height/2];
+    [self.pantsLabel setCenterY:self.pantsImageView.height/2];
+    [self.timerView setCenterY:self.timerView.center.y + translation.y];
+    [self.noPantsGifImageView setHeight:self.noPantsImageView.height];
+    [self.pantsGifImageView setHeight:self.pantsImageView.height];
     [self.activityIndicator setCenterY:self.activityIndicator.center.y + translation.y];
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
@@ -191,7 +343,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     {
         NSLog(@"LIFT");
         [self showPantsAtHour:pantsOnHour];
-        [self findLocation];
+       // [self findLocation];
     }
 }
 
@@ -295,7 +447,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     NSLog(@"Location Error: %@",error);
     
     [self.activityIndicator stopAnimating];
-    [self.backgroundImageView setUserInteractionEnabled:YES];
+    [self.pantsImageView setUserInteractionEnabled:YES];
     [self showLocationError];
 }
 
@@ -340,7 +492,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         if(snapshot.value){
             noPantsString = snapshot.value[@"no_pants_string"];
             pantsString = snapshot.value[@"pants_string"];
-            urlForGif = [NSURL URLWithString:snapshot.value[@"gif_url"]];
+            pantsURL = [NSURL URLWithString:snapshot.value[@"pants_url"]];
+            noPantsURL = [NSURL URLWithString:snapshot.value[@"no_pants_url"]];
             [weakSelf refreshFromFirebase];
         }
     }];
@@ -349,14 +502,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 - (void)refreshFromFirebase
 {
-    NSLog(@"Firebase:\n%@\n%@\n%@",pantsString,noPantsString, urlForGif);
+    NSLog(@"Firebase:\n%@\n%@\n%@\n%@",pantsString,noPantsString, pantsURL,noPantsURL);
     
-    if(pantsOn){
-        [self.pantsLabel setText:pantsString];
-    }else{
-        [self.pantsLabel setText:noPantsString];
-    }
-    [self.gifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:urlForGif]];
+    [self.pantsLabel setText:pantsString];
+    [self.noPantsLabel setText:noPantsString];
+    [self.pantsGifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:pantsURL]];
+    [self.noPantsGifImageView setImage:[UIImage animatedImageWithAnimatedGIFURL:noPantsURL]];
     
 }
 
@@ -474,7 +625,19 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     pantsOnHour = hour;
     //Find placement of bar
     
-    float distanceFromTop = 200;
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    
+    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:date];
+    
+    int hoursLater = hour;
+    int hoursLeft = 24;
+    float spacing = 200;
+    
+    float distanceFromTop = (hoursLater*((self.view.bounds.size.height-(2*spacing))/hoursLeft))+spacing;
+    
+    //distanceFromTop = self.view.height/2;
     
     float noPantsCenter = distanceFromTop/2;
     float pantsCenter = ((self.view.bounds.size.height-distanceFromTop)/2) + distanceFromTop;
@@ -495,19 +658,35 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     float heightOfBGView = self.view.height-distanceFromTop;
     
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [self stopLoading];
+    
+    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
         [self.timerLabel setAlpha:1];
-        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, pantsCenter-distanceFromTop)];
-        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, noPantsCenter)];
-        [self.backgroundImageView setTop:distanceFromTop];
+        
+        [self.pantsImageView setTop:distanceFromTop];
+        [self.pantsImageView setHeight:heightOfBGView];
+        [self.noPantsImageView setHeight:distanceFromTop];
+        [self.noPantsImageView setTop:0];
+        
+        
+        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
+        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
+        
+        [self.noPantsGifImageView setHeight:self.noPantsImageView.height];
+        
+        [self.pantsGifImageView setHeight:self.pantsImageView.height];
+        
+        
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
         [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
         [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
-        [self.backgroundImageView setHeight:heightOfBGView];
+        [self.loadingLabel setCenterY:distanceFromTop];
+        [self.loadingLabel setAlpha:0];
+        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
     } completion:^(BOOL finished) {
-        //[self.backgroundImageView setUserInteractionEnabled:YES];
+        //[self.pantsImageView setUserInteractionEnabled:YES];
     }];
     
     
@@ -516,14 +695,14 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    //[self.backgroundImageView setAlpha:1];
+    //[self.pantsImageView setAlpha:1];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
     [self.timerLabel setText:@"Failed,\nTry again"];
-     [self.backgroundImageView setUserInteractionEnabled:YES];
+     [self.pantsImageView setUserInteractionEnabled:YES];
 }
 
 - (int)epochForDateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
@@ -541,23 +720,43 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [[[UIAlertView alloc] initWithTitle:@"Turn on Auto Pants?" message:@"The following alert will ask for permission to send you notifications in the morning so you don't even have to open up the app. Please press \"Okay\"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Okay", nil] show];
 }
 
+- (void)showNotificationAlertOptions
+{
+    [[[UIAlertView alloc] initWithTitle:@"Auto Pants Settings" message:@"What time would you like to receive your notification in the morning?" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"While I'm asleep", @"Before noon", @"Never", nil] show];
+}
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex==0){
         //Cancel Pressed
         
     }else{
-        [self.locationManager requestAlwaysAuthorization];
-        
-        //Okay Pressed
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-         UIRemoteNotificationTypeAlert|
-         UIRemoteNotificationTypeSound];
+        UIApplication *application = [UIApplication sharedApplication];
+        // Register for Push Notitications, if running iOS 8
+        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                            UIUserNotificationTypeBadge |
+                                                            UIUserNotificationTypeSound);
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                                     categories:nil];
+            [application registerUserNotificationSettings:settings];
+            [application registerForRemoteNotifications];
+        } else {
+            // Register for Push Notifications before iOS 8
+            [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                             UIRemoteNotificationTypeAlert |
+                                                             UIRemoteNotificationTypeSound)];
+        }
     }
 }
 
 - (IBAction)infoPressed:(id)sender {
-    [self showNotificationAlert];
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if(!currentInstallation.deviceToken){
+        [self showNotificationAlert];
+    }else{
+        [self showNotificationAlertOptions];
+    }
 }
 
 - (void)didReceiveMemoryWarning
