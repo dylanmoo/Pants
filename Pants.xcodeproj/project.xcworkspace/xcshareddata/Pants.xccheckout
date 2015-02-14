@@ -14,7 +14,7 @@
 		<string>https://github.com/dylanmoo/Pants.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Pants.xcodeproj/project.xcworkspace</string>
+	<string>Pants.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5B0A7D9344FF6D8CDF3265BBB573696A364C1C57</key>
