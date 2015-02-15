@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Dylan Moore. All rights reserved.
 //
 
-#import "DSMOnboardingViewController.h"
+#import "PantsOnboardingViewController.h"
 
-@interface DSMOnboardingViewController ()
+@interface PantsOnboardingViewController ()
 
 
 @end
 
-@implementation DSMOnboardingViewController
+@implementation PantsOnboardingViewController
 
 - (id)init
 {
@@ -40,13 +40,13 @@
     
     [self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
     
-    self.titleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, 30, self.view.width, 60)];
+    self.titleLabel = [[PantsInsetLabel alloc] initWithFrame:CGRectMake(0, 30, self.view.width, 60)];
     [self.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:80]];
     [self.titleLabel setTextColor:DEFAULT_RED_COLOR];
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.titleLabel setCenterX:self.view.centerX];
     
-    self.subtitleLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, self.titleLabel.bottom, self.view.width-40, self.view.height-80-80-20-140)];
+    self.subtitleLabel = [[PantsInsetLabel alloc] initWithFrame:CGRectMake(0, self.titleLabel.bottom, self.view.width-40, self.view.height-80-80-20-140)];
     [self.subtitleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:35]];
     [self.subtitleLabel setTextColor:DEFAULT_RED_COLOR];
     [self.subtitleLabel setTextAlignment:NSTextAlignmentLeft];

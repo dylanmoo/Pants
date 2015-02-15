@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DSMInsetLabel.h"
+#import "PantsInsetLabel.h"
 #import "LetterTileButton.h"
 
 typedef void(^actionBlock)(UIButton *actionButton);
 
-@interface DSMOnboardingViewController : UIViewController
+@interface PantsOnboardingViewController : UIViewController
 
 @property (nonatomic, strong) LetterTileButton *acceptButton;
 @property (nonatomic, strong) UIButton *denyButton;
-@property (nonatomic, strong) DSMInsetLabel *titleLabel;
-@property (nonatomic, strong) DSMInsetLabel *subtitleLabel;
+@property (nonatomic, strong) PantsInsetLabel *titleLabel;
+@property (nonatomic, strong) PantsInsetLabel *subtitleLabel;
 
 @property (nonatomic, strong) actionBlock acceptButtonBlock;
 @property (nonatomic, strong) actionBlock denyButtonBlock;

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DSMInsetLabel : UILabel
+@interface PantsInsetLabel : UILabel
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Dylan Moore. All rights reserved.
 //
 
-#import "DSMInsetLabel.h"
+#import "PantsInsetLabel.h"
 
-@implementation DSMInsetLabel
+@implementation PantsInsetLabel
 
 - (id)initWithFrame:(CGRect)frame
 {

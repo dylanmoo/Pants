@@ -1,20 +1,19 @@
 //
-//  DSMViewController.m
+//  PantsViewController.m
 //  Pants
 //
 //  Created by Dylan Moore on 6/30/14.
 //  Copyright (c) 2014 Dylan Moore. All rights reserved.
 //
 
-#import "DSMViewController.h"
+#import "PantsViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "DSMOnboardingViewController.h"
-#import "DSMStore.h"
+#import "PantsOnboardingViewController.h"
 #import "Mixpanel.h"
 #import "UIImage+animatedGIF.h"
-#import <Parse/Parse.h>
+#import "PantsStore.h"
 
-@interface DSMViewController (){
+@interface PantsViewController (){
     NSMutableData *_responseData;
     NSArray *hourlyWeather;
     NSString *pantsString;
@@ -38,14 +37,14 @@
 @property (strong, nonatomic)  UILabel *timerLabel;
 @property (strong, nonatomic)  UIImageView *timerView;
 @property (strong, nonatomic)  UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic)  DSMInsetLabel *loadingLabel;
+@property (strong, nonatomic)  PantsInsetLabel *loadingLabel;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
 @end
 
 
 
-@implementation DSMViewController
+@implementation PantsViewController
 
 NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
@@ -72,7 +71,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.activityIndicator setCenter:self.view.center];
     [self.view addSubview:self.activityIndicator];
     
-    self.loadingLabel = [[DSMInsetLabel alloc] initWithFrame:CGRectMake(0, 0, self.timerView.bounds.size.width, self.timerView.bounds.size.height)];
+    self.loadingLabel = [[PantsInsetLabel alloc] initWithFrame:CGRectMake(0, 0, self.timerView.bounds.size.width, self.timerView.bounds.size.height)];
     self.loadingLabel.text = @"calculating the time to put on pants...";
     self.loadingLabel.textAlignment = NSTextAlignmentLeft;
     [self.loadingLabel setBackgroundColor:[UIColor whiteColor]];
@@ -187,7 +186,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
             self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
         } completion:^(BOOL finished) {
             [self findLocation];
-            [self findPantsAndNoPantsStrings];
         }];
     }
 }
@@ -202,7 +200,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 {
     if(viewAppeared){
         [self findLocation];
-        [self findPantsAndNoPantsStrings];
     }
 }
 
@@ -278,7 +275,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [super viewDidAppear:animated];
     
     if(!viewAppeared){
-        if([[DSMStore sharedInstance] isFirstTimeUser]){
+        if(![[PantsStore sharedStore] userID]){
             [self showOnboarding];
         }else{
             [self findLocation];
@@ -290,7 +287,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showOnboarding
 {
-    DSMOnboardingViewController *onb = [[DSMOnboardingViewController alloc] init];
+    PantsOnboardingViewController *onb = [[PantsOnboardingViewController alloc] init];
     [self presentViewController:onb animated:YES completion:^{
         onb.titleLabel.text = @"#PANTS";
         onb.subtitleLabel.text = @"does a bunch of complicated math and analyzes when the weather is just right for pants. We need your location, okay?";
@@ -332,7 +329,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showLocationError
 {
-    DSMOnboardingViewController *onb = [[DSMOnboardingViewController alloc] init];
+    PantsOnboardingViewController *onb = [[PantsOnboardingViewController alloc] init];
     [self presentViewController:onb animated:YES completion:^{
         onb.titleLabel.text = @"#PANTS";
         onb.subtitleLabel.text = @"really needs your location. Can you go to:\n\n->Settings\n->Privacy\n->Location\n->Pants and turn it on?";
@@ -568,10 +565,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
         [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
         
-        [self.noPantsGifImageView setHeight:self.noPantsImageView.height];
-        
-        [self.pantsGifImageView setHeight:self.pantsImageView.height];
-        
         
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
         [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, distanceFromTop)];
@@ -645,12 +638,9 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 }
 
 - (IBAction)infoPressed:(id)sender {
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if(!currentInstallation.deviceToken){
+    
         [self showNotificationAlert];
-    }else{
-        [self showNotificationAlertOptions];
-    }
+    
 }
 
 - (void)didReceiveMemoryWarning

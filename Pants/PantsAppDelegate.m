@@ -6,16 +6,15 @@
 //  Copyright (c) 2014 Dylan Moore. All rights reserved.
 //
 
-#import "DSMAppDelegate.h"
+#import "PantsAppDelegate.h"
 #import "Mixpanel.h"
-#import "DSMStore.h"
-#import <Parse/Parse.h>
+#import "PantsStore.h"
 
 #define MIXPANEL_TOKEN @"10368102de1354bfe301c6f5212fe883"
 
 
 
-@implementation DSMAppDelegate
+@implementation PantsAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -28,8 +27,6 @@
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
     [mixpanel track:@"Launched"];
-    
-    [Parse setApplicationId:@"ob3tzfhqwrzyfEpbhBKvOpWvb0bPosxWbhZViook" clientKey:@"WfG2OgKUZTdU8K7ZrGw3986y1iPY3Db9bqR53BGU"];
     
     return YES;
 }
@@ -58,8 +55,6 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    [[DSMStore sharedInstance] setDateForFirstUse];
-
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
     [mixpanel track:@"Opened"];
@@ -73,16 +68,12 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
     
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     [mixpanel.people addPushDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [PFPush handlePush:userInfo];
     // Show alert for push notifications recevied while the
     // app is running
 }

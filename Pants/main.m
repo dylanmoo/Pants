@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DSMAppDelegate.h"
+#import "PantsAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([DSMAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([PantsAppDelegate class]));
     }
 }

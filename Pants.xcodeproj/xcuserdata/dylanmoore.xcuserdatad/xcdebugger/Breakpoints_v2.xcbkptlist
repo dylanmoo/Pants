@@ -9,7 +9,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pants/DSMAppDelegate.m"
+            filePath = "Pants/PantsAppDelegate.m"
             timestampString = "433668433.627618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

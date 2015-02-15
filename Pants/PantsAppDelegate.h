@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DSMAppDelegate : UIResponder <UIApplicationDelegate>
+@interface PantsAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface DSMViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate, UIAlertViewDelegate>{
+@interface PantsViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate, UIAlertViewDelegate>{
 
 }
 
