@@ -20,7 +20,7 @@
 }
 
 - (void)drawTextInRect:(CGRect)rect {
-    UIEdgeInsets insets = {0, 45, 0, 5};
+    UIEdgeInsets insets = {5, 5, 5, 5};
     [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
 }
 

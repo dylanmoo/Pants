@@ -5,12 +5,7 @@
 
 const struct UserAttributes UserAttributes = {
 	.user_id = @"user_id",
-};
-
-const struct UserRelationships UserRelationships = {
-};
-
-const struct UserFetchedProperties UserFetchedProperties = {
+	.weather_notification_date = @"weather_notification_date",
 };
 
 @implementation UserID
@@ -38,24 +33,13 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic user_id;
 
-
-
-
-
-
-
-
-
-
+@dynamic weather_notification_date;
 
 @end
+

@@ -14,10 +14,10 @@ typedef void(^actionBlock)(UIButton *actionButton);
 
 @interface PantsOnboardingViewController : UIViewController
 
-@property (nonatomic, strong) LetterTileButton *acceptButton;
-@property (nonatomic, strong) UIButton *denyButton;
-@property (nonatomic, strong) PantsInsetLabel *titleLabel;
-@property (nonatomic, strong) PantsInsetLabel *subtitleLabel;
+@property (nonatomic, strong) IBOutlet LetterTileButton *acceptButton;
+@property (nonatomic, strong) IBOutlet UIButton *denyButton;
+@property (nonatomic, strong) IBOutlet PantsInsetLabel *titleLabel;
+@property (nonatomic, strong) IBOutlet PantsInsetLabel *subtitleLabel;
 
 @property (nonatomic, strong) actionBlock acceptButtonBlock;
 @property (nonatomic, strong) actionBlock denyButtonBlock;

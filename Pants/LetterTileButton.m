@@ -23,6 +23,21 @@
     }
     return self;
 }
+
+-(id) initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]){
+        self.backgroundColor = [UIColor clearColor];
+        //make the label and format it the way you want, add it as a subview to the button
+        buttonTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -5, self.frame.size.width, self.frame.size.height + 10)];
+        buttonTitleLabel.backgroundColor = [UIColor clearColor];
+        buttonTitleLabel.textColor = [UIColor blackColor];
+        buttonTitleLabel.textAlignment = UITextAlignmentCenter;
+        buttonTitleLabel.clipsToBounds = NO;
+        [self addSubview:buttonTitleLabel];
+    }
+    return self;
+}
+
 //
 - (void)drawRect:(CGRect)rect
 {

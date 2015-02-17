@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Pants View Controller-->
@@ -16,35 +18,214 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFZ-yN-AAt">
-                                <rect key="frame" x="16" y="526" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="39y-UV-nCF"/>
-                                    <constraint firstAttribute="width" constant="22" id="clm-NA-Gca"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFZ-yN-AAt">
+                                <rect key="frame" x="269" y="532" width="30" height="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal">
+                                <state key="normal" image="smiley_blue.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="infoPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9rW-ar-czx"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="morning" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf3-Aj-zME" customClass="PantsInsetLabel">
+                                <rect key="frame" x="12" y="9" width="74" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="1jF-rl-wt0"/>
+                                    <constraint firstAttribute="height" constant="31" id="zg3-kI-9aP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXg-JL-sCe" customClass="PantsInsetLabel">
+                                <rect key="frame" x="12" y="523" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="dh2-6L-Vnb"/>
+                                    <constraint firstAttribute="width" constant="49" id="ttp-8u-Aj8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="tFZ-yN-AAt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Zqg-Nr-WMt"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tFZ-yN-AAt" secondAttribute="bottom" constant="20" id="gCG-Xy-Xej"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tFZ-yN-AAt" secondAttribute="bottom" constant="14" id="0xo-Uk-GgX"/>
+                            <constraint firstItem="tf3-Aj-zME" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="9" id="2WM-hG-U9y"/>
+                            <constraint firstItem="tf3-Aj-zME" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="12" id="2hv-GL-Y1s"/>
+                            <constraint firstItem="tf3-Aj-zME" firstAttribute="leading" secondItem="rXg-JL-sCe" secondAttribute="leading" id="4bt-dP-mOF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tFZ-yN-AAt" secondAttribute="trailing" constant="5" id="D7t-8K-8iD"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="rXg-JL-sCe" secondAttribute="bottom" constant="14" id="GoB-c1-lbS"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="infoButton" destination="tFZ-yN-AAt" id="XNq-uH-k9g"/>
+                        <outlet property="morningLabel" destination="tf3-Aj-zME" id="z5k-Jb-bYi"/>
+                        <outlet property="nightLabel" destination="rXg-JL-sCe" id="gR4-E3-e67"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="454" y="237"/>
+        </scene>
+        <!--Pants Onboarding View Controller-->
+        <scene sceneID="kcO-Rc-WDR">
+            <objects>
+                <viewController storyboardIdentifier="pantsOnboardingView" id="jmg-DY-a6y" customClass="PantsOnboardingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PpQ-R7-FNt"/>
+                        <viewControllerLayoutGuide type="bottom" id="bTq-NZ-6eH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tEq-RC-Wim">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#PANTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDa-EJ-ewy" customClass="PantsInsetLabel">
+                                <rect key="frame" x="50" y="35" width="220" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="bIT-Gr-cao"/>
+                                    <constraint firstAttribute="width" constant="220" id="bap-Mj-YSz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3v-3e-OXg" customClass="PantsInsetLabel">
+                                <rect key="frame" x="41" y="110" width="238" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="Wxl-lg-d89"/>
+                                </constraints>
+                                <string key="text">helps you figure out if you need to wear pants today. We do a bunch of complicated math and analyze when you’ll need to put on pants. We need your location. Okay?</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAt-pd-V4C" customClass="LetterTileButton">
+                                <rect key="frame" x="36" y="405" width="248" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="XIX-bF-2ym"/>
+                                    <constraint firstAttribute="height" constant="101" id="Ztn-Hm-ywq"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="acceptButtonPressed:" destination="jmg-DY-a6y" eventType="touchUpInside" id="1Os-Uo-k3L"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62g-g3-6XC">
+                                <rect key="frame" x="126" y="512" width="68" height="38"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                <state key="normal" title="Nah">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="denyButtonPressed:" destination="jmg-DY-a6y" eventType="touchUpInside" id="i6p-Q8-1Oj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="RDa-EJ-ewy" firstAttribute="top" secondItem="PpQ-R7-FNt" secondAttribute="bottom" constant="35" id="9mD-jw-jqG"/>
+                            <constraint firstAttribute="centerX" secondItem="62g-g3-6XC" secondAttribute="centerX" id="BNx-jA-EBn"/>
+                            <constraint firstAttribute="centerX" secondItem="RDa-EJ-ewy" secondAttribute="centerX" id="Jp4-8M-Ta9"/>
+                            <constraint firstItem="bTq-NZ-6eH" firstAttribute="top" secondItem="62g-g3-6XC" secondAttribute="bottom" constant="18" id="WEV-uH-8NY"/>
+                            <constraint firstItem="bTq-NZ-6eH" firstAttribute="top" secondItem="NAt-pd-V4C" secondAttribute="bottom" constant="62" id="Zvm-Xb-CrW"/>
+                            <constraint firstItem="G3v-3e-OXg" firstAttribute="top" secondItem="RDa-EJ-ewy" secondAttribute="bottom" constant="5" id="caz-Ke-ABz"/>
+                            <constraint firstAttribute="centerX" secondItem="NAt-pd-V4C" secondAttribute="centerX" id="fq1-5w-GfR"/>
+                            <constraint firstAttribute="centerX" secondItem="G3v-3e-OXg" secondAttribute="centerX" id="ptG-hY-Mt6"/>
+                            <constraint firstItem="G3v-3e-OXg" firstAttribute="leading" secondItem="tEq-RC-Wim" secondAttribute="leadingMargin" constant="25" id="q52-NJ-pQ3"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="acceptButton" destination="NAt-pd-V4C" id="fLN-GB-ZeS"/>
+                        <outlet property="denyButton" destination="62g-g3-6XC" id="FOm-gi-KdY"/>
+                        <outlet property="subtitleLabel" destination="G3v-3e-OXg" id="hW6-h7-Ay3"/>
+                        <outlet property="titleLabel" destination="RDa-EJ-ewy" id="8hW-cS-JyU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S8E-dE-dO9" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="872" y="237"/>
+        </scene>
+        <!--Pants Push Settings View Controller-->
+        <scene sceneID="4LL-bE-597">
+            <objects>
+                <viewController storyboardIdentifier="pantsPushSettingsView" id="9jK-i8-euJ" customClass="PantsPushSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tC9-eU-XMJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="exM-kf-CnD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1lT-xX-NME">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time would you like your push notification to find out if you have to wear #PANTS?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03Z-EX-IRn" customClass="PantsInsetLabel">
+                                <rect key="frame" x="41" y="120" width="238" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrg-Jg-RAR" customClass="LetterTileButton">
+                                <rect key="frame" x="36" y="196" width="248" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="101" id="kF5-Mm-0gD"/>
+                                    <constraint firstAttribute="width" constant="248" id="xg4-lA-P8d"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setTimeButtonPressed:" destination="9jK-i8-euJ" eventType="touchUpInside" id="JcB-Vs-LFb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gme-4W-VfR">
+                                <rect key="frame" x="74" y="512" width="172" height="38"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                <state key="normal" title="No pushes. thanks!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="denyButtonPressed:" destination="9jK-i8-euJ" eventType="touchUpInside" id="Eb4-ob-WTA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We’ll never show a badge and you can turn them off inside the app at anytime. " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oog-Bj-PY8" customClass="PantsInsetLabel">
+                                <rect key="frame" x="41" y="322" width="238" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Oog-Bj-PY8" firstAttribute="top" secondItem="Jrg-Jg-RAR" secondAttribute="bottom" constant="25" id="40h-hz-RM7"/>
+                            <constraint firstItem="Oog-Bj-PY8" firstAttribute="centerX" secondItem="03Z-EX-IRn" secondAttribute="centerX" id="Jwo-FV-dA3"/>
+                            <constraint firstItem="Jrg-Jg-RAR" firstAttribute="top" secondItem="03Z-EX-IRn" secondAttribute="bottom" constant="15" id="KrD-XX-L7f"/>
+                            <constraint firstItem="exM-kf-CnD" firstAttribute="top" secondItem="Gme-4W-VfR" secondAttribute="bottom" constant="18" id="N9g-SP-h1U"/>
+                            <constraint firstItem="03Z-EX-IRn" firstAttribute="top" secondItem="tC9-eU-XMJ" secondAttribute="bottom" constant="120" id="fto-10-4a4"/>
+                            <constraint firstAttribute="centerX" secondItem="03Z-EX-IRn" secondAttribute="centerX" id="mAF-X4-bwH"/>
+                            <constraint firstItem="03Z-EX-IRn" firstAttribute="leading" secondItem="1lT-xX-NME" secondAttribute="leadingMargin" constant="25" id="uaD-IA-IdG"/>
+                            <constraint firstAttribute="centerX" secondItem="Jrg-Jg-RAR" secondAttribute="centerX" id="vpV-rx-EnE"/>
+                            <constraint firstItem="Oog-Bj-PY8" firstAttribute="leading" secondItem="03Z-EX-IRn" secondAttribute="leading" id="w4j-XA-l4W"/>
+                            <constraint firstAttribute="centerX" secondItem="Gme-4W-VfR" secondAttribute="centerX" id="zkc-pl-0pQ"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="bottomLabel" destination="Oog-Bj-PY8" id="jMM-Gv-FTW"/>
+                        <outlet property="denyButton" destination="Gme-4W-VfR" id="cnO-8h-49t"/>
+                        <outlet property="setTimeButton" destination="Jrg-Jg-RAR" id="VTo-gi-HH0"/>
+                        <outlet property="topLabel" destination="03Z-EX-IRn" id="sXK-TZ-Cmo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AtM-2i-vHe" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1275" y="237"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="smiley_blue.png" width="30" height="16"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

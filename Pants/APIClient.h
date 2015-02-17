@@ -8,6 +8,7 @@
 
 #import "AFHTTPRequestOperationManager.h"
 #import "PantsStore.h"
+#import "PantsWeather.h"
 
 @interface APIClient : AFHTTPRequestOperationManager
 
@@ -15,8 +16,12 @@
 
 //USING
 
-- (void)loginUser:(NSString*)token WithCompletion:(void (^)(NSError *error))block;
-
 - (void)updateDeviceToken:(NSData*)token;
+
+- (void)saveUbiquityToken:(NSData*)token;
+
+- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock;
+
+- (void)signIn;
 
 @end

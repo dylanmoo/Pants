@@ -60,6 +60,16 @@
 		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
 		C6ECCE7B7E7638777C9D7678 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65389CA324B577F155575E9B /* libPods.a */; };
 		FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CAA1A90031400203F6A /* Launch Screen.xib */; };
+		FC3B5CAF1A92AA7600203F6A /* LocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CAE1A92AA7600203F6A /* LocationClient.m */; };
+		FC3B5CB41A93086E00203F6A /* #PANTS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CB31A93086E00203F6A /* #PANTS@2x.png */; };
+		FC3B5CB71A930A4100203F6A /* PantsWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CB61A930A4100203F6A /* PantsWeather.m */; };
+		FC3B5CBB1A931B9000203F6A /* NSDate+HumanInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CBA1A931B9000203F6A /* NSDate+HumanInterval.m */; };
+		FC3B5CBF1A931C2000203F6A /* PantsPushSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */; };
+		FC3B5CC21A931EC600203F6A /* PantsSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CC11A931EC600203F6A /* PantsSettingsViewController.m */; };
+		FC3B5CC71A93297400203F6A /* smiley_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CC31A93297400203F6A /* smiley_blue@2x.png */; };
+		FC3B5CC81A93297400203F6A /* smiley_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CC41A93297400203F6A /* smiley_blue@3x.png */; };
+		FC3B5CC91A93297400203F6A /* smiley_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CC51A93297400203F6A /* smiley_red@2x.png */; };
+		FC3B5CCA1A93297400203F6A /* smiley_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CC61A93297400203F6A /* smiley_red@3x.png */; };
 		FC4B97BB19C29E1000A06304 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BA19C29E1000A06304 /* AudioToolbox.framework */; };
 		FC4B97BD19C29E2800A06304 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BC19C29E2800A06304 /* libz.dylib */; };
 		FC4B97BF19C29E2F00A06304 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */; };
@@ -202,6 +212,23 @@
 		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
 		C7C334C35F60D3BC9DFE3368 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FC3B5CAA1A90031400203F6A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		FC3B5CAC1A929ACF00203F6A /* Pants.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pants.entitlements; sourceTree = "<group>"; };
+		FC3B5CAD1A92AA7600203F6A /* LocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationClient.h; sourceTree = "<group>"; };
+		FC3B5CAE1A92AA7600203F6A /* LocationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationClient.m; sourceTree = "<group>"; };
+		FC3B5CB31A93086E00203F6A /* #PANTS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "#PANTS@2x.png"; sourceTree = "<group>"; };
+		FC3B5CB51A930A4100203F6A /* PantsWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsWeather.h; sourceTree = "<group>"; };
+		FC3B5CB61A930A4100203F6A /* PantsWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsWeather.m; sourceTree = "<group>"; };
+		FC3B5CB81A931A6400203F6A /* PantsDataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PantsDataModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		FC3B5CB91A931B9000203F6A /* NSDate+HumanInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanInterval.h"; sourceTree = "<group>"; };
+		FC3B5CBA1A931B9000203F6A /* NSDate+HumanInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanInterval.m"; sourceTree = "<group>"; };
+		FC3B5CBD1A931C2000203F6A /* PantsPushSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsPushSettingsViewController.h; sourceTree = "<group>"; };
+		FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsPushSettingsViewController.m; sourceTree = "<group>"; };
+		FC3B5CC01A931EC600203F6A /* PantsSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsSettingsViewController.h; sourceTree = "<group>"; };
+		FC3B5CC11A931EC600203F6A /* PantsSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsSettingsViewController.m; sourceTree = "<group>"; };
+		FC3B5CC31A93297400203F6A /* smiley_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_blue@2x.png"; sourceTree = "<group>"; };
+		FC3B5CC41A93297400203F6A /* smiley_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_blue@3x.png"; sourceTree = "<group>"; };
+		FC3B5CC51A93297400203F6A /* smiley_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_red@2x.png"; sourceTree = "<group>"; };
+		FC3B5CC61A93297400203F6A /* smiley_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_red@3x.png"; sourceTree = "<group>"; };
 		FC4B97BA19C29E1000A06304 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FC4B97BC19C29E2800A06304 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -452,25 +479,34 @@
 		86C41394196246EF0011D9BE /* Pants */ = {
 			isa = PBXGroup;
 			children = (
+				FC3B5CAC1A929ACF00203F6A /* Pants.entitlements */,
 				86BE60E71A900EAA001661EA /* CoreData */,
-				FCF707CD19B562B300D60D5C /* UIView+DSMViewAdditions.h */,
-				FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */,
+				FC3B5CBC1A931B9F00203F6A /* Helpers */,
 				86C4139D196246EF0011D9BE /* PantsAppDelegate.h */,
 				86C4139E196246EF0011D9BE /* PantsAppDelegate.m */,
 				86C413A0196246EF0011D9BE /* Main.storyboard */,
 				86C413A3196246EF0011D9BE /* PantsViewController.h */,
 				86C413A4196246EF0011D9BE /* PantsViewController.m */,
-				8608CD9F19BA66BA003E69B2 /* LetterTileButton.h */,
-				8608CDA019BA66BA003E69B2 /* LetterTileButton.m */,
 				FCF707CA19B54DDF00D60D5C /* PantsOnboardingViewController.h */,
 				FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */,
-				FCBCE6D419B6DB0F00787C3D /* PantsInsetLabel.h */,
-				FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */,
+				FC3B5CBD1A931C2000203F6A /* PantsPushSettingsViewController.h */,
+				FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */,
+				FC3B5CC01A931EC600203F6A /* PantsSettingsViewController.h */,
+				FC3B5CC11A931EC600203F6A /* PantsSettingsViewController.m */,
 				86BE60D51A900B6D001661EA /* APIClient.h */,
 				86BE60D61A900B6D001661EA /* APIClient.m */,
+				FC3B5CB51A930A4100203F6A /* PantsWeather.h */,
+				FC3B5CB61A930A4100203F6A /* PantsWeather.m */,
+				FC3B5CAD1A92AA7600203F6A /* LocationClient.h */,
+				FC3B5CAE1A92AA7600203F6A /* LocationClient.m */,
 				86A9C9A319D93EA70029239E /* DSMWeatherStore.h */,
 				86A9C9A419D93EA70029239E /* DSMWeatherStore.m */,
 				86C413A6196246EF0011D9BE /* Images.xcassets */,
+				FC3B5CC31A93297400203F6A /* smiley_blue@2x.png */,
+				FC3B5CC41A93297400203F6A /* smiley_blue@3x.png */,
+				FC3B5CC51A93297400203F6A /* smiley_red@2x.png */,
+				FC3B5CC61A93297400203F6A /* smiley_red@3x.png */,
+				FC3B5CB31A93086E00203F6A /* #PANTS@2x.png */,
 				FC3B5CAA1A90031400203F6A /* Launch Screen.xib */,
 				86C41395196246EF0011D9BE /* Supporting Files */,
 			);
@@ -510,6 +546,21 @@
 				86C413B6196246EF0011D9BE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FC3B5CBC1A931B9F00203F6A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FCF707CD19B562B300D60D5C /* UIView+DSMViewAdditions.h */,
+				FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */,
+				8608CD9F19BA66BA003E69B2 /* LetterTileButton.h */,
+				8608CDA019BA66BA003E69B2 /* LetterTileButton.m */,
+				FCBCE6D419B6DB0F00787C3D /* PantsInsetLabel.h */,
+				FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */,
+				FC3B5CB91A931B9000203F6A /* NSDate+HumanInterval.h */,
+				FC3B5CBA1A931B9000203F6A /* NSDate+HumanInterval.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		FCFB98A819B9C5D9000CE98C /* Mixpanel */ = {
@@ -691,6 +742,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 						};
 					};
 					86C413AB196246EF0011D9BE = {
@@ -723,12 +777,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC3B5CC91A93297400203F6A /* smiley_red@2x.png in Resources */,
+				FC3B5CC81A93297400203F6A /* smiley_blue@3x.png in Resources */,
 				8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */,
 				FCFB994419B9C5D9000CE98C /* MPSurvey.storyboard in Resources */,
 				86C413A7196246EF0011D9BE /* Images.xcassets in Resources */,
 				FCFB991B19B9C5D9000CE98C /* Media.xcassets in Resources */,
 				FCFB993419B9C5D9000CE98C /* MPCloseBtn@2x.png in Resources */,
 				FCFB995619B9C5D9000CE98C /* test_variant.json in Resources */,
+				FC3B5CCA1A93297400203F6A /* smiley_red@3x.png in Resources */,
+				FC3B5CB41A93086E00203F6A /* #PANTS@2x.png in Resources */,
 				FCFB995519B9C5D9000CE98C /* snapshot_config.json in Resources */,
 				86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */,
 				FCFB98A719B9C52B000CE98C /* separator.png in Resources */,
@@ -737,6 +795,7 @@
 				86C413A2196246EF0011D9BE /* Main.storyboard in Resources */,
 				86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */,
 				FCFB993319B9C5D9000CE98C /* MPCloseBtn.png in Resources */,
+				FC3B5CC71A93297400203F6A /* smiley_blue@2x.png in Resources */,
 				FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -830,6 +889,7 @@
 				86BE60E61A900EA4001661EA /* User.m in Sources */,
 				FCFB992419B9C5D9000CE98C /* MPABTestDesignerDeviceInfoResponseMessage.m in Sources */,
 				FCF707CF19B562B300D60D5C /* UIView+DSMViewAdditions.m in Sources */,
+				FC3B5CC21A931EC600203F6A /* PantsSettingsViewController.m in Sources */,
 				FCFB995319B9C5D9000CE98C /* NSData+MPBase64.m in Sources */,
 				FCFB993019B9C5D9000CE98C /* MPCGRectToNSDictionaryValueTransformer.m in Sources */,
 				FCFB994019B9C5D9000CE98C /* MPPassThroughValueTransformer.m in Sources */,
@@ -845,11 +905,14 @@
 				FCFB994519B9C5D9000CE98C /* MPSurveyNavigationController.m in Sources */,
 				FCFB994F19B9C5D9000CE98C /* MPUIFontToNSDictionaryValueTransformer.m in Sources */,
 				FCFB994119B9C5D9000CE98C /* MPPropertyDescription.m in Sources */,
+				FC3B5CAF1A92AA7600203F6A /* LocationClient.m in Sources */,
 				FCFB992219B9C5D9000CE98C /* MPABTestDesignerConnection.m in Sources */,
 				FCFB993A19B9C5D9000CE98C /* MPNSNumberToCGFloatValueTransformer.m in Sources */,
 				FCFB991E19B9C5D9000CE98C /* MPABTestDesignerChangeRequestMessage.m in Sources */,
+				FC3B5CB71A930A4100203F6A /* PantsWeather.m in Sources */,
 				FCFB992C19B9C5D9000CE98C /* MPCATransform3DToNSDictionaryValueTransformer.m in Sources */,
 				8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */,
+				FC3B5CBF1A931C2000203F6A /* PantsPushSettingsViewController.m in Sources */,
 				86B5FC571A9011A00074F4DC /* PantsStore.m in Sources */,
 				FCFB994619B9C5D9000CE98C /* MPSurveyQuestion.m in Sources */,
 				86BE60DA1A900CA1001661EA /* PantsDataModel.xcdatamodeld in Sources */,
@@ -873,6 +936,7 @@
 				86C4139F196246EF0011D9BE /* PantsAppDelegate.m in Sources */,
 				FCFB993919B9C5D9000CE98C /* MPNSAttributedStringToNSDictionaryValueTransformer.m in Sources */,
 				FCFB995119B9C5D9000CE98C /* MPVariant.m in Sources */,
+				FC3B5CBB1A931B9000203F6A /* NSDate+HumanInterval.m in Sources */,
 				86A9C9A519D93EA70029239E /* DSMWeatherStore.m in Sources */,
 				FCFB994A19B9C5D9000CE98C /* MPTweakInline.m in Sources */,
 				FCFB993119B9C5D9000CE98C /* MPCGSizeToNSDictionaryValueTransformer.m in Sources */,
@@ -955,7 +1019,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dylan Moore (UCM8G82UW8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dylan Moore (UCM8G82UW8)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -974,6 +1039,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
+				PROVISIONING_PROFILE = "2d8c0e03-bb1d-4115-a314-0bdfa437605b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -994,7 +1060,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1006,6 +1073,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "";
+				PROVISIONING_PROFILE = "5ebd9c33-d3fd-4d59-95a9-c7634b0afe1d";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1017,8 +1085,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Pants/Pants.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dylan Moore (UCM8G82UW8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1027,7 +1096,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pants/Pants-Prefix.pch";
 				INFOPLIST_FILE = "Pants/Pants-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -1035,8 +1104,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6bdf81c-f16f-4e0a-89fe-0a9c192a96ba";
-				VALID_ARCHS = "armv7 armv7s";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1047,8 +1116,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Pants/Pants.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1057,15 +1127,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pants/Pants-Prefix.pch";
 				INFOPLIST_FILE = "Pants/Pants-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6bdf81c-f16f-4e0a-89fe-0a9c192a96ba";
-				VALID_ARCHS = "armv7 armv7s";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1155,10 +1225,11 @@
 		86BE60D81A900CA1001661EA /* PantsDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FC3B5CB81A931A6400203F6A /* PantsDataModel 3.xcdatamodel */,
 				86BE60E01A900E7B001661EA /* PantsDataModel 2.xcdatamodel */,
 				86BE60D91A900CA1001661EA /* PantsDataModel.xcdatamodel */,
 			);
-			currentVersion = 86BE60E01A900E7B001661EA /* PantsDataModel 2.xcdatamodel */;
+			currentVersion = FC3B5CB81A931A6400203F6A /* PantsDataModel 3.xcdatamodel */;
 			path = PantsDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

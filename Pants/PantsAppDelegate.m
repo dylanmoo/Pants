@@ -9,6 +9,7 @@
 #import "PantsAppDelegate.h"
 #import "Mixpanel.h"
 #import "PantsStore.h"
+#import "APIClient.h"
 
 #define MIXPANEL_TOKEN @"10368102de1354bfe301c6f5212fe883"
 
@@ -71,6 +72,9 @@
     
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     [mixpanel.people addPushDeviceToken:deviceToken];
+    
+    [[APIClient sharedClient] updateDeviceToken:deviceToken];
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

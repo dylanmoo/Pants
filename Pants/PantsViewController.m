@@ -7,11 +7,13 @@
 //
 
 #import "PantsViewController.h"
-#import <CoreLocation/CoreLocation.h>
 #import "PantsOnboardingViewController.h"
 #import "Mixpanel.h"
 #import "UIImage+animatedGIF.h"
 #import "PantsStore.h"
+#import "LocationClient.h"
+#import "APIClient.h"
+#import "PantsInsetLabel.h"
 
 @interface PantsViewController (){
     NSMutableData *_responseData;
@@ -20,7 +22,6 @@
     NSString *noPantsString;
     NSURL *pantsURL;
     NSURL *noPantsURL;
-    CLLocation *currentLocation;
     NSURLConnection *currentConnection;
     NSDate *todaysMaxTempDate;
     BOOL pantsOn;
@@ -38,7 +39,10 @@
 @property (strong, nonatomic)  UIImageView *timerView;
 @property (strong, nonatomic)  UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic)  PantsInsetLabel *loadingLabel;
+@property (strong, nonatomic)  PantsWeather *currentWeather;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
+@property (weak, nonatomic) IBOutlet PantsInsetLabel *morningLabel;
+@property (weak, nonatomic) IBOutlet PantsInsetLabel *nightLabel;
 
 @end
 
@@ -69,21 +73,19 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.activityIndicator setCenter:self.view.center];
+    [self.activityIndicator setHidesWhenStopped:YES];
     [self.view addSubview:self.activityIndicator];
     
     self.loadingLabel = [[PantsInsetLabel alloc] initWithFrame:CGRectMake(0, 0, self.timerView.bounds.size.width, self.timerView.bounds.size.height)];
-    self.loadingLabel.text = @"calculating the time to put on pants...";
+    self.loadingLabel.text = @"          calculating the time to put on pants...";
     self.loadingLabel.textAlignment = NSTextAlignmentLeft;
     [self.loadingLabel setBackgroundColor:[UIColor whiteColor]];
     [self.loadingLabel setCenter:self.view.center];
     [self.loadingLabel setTextColor:[UIColor blackColor]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findLocation)];
+    [self.loadingLabel addGestureRecognizer:tap];
+    [self.loadingLabel setUserInteractionEnabled:NO];
     [self.view addSubview:self.loadingLabel];
-    
-    //Setup Location manager
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     self.pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     [self.pantsImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
@@ -123,7 +125,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsImageView addSubview:self.noPantsLabel];
     
     
+    [self.morningLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
+    [self.morningLabel setTextColor:DEFAULT_RED_COLOR];
     
+    [self.nightLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
+    [self.nightLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
     //[self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
     
     [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
@@ -134,13 +140,15 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     tempThreshold = 73.0f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationAccessDenied:) name:kNotificationLocationServicesDisabled object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kNotificationLocationUpdated object:nil];
     
     [self.view setUserInteractionEnabled:YES];
     [self.pantsImageView setUserInteractionEnabled:YES];
     [self.noPantsImageView setUserInteractionEnabled:YES];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleExplanation:)];
-    [self.timerView addGestureRecognizer:tap];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleExplanation:)];
+    [self.timerView addGestureRecognizer:tapGesture];
     [self.timerView setUserInteractionEnabled:YES];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
@@ -149,7 +157,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     viewAppeared = false;
     
+    [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.infoButton];
+    [self.view bringSubviewToFront:self.morningLabel];
+    [self.view bringSubviewToFront:self.nightLabel];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
@@ -157,24 +168,27 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showLoading
 {
-    loadingTimer = [NSTimer scheduledTimerWithTimeInterval:.15 target:self selector:@selector(changeLoadingText:) userInfo:nil repeats:YES];
+    [self.loadingLabel setUserInteractionEnabled:NO];
+    loadingTimer = [NSTimer scheduledTimerWithTimeInterval:.25 target:self selector:@selector(changeLoadingText:) userInfo:nil repeats:YES];
 }
 
 -(void)changeLoadingText:(NSTimer*)timer{
     NSString *text = self.loadingLabel.text;
     if([text containsString:@"..."]){
-        self.loadingLabel.text = @"calculating the time to put on pants";
+        self.loadingLabel.text = @"          calculating the time to put on pants";
     }else if([text containsString:@".."]){
-        self.loadingLabel.text = @"calculating the time to put on pants...";
+        self.loadingLabel.text = @"          calculating the time to put on pants...";
     }else if([text containsString:@"."]){
-        self.loadingLabel.text = @"calculating the time to put on pants..";
+        self.loadingLabel.text = @"          calculating the time to put on pants..";
     }else{
-        self.loadingLabel.text = @"calculating the time to put on pants.";
+        self.loadingLabel.text = @"          calculating the time to put on pants.";
     }
 }
 
 - (void)stopLoading{
+    [self.loadingLabel setUserInteractionEnabled:YES];
     [loadingTimer invalidate];
+    loadingTimer = nil;
 }
 
 - (void)toggleExplanation:(UITapGestureRecognizer*)recognizer
@@ -185,7 +199,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
             [self.loadingLabel setAlpha:1];
             self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
         } completion:^(BOOL finished) {
-            [self findLocation];
+            [[LocationClient sharedClient] updateUsersLocation];
         }];
     }
 }
@@ -198,8 +212,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)didBecomeActive:(NSNotification*)notification
 {
-    if(viewAppeared){
+    if([[LocationClient sharedClient] currentLocation])
+    {
         [self findLocation];
+        
     }
 }
 
@@ -223,29 +239,30 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 }
 
 -(void)findLocation{
-    if(IS_IOS8 && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
-        [self.locationManager requestWhenInUseAuthorization];
-        return;
-    }
-    
-    [self.locationManager startUpdatingLocation];
+    [[LocationClient sharedClient] updateUsersLocation];
     [self.activityIndicator startAnimating];
     [self showLoading];
     [self.timerLabel setAlpha:0];
 }
 
--(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
-    if(status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedAlways){
-        [self findLocation];
-    }else if(status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted){
-        [self showLocationError];
-    }
+-(void)locationAccessDenied:(NSNotification*)notification{
+    [self showLocationError];
 }
 
 -(void)panned:(UIPanGestureRecognizer*)recognizer
 {
 
-
+    if(recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        NSLog(@"LIFT");
+        [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
+            self.infoButton.alpha = 0;
+            self.morningLabel.alpha = 0;
+            self.nightLabel.alpha = 0;
+        } completion:nil];
+        
+        // [self findLocation];
+    }
     
     CGPoint translation = [recognizer translationInView:self.view];
     
@@ -258,13 +275,17 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsLabel setCenterY:self.pantsImageView.height/2];
     [self.timerView setCenterY:self.timerView.center.y + translation.y];
     [self.activityIndicator setCenterY:self.activityIndicator.center.y + translation.y];
+    
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
     
     if(recognizer.state == UIGestureRecognizerStateEnded)
     {
         NSLog(@"LIFT");
-        [self showPantsAtHour:pantsOnHour];
+        if(self.currentWeather){
+            [self displayWeather:self.currentWeather];
+        }
+    
        // [self findLocation];
     }
 }
@@ -274,11 +295,16 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 {
     [super viewDidAppear:animated];
     
-    if(!viewAppeared){
-        if(![[PantsStore sharedStore] userID]){
-            [self showOnboarding];
-        }else{
+    if(!viewAppeared)
+    {
+        if([[LocationClient sharedClient] currentLocation])
+        {
             [self findLocation];
+            
+        }
+        else{
+            [self showOnboarding];
+            
         }
     }
     
@@ -287,10 +313,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showOnboarding
 {
-    PantsOnboardingViewController *onb = [[PantsOnboardingViewController alloc] init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                                
+    PantsOnboardingViewController *onb = (PantsOnboardingViewController*)[storyboard instantiateViewControllerWithIdentifier:@"pantsOnboardingView"];
+    
     [self presentViewController:onb animated:YES completion:^{
-        onb.titleLabel.text = @"#PANTS";
-        onb.subtitleLabel.text = @"does a bunch of complicated math and analyzes when the weather is just right for pants. We need your location, okay?";
         
         [onb.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
         
@@ -329,14 +356,17 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showLocationError
 {
-    PantsOnboardingViewController *onb = [[PantsOnboardingViewController alloc] init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    PantsOnboardingViewController *onb = (PantsOnboardingViewController*)[storyboard instantiateViewControllerWithIdentifier:@"pantsOnboardingView"];
+    
     [self presentViewController:onb animated:YES completion:^{
         onb.titleLabel.text = @"#PANTS";
         onb.subtitleLabel.text = @"really needs your location. Can you go to:\n\n->Settings\n->Privacy\n->Location\n->Pants and turn it on?";
-        [onb.subtitleLabel sizeToFit];
-        [onb.subtitleLabel setTop:onb.titleLabel.bottom];
+        
         [onb.acceptButton setTitleFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:55]];
         [onb.acceptButton setTitle:@"I did that!" forState:UIControlStateNormal];
+        
         __weak typeof(self) weakSelf = self;
         [onb setAcceptButtonBlock:^(UIButton *actionButton){
             NSLog(@"Accept Pressed");
@@ -344,7 +374,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
             
             [mixpanel track:@"Accepted Location Access"];
             
-            [self findLocation];
+            [weakSelf findLocation];
         }];
         
         [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
@@ -365,20 +395,32 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
 }
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"Location Error: %@",error);
+-(void)locationUpdated:(NSNotification*)notification{
     
-    [self.activityIndicator stopAnimating];
-    [self.pantsImageView setUserInteractionEnabled:YES];
-    [self showLocationError];
-}
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    NSLog(@"%@",[locations lastObject]);
-    currentLocation = [locations lastObject];
     
-    [self.self.locationManager stopUpdatingLocation];
-    [self getWeatherForLat:currentLocation.coordinate.latitude andLon:currentLocation.coordinate.longitude];
+    if(![[PantsStore sharedStore] userID]){
+        [[APIClient sharedClient] signIn];
+    }
+    
+    NSDictionary *currentLocation = [[LocationClient sharedClient] currentLocation];
+    
+    if(!currentLocation){
+        return;
+    }
+    
+   [[APIClient sharedClient] getWeatherWithCompletion:^(PantsWeather *weather) {
+       
+       dispatch_async(dispatch_get_main_queue(), ^{
+           if(weather){
+               self.currentWeather = weather;
+               [self displayWeather:self.currentWeather];
+           }else{
+               [self showFailedToGetWeather];
+           }
+       });
+       
+       
+   }];
     
     
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"opened"];
@@ -390,126 +432,118 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     }
 }
 
--(void)getWeatherForLat:(float)lat andLon:(float)lon{
-    NSString *path = [NSString stringWithFormat:@"https://api.forecast.io/forecast/%@/%f,%f",WEATHER_API_KEY,lat,lon];
-    // Create url connection and fire request
-    currentConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
-    
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    
-    [mixpanel track:@"Fetched Weather" properties:@{@"lat": [NSNumber numberWithFloat:lat],@"lng":[NSNumber numberWithFloat:lon]}];
-    
-     
+- (void)showFailedToGetWeather{
+    [self stopLoading];
+    [self.loadingLabel setText:@"          No connection. Tap to try again."];
+    [self.pantsImageView setUserInteractionEnabled:YES];
 }
 
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    _responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    NSError *error = nil;
+- (void)displayWeather:(PantsWeather*)weather{
     
-    NSDictionary *weather = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
-
-    NSLog(@"Data: %@",weather);
-    
-    NSDictionary *hourly = weather[@"hourly"];
-    hourlyWeather = hourly[@"data"];
-    
-    NSNumber *dailyMaxEpoch = weather[@"daily"][@"data"][0][@"apparentTemperatureMaxTime"];
-    
-    // (Step 1) Create NSDate object
-    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:dailyMaxEpoch.intValue];
-    NSLog (@"Epoch time %d equates to UTC %@", dailyMaxEpoch.intValue, epochNSDate);
-    
-    // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-    NSLog (@"Epoch time %d equates to %@", dailyMaxEpoch.intValue, [dateFormatter stringFromDate:epochNSDate]);
-    
-    todaysMaxTempDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
-    
-    [self processHourlyWeatherForPants];
-    
-}
-
-
--(void)processHourlyWeatherForPants{
-    
-    NSDate *date = [NSDate date];
-    
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    
-    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:date];
-    NSLog(@"COMPS;%@",comps);
-    int secondsUntilMidnight = (23-comps.hour)*60*60;
-    NSDate *outUntilDate = [date dateByAddingTimeInterval:secondsUntilMidnight];
-    
-    int hourToPutOnPants = comps.hour;
-
-    bool foundFirstHourForPants = false;
-    
-    for(NSDictionary *hour in hourlyWeather){
-        NSNumber *hourEpoch = hour[@"time"];
-        
-        // (Step 1) Create NSDate object
-        NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:hourEpoch.intValue];
-        NSLog (@"Epoch time %d equates to UTC %@", hourEpoch.intValue, epochNSDate);
-        
-        // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-        NSLog (@"Epoch time %d equates to %@", hourEpoch.intValue, [dateFormatter stringFromDate:epochNSDate]);
-        
-        NSDate *hourDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
-        
-        if([hourDate compare:outUntilDate]==NSOrderedAscending && [hourDate compare:todaysMaxTempDate]==NSOrderedDescending){
-            //Add to average Temp
-            NSLog(@"%@ is between %@ and %@",hourDate,todaysMaxTempDate,outUntilDate);
-           NSNumber *temp = hour[@"temperature"];
-            
-            if(temp.intValue<tempThreshold){
-                if(foundFirstHourForPants){
-                    break;
-                }else{
-                    foundFirstHourForPants = true;
-                    
-                    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:hourDate];
-                    NSLog(@"Comps for Hour ;%@",comps);
-                    hourToPutOnPants = comps.hour;
-                }
-            }else{
-                foundFirstHourForPants = false;
-            }
-        }
+    if(weather.pantsAtTime.intValue == 0)
+    {
+        //pants all day
+        [self showPantsAllDay:weather.pantsFlavorText];
         
     }
+    else if(weather.pantsAtTime.intValue == 24)
+    {
+        //no pants all day
+        [self showNoPantsAllDay:weather.noPantsFlavorText];
+        
+    }
+    else
+    {
+        [self showPantsAtHour:weather.pantsAtTime.intValue];
     
-    if(!foundFirstHourForPants){
-        hourToPutOnPants = 23;
     }
     
-    [self showPantsAtHour:hourToPutOnPants];
+}
+
+- (void)showPantsAllDay:(NSString*)flavorText{
+    if(!flavorText) flavorText = @"all day";
+    
+    [self.pantsLabel setText:[NSString stringWithFormat:@"%@\n%@",pantsString,flavorText]];
+
+    //[self.noPantsLabel setText:@"What?\nYou don't trust me?"];
+    
+    [self.activityIndicator stopAnimating];
+    [self stopLoading];
+    
+    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
+        [self.pantsLabel setAlpha:1];
+        [self.noPantsLabel setAlpha:0];
+        [self.timerLabel setAlpha:0];
+        [self.timerView setAlpha:0];
+        [self.morningLabel setAlpha:0];
+        [self.nightLabel setAlpha:0];
+        [self.infoButton setAlpha:1];
+        
+        [self.view bringSubviewToFront:self.noPantsImageView];
+        [self.view bringSubviewToFront:self.infoButton];
+        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
+        [self.pantsImageView setTop:0];
+        [self.pantsImageView setHeight:self.view.height];
+        [self.noPantsImageView setHeight:0];
+        [self.noPantsImageView setTop:0];
+        
+        
+        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
+        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
+        
+        
+        [self.timerView setCenter:CGPointMake(self.timerView.center.x, 0)];
+        [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, 0)];
+        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, 0)];
+        [self.loadingLabel setCenterY:0];
+        [self.loadingLabel setAlpha:0];
+        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
+    } completion:^(BOOL finished) {
+        //[self.pantsImageView setUserInteractionEnabled:YES];
+    }];
+
+}
+
+- (void)showNoPantsAllDay:(NSString*)flavorText{
+    if(!flavorText) flavorText = @"all day!";
+    
+    [self.noPantsLabel setText:[NSString stringWithFormat:@"%@\n%@",noPantsString,flavorText]];
+    //[self.pantsLabel setText:@"What?\nYou don't trust me?"];
+    
+    [self.activityIndicator stopAnimating];
+    [self stopLoading];
+    
+    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
+        [self.pantsLabel setAlpha:0];
+        [self.noPantsLabel setAlpha:1];
+        [self.timerLabel setAlpha:0];
+        [self.timerView setAlpha:0];
+        [self.morningLabel setAlpha:0];
+        [self.nightLabel setAlpha:0];
+        [self.infoButton setAlpha:1];
+        
+        [self.view bringSubviewToFront:self.pantsImageView];
+        [self.view bringSubviewToFront:self.infoButton];
+        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_red"] forState:UIControlStateNormal];
+        [self.pantsImageView setTop:self.view.height];
+        [self.pantsImageView setHeight:0];
+        [self.noPantsImageView setHeight:self.view.height];
+        [self.noPantsImageView setTop:0];
+        
+        
+        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
+        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
+        
+        
+        [self.timerView setCenter:CGPointMake(self.timerView.center.x, self.view.height)];
+        [self.timerLabel setCenter:CGPointMake(self.timerLabel.center.x, self.view.height)];
+        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, self.view.height)];
+        [self.loadingLabel setCenterY:self.view.height];
+        [self.loadingLabel setAlpha:0];
+        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
+    } completion:^(BOOL finished) {
+        //[self.pantsImageView setUserInteractionEnabled:YES];
+    }];
 }
 
 -(void)showPantsAtHour:(int)hour{
@@ -544,22 +578,28 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsLabel setText:pantsString];
     [self.noPantsLabel setText:noPantsString];
     
-    [self.activityIndicator setHidesWhenStopped:YES];
-    [self.activityIndicator stopAnimating];
-    
     float heightOfBGView = self.view.height-distanceFromTop;
     
+    [self.activityIndicator stopAnimating];
     [self stopLoading];
     
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
         [self.timerLabel setAlpha:1];
+        [self.timerView setAlpha:1];
+        [self.morningLabel setAlpha:1];
+        [self.nightLabel setAlpha:1];
+        [self.infoButton setAlpha:1];
         
         [self.pantsImageView setTop:distanceFromTop];
         [self.pantsImageView setHeight:heightOfBGView];
         [self.noPantsImageView setHeight:distanceFromTop];
         [self.noPantsImageView setTop:0];
+        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
+        [self.view bringSubviewToFront:self.infoButton];
+        [self.view bringSubviewToFront:self.morningLabel];
+        [self.view bringSubviewToFront:self.nightLabel];
         
         
         [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
@@ -585,12 +625,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     //[self.pantsImageView setAlpha:1];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    [self.timerLabel setText:@"Failed,\nTry again"];
-     [self.pantsImageView setUserInteractionEnabled:YES];
-}
 
 - (int)epochForDateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -641,6 +675,137 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
         [self showNotificationAlert];
     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark NSURLConnection Delegate Methods
+
+
+-(void)getWeatherForLat:(NSString*)lat andLon:(NSString*)lon{
+    NSString *path = [NSString stringWithFormat:@"https://api.forecast.io/forecast/%@/%@,%@",WEATHER_API_KEY,lat,lon];
+    // Create url connection and fire request
+    currentConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]] delegate:self];
+    
+}
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    _responseData = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [_responseData appendData:data];
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    NSError *error = nil;
+    
+    NSDictionary *weather = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
+    
+    NSLog(@"Data: %@",weather);
+    
+    NSDictionary *hourly = weather[@"hourly"];
+    hourlyWeather = hourly[@"data"];
+    
+    NSNumber *dailyMaxEpoch = weather[@"daily"][@"data"][0][@"apparentTemperatureMaxTime"];
+    
+    // (Step 1) Create NSDate object
+    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:dailyMaxEpoch.intValue];
+    NSLog (@"Epoch time %d equates to UTC %@", dailyMaxEpoch.intValue, epochNSDate);
+    
+    // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    NSLog (@"Epoch time %d equates to %@", dailyMaxEpoch.intValue, [dateFormatter stringFromDate:epochNSDate]);
+    
+    todaysMaxTempDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
+    
+    [self processHourlyWeatherForPants];
+    
+}
+
+
+-(void)processHourlyWeatherForPants{
+    
+    NSDate *date = [NSDate date];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    
+    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:date];
+    NSLog(@"COMPS;%@",comps);
+    int secondsUntilMidnight = (23-comps.hour)*60*60;
+    NSDate *outUntilDate = [date dateByAddingTimeInterval:secondsUntilMidnight];
+    
+    int hourToPutOnPants = comps.hour;
+    
+    bool foundFirstHourForPants = false;
+    
+    for(NSDictionary *hour in hourlyWeather){
+        NSNumber *hourEpoch = hour[@"time"];
+        
+        // (Step 1) Create NSDate object
+        NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:hourEpoch.intValue];
+        NSLog (@"Epoch time %d equates to UTC %@", hourEpoch.intValue, epochNSDate);
+        
+        // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+        NSLog (@"Epoch time %d equates to %@", hourEpoch.intValue, [dateFormatter stringFromDate:epochNSDate]);
+        
+        NSDate *hourDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:epochNSDate]];
+        
+        if([hourDate compare:outUntilDate]==NSOrderedAscending && [hourDate compare:todaysMaxTempDate]==NSOrderedDescending){
+            //Add to average Temp
+            NSLog(@"%@ is between %@ and %@",hourDate,todaysMaxTempDate,outUntilDate);
+            NSNumber *temp = hour[@"temperature"];
+            
+            if(temp.intValue<tempThreshold){
+                if(foundFirstHourForPants){
+                    break;
+                }else{
+                    foundFirstHourForPants = true;
+                    
+                    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:hourDate];
+                    NSLog(@"Comps for Hour ;%@",comps);
+                    hourToPutOnPants = comps.hour;
+                }
+            }else{
+                foundFirstHourForPants = false;
+            }
+        }
+        
+    }
+    
+    if(!foundFirstHourForPants){
+        hourToPutOnPants = 23;
+    }
+    
+    [self showPantsAtHour:hourToPutOnPants];
 }
 
 - (void)didReceiveMemoryWarning

@@ -36,7 +36,6 @@
     self = [super init];
     
     if (self) {
-        user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.mainContext];
         
         user = [self fetchUser];
         
@@ -60,14 +59,78 @@
     if (array.count == 1) {
         // Update User with data from JSON
         return array[0];
+        
     }else{
-        return nil;
+        
+        //Delete extras if there are some
+        if(array.count > 1){
+            for(User *extraUser in array){
+                [self.mainContext deleteObject:extraUser];
+            }
+        }
+        
+        //Create blank new user
+        user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.mainContext];
+        return user;
     }
 
 }
 
 - (NSString*)userID{
-    return user.user_id;
+    
+    //Return user id if already saved
+    if(user.user_id){
+        return user.user_id;
+    }
+    
+    //Not saved
+    //Look for user id in iCloud
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
+    if (store != nil) {
+        if([store objectForKey:kUserID]){
+            //Found user id in iCloud
+            NSString *userId = [store objectForKey:kUserID];
+            [user setUser_id:[NSString stringWithFormat:@"%@",userId]];
+            [self saveContext:NO];
+            return userId;
+        }else{
+            //No user id in iCloud
+            return nil;
+        }
+    }else{
+        //No store
+        return nil;
+    }
+
+}
+
+- (BOOL)needsToCreateNewUser{
+    
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
+    if (store == nil) {
+        return NO;
+        
+    }
+    
+    if([store objectForKey:kUserID])
+    {
+        return NO;
+        
+    }
+    else{
+        return YES;
+        
+    }
+}
+
+- (void)setUserWeatherNotificationDate:(NSDate*)date{
+    [user setWeather_notification_date:date];
+    [self saveContext:NO];
+}
+
+- (void)setUserID:(NSString*)userID{
+    [user setUser_id:[NSString stringWithFormat:@"%@",userID]];
+    [self saveContext:NO];
 }
 
 @end

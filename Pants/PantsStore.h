@@ -14,4 +14,10 @@
 
 - (NSString*)userID;
 
+- (void)setUserID:(NSString*)userID;
+
+- (void)setUserWeatherNotificationDate:(NSDate*)date;
+
+- (BOOL)needsToCreateNewUser;
+
 @end
