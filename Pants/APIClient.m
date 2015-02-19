@@ -116,6 +116,8 @@ BOOL creatingNewUser;
     }else{
         [[[UIAlertView alloc] initWithTitle:@"Test" message:@"No iCloud store found." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeviceTokenSaved object:nil];
 }
 
 - (void)updateNotificationTime:(NSDate*)dateForNotification {
@@ -153,11 +155,14 @@ BOOL creatingNewUser;
             
             creatingNewUser = true;
             
-            NSLog(@"Creating new user");
             
+            
+            NSString *timeZone = [NSTimeZone systemTimeZone].name;
+            
+            NSLog(@"Creating new user with Timezone: %@", timeZone);
             
             NSString *path = [NSString stringWithFormat:@"api/v1/users"];
-            NSDictionary *params = @{@"user":@{@"last_latitude":lastLatitude, @"last_longitude":lastLongitude}};
+            NSDictionary *params = @{@"user":@{@"last_latitude":lastLatitude, @"last_longitude":lastLongitude, @"last_time_zone":timeZone}};
             
             [self POST:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"User Succesfully Signed in: %@", responseObject);
@@ -193,7 +198,12 @@ BOOL creatingNewUser;
         
         NSString *path = userId ? [NSString stringWithFormat:@"api/v1/users/%@/weather",userId] : @"api/v1/weather";
         
-            NSDictionary *params = @{@"lat":lastLatitude, @"lng":lastLongitude};
+        NSString *timeZone = [NSTimeZone systemTimeZone].name;
+        
+        NSLog(@"Fetching weather for Timezone: %@", timeZone);
+        
+        
+            NSDictionary *params = @{@"lat":lastLatitude, @"lng":lastLongitude, @"tz":timeZone};
             
             [self GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"User Succesfully Fetched Weather: %@", responseObject);
@@ -231,16 +241,16 @@ BOOL creatingNewUser;
             if([store objectForKey:kUserID]){
                 NSString *savedID = [store objectForKey:kUserID];
                 if([userID isEqualToString:savedID]){
-                    [[[UIAlertView alloc] initWithTitle:@"Test" message:@"ID found on iCloud is same as new one" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                    [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is same as new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                     
                 }else{
-                    [[[UIAlertView alloc] initWithTitle:@"Test" message:@"ID found on iCloud is different from new one. Saving new one." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                    [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is different from new one. Saving new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                     
                     [store setObject:userID forKey:kUserID];
                     [store synchronize];
                 }
             }else{
-                [[[UIAlertView alloc] initWithTitle:@"Test" message:@"ID not found on iCloud. Saving new one to iCloud." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID not found on iCloud. Saving new one to iCloud. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                 
                 [store setObject:userID forKey:kUserID];
                 [store synchronize];

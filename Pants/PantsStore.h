@@ -14,6 +14,8 @@
 
 - (NSString*)userID;
 
+- (NSDate*)timeForNotifications;
+
 - (void)setUserID:(NSString*)userID;
 
 - (void)setUserWeatherNotificationDate:(NSDate*)date;

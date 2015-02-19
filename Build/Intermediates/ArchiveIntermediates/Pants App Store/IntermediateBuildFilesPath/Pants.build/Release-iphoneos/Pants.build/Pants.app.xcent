@@ -5,7 +5,9 @@
 	<key>application-identifier</key>
 	<string>PZ7N67B4VU.com.LetsAt.Pants</string>
 	<key>aps-environment</key>
-	<string>development</string>
+	<string>production</string>
+	<key>beta-reports-active</key>
+	<true/>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
 		<string>iCloud.com.LetsAt.Pants</string>
@@ -23,6 +25,6 @@
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
 	<string>PZ7N67B4VU.com.LetsAt.Pants</string>
 	<key>get-task-allow</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

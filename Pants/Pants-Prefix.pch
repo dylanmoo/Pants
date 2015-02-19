@@ -23,6 +23,7 @@
 #define DEFAULT_FONT_REGULAR @"SignPainter-HouseScript"
 
 //Notifications
+#define kNotificationDeviceTokenSaved @"deviceTokenSaved"
 #define kNotificationLocationServicesEnabled @"locationEnabled"
 #define kNotificationLocationServicesDisabled @"locationDisabled"
 #define kNotificationLocationUpdated @"locationUpdated"

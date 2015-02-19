@@ -80,6 +80,7 @@
     
     //Return user id if already saved
     if(user.user_id){
+        NSLog(@"User %@",user.user_id);
         return user.user_id;
     }
     
@@ -92,6 +93,7 @@
             NSString *userId = [store objectForKey:kUserID];
             [user setUser_id:[NSString stringWithFormat:@"%@",userId]];
             [self saveContext:NO];
+            NSLog(@"User %@",userId);
             return userId;
         }else{
             //No user id in iCloud
@@ -126,6 +128,10 @@
 - (void)setUserWeatherNotificationDate:(NSDate*)date{
     [user setWeather_notification_date:date];
     [self saveContext:NO];
+}
+
+- (NSDate*)timeForNotifications{
+    return user.weather_notification_date;
 }
 
 - (void)setUserID:(NSString*)userID{

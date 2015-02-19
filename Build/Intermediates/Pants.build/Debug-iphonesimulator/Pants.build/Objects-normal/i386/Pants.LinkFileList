@@ -3,6 +3,7 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/UIView+MPSnapshotImage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPTweak.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPCGColorRefToNSStringValueTransformer.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsSettingsCell.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPABTestDesignerChangeResponseMessage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPUIImageToNSDictionaryValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPObjectSerializerConfig.o
@@ -26,6 +27,7 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/User.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPABTestDesignerDeviceInfoResponseMessage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/UIView+DSMViewAdditions.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsSettingsViewController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/NSData+MPBase64.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPCGRectToNSDictionaryValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPPassThroughValueTransformer.o
@@ -41,10 +43,13 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPSurveyNavigationController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPUIFontToNSDictionaryValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPPropertyDescription.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/LocationClient.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPABTestDesignerConnection.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPNSNumberToCGFloatValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPABTestDesignerChangeRequestMessage.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsWeather.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPCATransform3DToNSDictionaryValueTransformer.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsPushSettingsViewController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsStore.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPSurveyQuestion.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPObjectIdentityProvider.o
@@ -67,6 +72,7 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/PantsAppDelegate.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPNSAttributedStringToNSDictionaryValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPVariant.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/NSDate+HumanInterval.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/DSMWeatherStore.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPTweakInline.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/i386/MPCGSizeToNSDictionaryValueTransformer.o
