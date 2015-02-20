@@ -8,6 +8,7 @@
 
 #import "PantsPushSettingsViewController.h"
 #import "PantsStore.h"
+#import "APIClient.h"
 
 @interface PantsPushSettingsViewController ()
 
@@ -17,49 +18,51 @@
 
 @implementation PantsPushSettingsViewController
 
+#define INTERVAL 5
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:32]];
+    [self.titleLabel setTextColor:DEFAULT_SUPER_LIGHT_BLUE];
     
-    [self.topLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:32]];
-    [self.topLabel setTextColor:DEFAULT_RED_COLOR];
+    [self.topLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:20]];
+    [self.topLabel setTextColor:DEFAULT_SUPER_LIGHT_BLUE];
     [self.topLabel setTextAlignment:NSTextAlignmentLeft];
     [self.topLabel setNumberOfLines:0];
     
-    [self.bottomLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:32]];
-    [self.bottomLabel setTextColor:DEFAULT_RED_COLOR];
-    [self.bottomLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.bottomLabel setNumberOfLines:0];
-    
-    [self.setTimeButton setTitleFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:72]];
-    [self.setTimeButton setTitleColor:DEFAULT_YELLOW_COLOR forState:UIControlStateSelected];
-    [self.setTimeButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
+    [self.setTimeButton setTitleFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:60]];
+    [self.setTimeButton setTitleColor:DEFAULT_SUPER_LIGHT_BLUE forState:UIControlStateNormal];
     [self.setTimeButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.setTimeButton setUserInteractionEnabled:YES];
     [self.setTimeButton setContentEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
-    
-    NSDate *timeForNotifications = [[PantsStore sharedStore] timeForNotifications];
-    
-    [self setDatePickerDate:timeForNotifications];
-    
-    if(timeForNotifications)
-    {
-        [self updateButtonWithDate:timeForNotifications];
+
+    if([[PantsStore sharedStore] timeForNotifications]){
+        [self.setTimeButton setTitle:@"Saved!" forState:UIControlStateNormal];
+        [self setTimeForDatePicker:[[PantsStore sharedStore] timeForNotifications]];
+    }else{
+        [self.setTimeButton setTitle:@"Set" forState:UIControlStateNormal];
     }
-    else
-    {
-        [self.setTimeButton setTitle:@"8 A.M.?" forState:UIControlStateNormal];
-    }
+    
+    [self.datePicker setValue:DEFAULT_SUPER_LIGHT_BLUE forKeyPath:@"textColor"];
+    SEL selector = NSSelectorFromString( @"setHighlightsToday:" );
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature :
+                                [UIDatePicker
+                                 instanceMethodSignatureForSelector:selector]];
+    BOOL no = NO;
+    [invocation setSelector:selector];
+    [invocation setArgument:&no atIndex:2];
+    [invocation invokeWithTarget:self.datePicker];
     
     self.setTimeButton.layer.cornerRadius = 7;
-    self.setTimeButton.layer.borderColor = DEFAULT_RED_COLOR.CGColor;
+    self.setTimeButton.layer.borderColor = DEFAULT_SUPER_LIGHT_BLUE.CGColor;
     self.setTimeButton.layer.borderWidth = 2;
     
     [self.denyButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
-    [self.denyButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
+    [self.denyButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:22]];
     [self.denyButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDatePicker) name:kNotificationDeviceTokenSaved object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceTokenSaved) name:kNotificationDeviceTokenSaved object:nil];
 
 }
 
@@ -74,6 +77,12 @@
     NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
     if (store == nil) {
         [[[UIAlertView alloc] initWithTitle:@"Sign in to iCloud" message:@"Sign into iCloud in your settings app to enable push notifications" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
+        return;
+    }
+    
+    
+    if([[PantsStore sharedStore] userHasDeviceToken]){
+        [self saveNewPushNotificationDate];
         return;
     }
     
@@ -93,45 +102,23 @@
                                                          UIRemoteNotificationTypeAlert |
                                                          UIRemoteNotificationTypeSound)];
     }
-    
-    if([[PantsStore sharedStore] timeForNotifications]){
-        [self showDatePicker];
-    }
+
 }
-
-
-
-- (void)showDatePicker{
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.doneButtonDistanceFromBottom.constant = 18 + self.datePicker.height;
-        self.datePickerDistanceFromBottom.constant = 0;
-        [self.view layoutIfNeeded];
-    } completion:nil];
-    
-}
-
-- (void)hideDatePicker{
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.doneButtonDistanceFromBottom.constant = 18;
-        self.datePickerDistanceFromBottom.constant = -200;
-        [self.view layoutIfNeeded];
-    } completion:nil];
-}
-
-- (IBAction)denyButtonPressed:(id)sender {
-    if(self.timeForNotificationsNew){
-        [[PantsStore sharedStore] setUserWeatherNotificationDate:self.timeForNotificationsNew];
-    }
-    
-    [self hideDatePicker];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (IBAction)datePickerValueChanged:(id)sender {
     
     self.timeForNotificationsNew = self.datePicker.date;
     
-    [self updateButtonWithDate:self.timeForNotificationsNew];
+    if(![self currentDateIsEqualToNewDate:self.timeForNotificationsNew]){
+        [self.setTimeButton setTitle:@"Set" forState:UIControlStateNormal];
+    }else{
+        [self.setTimeButton setTitle:@"Saved!" forState:UIControlStateNormal];
+    }
+    
+}
+
+- (IBAction)denyButtonPressed:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)updateButtonWithDate:(NSDate*)date{
@@ -141,27 +128,63 @@
     
     NSString *ampm = components.hour>12 ? @"P.M." :@"A.M.";
     
-    NSString *time = [NSString stringWithFormat:@"%ld:%ld %@",(long)components.hour%12,(long)components.minute, ampm];
+    NSInteger hour = components.hour%12 == 0 ? 12 : components.hour%12;
+    NSString *minute = components.minute < 10 ? [NSString stringWithFormat:@"0%ld", (long)components.minute] : [NSString stringWithFormat:@"%ld", (long)components.minute];
+    
+    NSString *time = [NSString stringWithFormat:@"%ld:%@ %@",(long)hour,minute, ampm];
     [self.setTimeButton setTitle:[NSString stringWithFormat:@"%@",time] forState:UIControlStateNormal];
+    
+    
+    
 }
 
-- (void)setDatePickerDate:(NSDate*)date{
+- (BOOL)currentDateIsEqualToNewDate:(NSDate*)newDate{
     
-    if(!date){
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        [calendar setTimeZone:[NSTimeZone systemTimeZone]];
-        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:[NSDate date]];
-        components.hour = 8;
-        components.minute = 0;
-        
-        date = [components date];
-        
-    }else{
+    NSDate *currentDate = [[PantsStore sharedStore] timeForNotifications];
     
-        [self.datePicker setDate:date];
+    if(!currentDate) return false;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone systemTimeZone]];
+    NSDateComponents *compsOfNewDate = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:newDate];
+    NSDateComponents *compsOfCurrentDate = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:currentDate];
+    
+    if(compsOfCurrentDate.hour != compsOfNewDate.hour) return false;
+    
+    if(compsOfCurrentDate.minute != compsOfNewDate.minute) return false;
+    
+    return true;
+}
+
+- (void)setTimeForDatePicker:(NSDate*)dateToSet{
+    self.timeForNotificationsNew = dateToSet;
+    
+    
+    [self.datePicker setDate:self.timeForNotificationsNew];
+}
+
+-(void)deviceTokenSaved{
+    if([[PantsStore sharedStore] userHasDeviceToken]){
+        [self saveNewPushNotificationDate];
+        return;
     }
-    
-    
+}
+
+- (void)saveNewPushNotificationDate{
+    if(![self currentDateIsEqualToNewDate:self.timeForNotificationsNew]){
+        [self.activityIndicator startAnimating];
+        [self.setTimeButton setTitle:@"" forState:UIControlStateNormal];
+        [[APIClient sharedClient] updateTimeForNotifications:self.timeForNotificationsNew withCompletion:^(NSError *error) {
+            [self.activityIndicator stopAnimating];
+            if(!error){
+                [self.setTimeButton setTitle:@"Saved!" forState:UIControlStateNormal];
+                [self setTimeForDatePicker:[[PantsStore sharedStore] timeForNotifications]];
+            }else{
+                [self.setTimeButton setTitle:@"Retry" forState:UIControlStateNormal];
+            }
+        }];
+        
+    }
 }
 
 /*

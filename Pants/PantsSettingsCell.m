@@ -11,7 +11,7 @@
 @implementation PantsSettingsCell
 
 + (CGFloat)defaultHeight{
-    return 44;
+    return 60;
 }
 
 - (void)awakeFromNib {
@@ -23,6 +23,11 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    if(selected){
+        self.titleLabel.textColor = DEFAULT_BLUE_COLOR;
+    }else{
+        self.titleLabel.textColor = DEFAULT_SUPER_LIGHT_BLUE;
+    }
     // Configure the view for the selected state
 }
 

@@ -16,6 +16,8 @@
 
 - (NSDate*)timeForNotifications;
 
+- (BOOL)userHasDeviceToken;
+
 - (void)setUserID:(NSString*)userID;
 
 - (void)setUserWeatherNotificationDate:(NSDate*)date;

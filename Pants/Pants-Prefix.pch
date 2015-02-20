@@ -52,6 +52,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #define DEFAULT_HEADER_COLOR UIColorFromRGBAndAlpha(0xffffff, .87)
 #define DEFAULT_SECONDARY_COLOR UIColorFromRGBAndAlpha(0xffffff, .54)
 
+#define DEFAULT_SUPER_LIGHT_BLUE UIColorFromRGBAndAlpha(0x50EFD2, 1)
 #define DEFAULT_YELLOW_COLOR UIColorFromRGBAndAlpha(0xECB244, 1)
 #define DEFAULT_RED_COLOR UIColorFromRGBAndAlpha(0xE35645, 1)
 #define DEFAULT_BLUE_COLOR UIColorFromRGBAndAlpha(0x2D8586, 1)

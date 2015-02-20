@@ -14,10 +14,9 @@
 
 @property (nonatomic, strong) IBOutlet LetterTileButton *setTimeButton;
 @property (nonatomic, strong) IBOutlet UIButton *denyButton;
-@property (nonatomic, strong) IBOutlet PantsInsetLabel *bottomLabel;
 @property (nonatomic, strong) IBOutlet PantsInsetLabel *topLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *datePickerDistanceFromBottom;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *doneButtonDistanceFromBottom;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

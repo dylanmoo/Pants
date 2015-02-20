@@ -125,6 +125,10 @@
     }
 }
 
+- (BOOL)userHasDeviceToken{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kDeviceToken];
+}
+
 - (void)setUserWeatherNotificationDate:(NSDate*)date{
     [user setWeather_notification_date:date];
     [self saveContext:NO];

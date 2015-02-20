@@ -38,13 +38,13 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		dtandH4akkAoqO3L3Z5I9/gcYH0=
+		df8/5jdLhwnctajKo/+SXII38bA=
 		</data>
 		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			IEWZ1ppkAIDbaFGR2Ubu0/aSRf8=
+			s4O4VBgXZxPR+PFbl/sbZz+YflA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -53,7 +53,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xePzwGIavI4BdcN+JUeU9yMdVko=
+			3xf5PYGQypRjztzYwA94jLWCUPI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -62,7 +62,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Y8p0cyET8UDG1ikkkRPvVJtIPfA=
+			0UaXRnFNY5x14VFTmO96rypQr8k=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -71,7 +71,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qXaeuBMWBx1c3TuNWnO4fvFaCdY=
+			VXL1vi2KBGXGDpkexrK8AS8MDWA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -80,7 +80,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			z+mTihfBAgsBBCgiIQwWh5Ur3rA=
+			7CCXkRqZNgV5FfeN4FyTphFarho=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			fC7tel74puvtCUIrWmB+ZmAuU1w=
+			aZfuBHRdQ3/d4JURo4uuPvGpOt8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -98,7 +98,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UW/EYXrEwm5xjzp2c0zdLIMemRU=
+			MgG+Fbbl7UyIEzMgPgULMYIoTGE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -107,7 +107,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EhXk5Qc7SfEn3VWx+lNI0sPQpd8=
+			1otW+CtY+c685Azdo8ZOXMfxWtE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -116,14 +116,14 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			O38xiFdC5B1rjgIX41f1fhFtec8=
+			sOBjhC3kBodRoMrG3f2kTGk55jM=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Info.plist</key>
 		<data>
-		+D5PgLIhtwknKSK1jGiK8HC4aCA=
+		DVkcc8Q5+Bl6B0GGZ+i6LdSZQh4=
 		</data>
 		<key>Launch Screen.nib</key>
 		<data>
@@ -255,11 +255,11 @@
 		</data>
 		<key>PantsSettingsCell.nib/objects-8.0+.nib</key>
 		<data>
-		+a0S0wBTWnU8/SlUdIT3r4XWygQ=
+		i5Bqjkswb245oIl0qrRbKAjy1qA=
 		</data>
 		<key>PantsSettingsCell.nib/runtime.nib</key>
 		<data>
-		BpyNAMoIAC/1Gz6TjxmTlLkhhS4=
+		rGmGXOCx4xaKp/0j8hTsJrlX4fA=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -293,6 +293,22 @@
 		<key>office.gpx</key>
 		<data>
 		MicIX3b4dAWUuV2Py8BDYZtRSrU=
+		</data>
+		<key>pants@2x.png</key>
+		<data>
+		ftzlvU0hnFpZA5DGIzu2fT8br8U=
+		</data>
+		<key>pants@3x.png</key>
+		<data>
+		g4JgWHuIjHbQd0tYHOOKkZgr4lI=
+		</data>
+		<key>pantsContainer@2x.png</key>
+		<data>
+		TIzwXpXFxy8D9+QE2lbUugnL5Us=
+		</data>
+		<key>pantsContainer@3x.png</key>
+		<data>
+		BDTxX8bvbDmjN6/ofq51hg2cMro=
 		</data>
 		<key>separator.png</key>
 		<data>
@@ -363,13 +379,13 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		dtandH4akkAoqO3L3Z5I9/gcYH0=
+		df8/5jdLhwnctajKo/+SXII38bA=
 		</data>
 		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			IEWZ1ppkAIDbaFGR2Ubu0/aSRf8=
+			s4O4VBgXZxPR+PFbl/sbZz+YflA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -378,7 +394,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xePzwGIavI4BdcN+JUeU9yMdVko=
+			3xf5PYGQypRjztzYwA94jLWCUPI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -387,7 +403,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Y8p0cyET8UDG1ikkkRPvVJtIPfA=
+			0UaXRnFNY5x14VFTmO96rypQr8k=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -396,7 +412,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qXaeuBMWBx1c3TuNWnO4fvFaCdY=
+			VXL1vi2KBGXGDpkexrK8AS8MDWA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -405,7 +421,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			z+mTihfBAgsBBCgiIQwWh5Ur3rA=
+			7CCXkRqZNgV5FfeN4FyTphFarho=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -414,7 +430,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			fC7tel74puvtCUIrWmB+ZmAuU1w=
+			aZfuBHRdQ3/d4JURo4uuPvGpOt8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -423,7 +439,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UW/EYXrEwm5xjzp2c0zdLIMemRU=
+			MgG+Fbbl7UyIEzMgPgULMYIoTGE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -432,7 +448,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EhXk5Qc7SfEn3VWx+lNI0sPQpd8=
+			1otW+CtY+c685Azdo8ZOXMfxWtE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -441,7 +457,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			O38xiFdC5B1rjgIX41f1fhFtec8=
+			sOBjhC3kBodRoMrG3f2kTGk55jM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -576,11 +592,11 @@
 		</data>
 		<key>PantsSettingsCell.nib/objects-8.0+.nib</key>
 		<data>
-		+a0S0wBTWnU8/SlUdIT3r4XWygQ=
+		i5Bqjkswb245oIl0qrRbKAjy1qA=
 		</data>
 		<key>PantsSettingsCell.nib/runtime.nib</key>
 		<data>
-		BpyNAMoIAC/1Gz6TjxmTlLkhhS4=
+		rGmGXOCx4xaKp/0j8hTsJrlX4fA=
 		</data>
 		<key>SignPainter.otf</key>
 		<data>
@@ -610,6 +626,22 @@
 		<key>office.gpx</key>
 		<data>
 		MicIX3b4dAWUuV2Py8BDYZtRSrU=
+		</data>
+		<key>pants@2x.png</key>
+		<data>
+		ftzlvU0hnFpZA5DGIzu2fT8br8U=
+		</data>
+		<key>pants@3x.png</key>
+		<data>
+		g4JgWHuIjHbQd0tYHOOKkZgr4lI=
+		</data>
+		<key>pantsContainer@2x.png</key>
+		<data>
+		TIzwXpXFxy8D9+QE2lbUugnL5Us=
+		</data>
+		<key>pantsContainer@3x.png</key>
+		<data>
+		BDTxX8bvbDmjN6/ofq51hg2cMro=
 		</data>
 		<key>separator.png</key>
 		<data>

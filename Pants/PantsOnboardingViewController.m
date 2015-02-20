@@ -7,6 +7,7 @@
 //
 
 #import "PantsOnboardingViewController.h"
+#import "Mixpanel.h"
 
 @interface PantsOnboardingViewController ()
 
@@ -60,21 +61,59 @@
     self.acceptButton.layer.borderColor = DEFAULT_RED_COLOR.CGColor;
     self.acceptButton.layer.borderWidth = 2;
     
-    [self.denyButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
+    [self.denyButton setTitleColor:DEFAULT_SUPER_LIGHT_BLUE forState:UIControlStateNormal];
     [self.denyButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
     [self.denyButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [self.denyButton setTitle:@"Skip" forState:UIControlStateNormal];
+    
+    [self.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self setAcceptButtonBlock:^(UIButton *actionButton){
+        NSLog(@"Accept Pressed");
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Accepted Location Access"];
+        
+        [weakSelf showPushNotificationController];
+        
+    }];
+    
+    [self.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
+    
+    [self setDenyButtonBlock:^(UIButton *actionButton){
+        NSLog(@"Deny Pressed");
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Denied Location Access"];
+        
+        weakSelf.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
+        
+    }];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    
+    [mixpanel track:@"Showing Onboarding"];
+
 
 }
 
+- (void)showPushNotificationController{
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)acceptButtonPressed:(id)sender {
     self.acceptButtonBlock(self.acceptButton);
 }
+
 - (IBAction)denyButtonPressed:(id)sender {
     self.denyButtonBlock(self.denyButton);
 }

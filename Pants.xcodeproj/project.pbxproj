@@ -59,6 +59,11 @@
 		86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CF19624D140011D9BE /* SystemConfiguration.framework */; };
 		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
 		C6ECCE7B7E7638777C9D7678 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65389CA324B577F155575E9B /* libPods.a */; };
+		FC0E20B01A969955009ACF4D /* pantsContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */; };
+		FC0E20B11A969955009ACF4D /* pantsContainer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */; };
+		FC0E20B41A969BC8009ACF4D /* pants@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20B21A969BC8009ACF4D /* pants@3x.png */; };
+		FC0E20B51A969BC8009ACF4D /* pants@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20B31A969BC8009ACF4D /* pants@2x.png */; };
+		FC0E20B81A96D83A009ACF4D /* PantsOnboardingPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */; };
 		FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CAA1A90031400203F6A /* Launch Screen.xib */; };
 		FC3B5CAF1A92AA7600203F6A /* LocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CAE1A92AA7600203F6A /* LocationClient.m */; };
 		FC3B5CB41A93086E00203F6A /* #PANTS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CB31A93086E00203F6A /* #PANTS@2x.png */; };
@@ -215,6 +220,12 @@
 		86C413CF19624D140011D9BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
 		C7C334C35F60D3BC9DFE3368 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@2x.png"; sourceTree = "<group>"; };
+		FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@3x.png"; sourceTree = "<group>"; };
+		FC0E20B21A969BC8009ACF4D /* pants@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants@3x.png"; sourceTree = "<group>"; };
+		FC0E20B31A969BC8009ACF4D /* pants@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants@2x.png"; sourceTree = "<group>"; };
+		FC0E20B61A96D83A009ACF4D /* PantsOnboardingPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsOnboardingPushViewController.h; sourceTree = SOURCE_ROOT; };
+		FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsOnboardingPushViewController.m; sourceTree = SOURCE_ROOT; };
 		FC3B5CAA1A90031400203F6A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		FC3B5CAC1A929ACF00203F6A /* Pants.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pants.entitlements; sourceTree = "<group>"; };
 		FC3B5CAD1A92AA7600203F6A /* LocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationClient.h; sourceTree = "<group>"; };
@@ -496,10 +507,16 @@
 				86C413A0196246EF0011D9BE /* Main.storyboard */,
 				86C413A3196246EF0011D9BE /* PantsViewController.h */,
 				86C413A4196246EF0011D9BE /* PantsViewController.m */,
+				FC0E20B21A969BC8009ACF4D /* pants@3x.png */,
+				FC0E20B31A969BC8009ACF4D /* pants@2x.png */,
+				FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */,
+				FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */,
 				FC429AD41A945D5D00487BC6 /* down@2x.png */,
 				FC429AD51A945D5D00487BC6 /* down@3x.png */,
 				FCF707CA19B54DDF00D60D5C /* PantsOnboardingViewController.h */,
 				FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */,
+				FC0E20B61A96D83A009ACF4D /* PantsOnboardingPushViewController.h */,
+				FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */,
 				FC3B5CBD1A931C2000203F6A /* PantsPushSettingsViewController.h */,
 				FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */,
 				FC3B5CC01A931EC600203F6A /* PantsSettingsViewController.h */,
@@ -793,6 +810,7 @@
 			files = (
 				FC429ADC1A946B1A00487BC6 /* PantsSettingsCell.xib in Resources */,
 				FC3B5CC91A93297400203F6A /* smiley_red@2x.png in Resources */,
+				FC0E20B41A969BC8009ACF4D /* pants@3x.png in Resources */,
 				FC3B5CC81A93297400203F6A /* smiley_blue@3x.png in Resources */,
 				8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */,
 				FCFB994419B9C5D9000CE98C /* MPSurvey.storyboard in Resources */,
@@ -802,6 +820,7 @@
 				FC429AD71A945D5D00487BC6 /* down@3x.png in Resources */,
 				FCFB995619B9C5D9000CE98C /* test_variant.json in Resources */,
 				FC3B5CCA1A93297400203F6A /* smiley_red@3x.png in Resources */,
+				FC0E20B01A969955009ACF4D /* pantsContainer@2x.png in Resources */,
 				FC3B5CB41A93086E00203F6A /* #PANTS@2x.png in Resources */,
 				FCFB995519B9C5D9000CE98C /* snapshot_config.json in Resources */,
 				FC429AD61A945D5D00487BC6 /* down@2x.png in Resources */,
@@ -813,7 +832,9 @@
 				86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */,
 				FCFB993319B9C5D9000CE98C /* MPCloseBtn.png in Resources */,
 				FC3B5CC71A93297400203F6A /* smiley_blue@2x.png in Resources */,
+				FC0E20B11A969955009ACF4D /* pantsContainer@3x.png in Resources */,
 				FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */,
+				FC0E20B51A969BC8009ACF4D /* pants@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,6 +951,7 @@
 				FC3B5CB71A930A4100203F6A /* PantsWeather.m in Sources */,
 				FCFB992C19B9C5D9000CE98C /* MPCATransform3DToNSDictionaryValueTransformer.m in Sources */,
 				8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */,
+				FC0E20B81A96D83A009ACF4D /* PantsOnboardingPushViewController.m in Sources */,
 				FC3B5CBF1A931C2000203F6A /* PantsPushSettingsViewController.m in Sources */,
 				86B5FC571A9011A00074F4DC /* PantsStore.m in Sources */,
 				FCFB994619B9C5D9000CE98C /* MPSurveyQuestion.m in Sources */,
@@ -1135,7 +1157,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Pants/Pants.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

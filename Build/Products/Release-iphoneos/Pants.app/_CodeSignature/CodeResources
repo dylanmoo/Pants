@@ -12,46 +12,35 @@
 		<data>
 		6SZhOpzidkhgGB5ZpTbI0SrAz3I=
 		</data>
+		<key>AppIcon29x29@3x.png</key>
+		<data>
+		Wa4WnHnKVG1qfqhdKPKIb7Bjq3Y=
+		</data>
 		<key>AppIcon40x40@2x.png</key>
 		<data>
 		3P4IVYXKy956U3TShwCOXzCsi5A=
+		</data>
+		<key>AppIcon40x40@3x.png</key>
+		<data>
+		JuyccNnpCOtK70rKhan2FnpdjDg=
 		</data>
 		<key>AppIcon60x60@2x.png</key>
 		<data>
 		Y3sm7SSsaFHoJ4Uf8N/EtF2e+yo=
 		</data>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/objects-8.0+.nib</key>
+		<key>AppIcon60x60@3x.png</key>
+		<data>
+		nyx95WYyO+oqnOC5K4YiadFd/PY=
+		</data>
+		<key>Assets.car</key>
+		<data>
+		rkd7KA4mRasMEYXSw08LSzEDS7c=
+		</data>
+		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			svPghHzWEbqGnSLB+hpHYmaLCWE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			fouL2E3T23WWVQlUT8/erQvtTv4=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			XAxFEo5eJtJSeXMsEJs3jsPc0+s=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/Info-8.0+.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6lY79r2vmd894sGX/p9q+d6cLsM=
+			nNarnvnpXxEkJOgu3XuHCyjTuoI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -60,153 +49,81 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zKXS4c20kbFh/iB7fpIKK0yAg7s=
+			xePzwGIavI4BdcN+JUeU9yMdVko=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/OG7-Ox-IZv-view-Sex-7G-fIc.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			aHuk9Tm4vE4xoHmqdQUkcI0eEmI=
+			KatYn7zgGZ1x+vJZ47BGAmt6QG0=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/objects.nib</key>
+		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			auJ/dgpYL3FEycJdIXYW8hO3Zk0=
+			fL0F0KdlU/NLqcUiWooFaWHP3BY=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/runtime.nib</key>
+		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vdXfh1x1sknjJRCDhnCMDmNPPzo=
+			+UZremWX2mVO+9sIkGMe0MUmFrE=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1SePIgvP+I7ADLRVT0NimxP5qIg=
+			e0kTYVIm5uDJtDENYeFLcAShDTY=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/objects.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yMPJxKvIZpk950F6sweyV9LogYc=
+			TOWRFVv4T9DaJllxIRYMDFkup3M=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/runtime.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsSettingsView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S0FHFRVK9vXdFybIRS4pfBCe2Co=
+			kvFmH2yOgNkWaHjuVcfTPn37Wic=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gpAV9fc3DF17SnywvPpJ9LRrROc=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			TJxf3BdMAAMmHmnTl2gUtwkBZpE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			xCmnBRZeo4FuwmLpfNB32pEsm8M=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/objects-8.0+.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			qM54QkNFNxYpkT/jMMSIN+8YPqE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6OhwWlbP62WT8qnf0S9u+YfDIuI=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ht2wScMwtxJFqNkj6ARNCwSiYe0=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/objects-8.0+.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Mi3eAkI8hmU0DImNWjeT+AFhJGs=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			LWpEVGK0y3XuczOTvyAT1Dp2Khc=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			aOwa9Ea0RULAl6dqf9r+mn4cgSU=
+			E22PXkG3fNEXXn6UVnq2NOnU5dg=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Info.plist</key>
 		<data>
-		bOb92zH6dW1FBwQgWlum6hrZA78=
+		DVkcc8Q5+Bl6B0GGZ+i6LdSZQh4=
 		</data>
 		<key>Launch Screen.nib</key>
 		<data>
-		euSu8JOnfxPdbSSQuKXkmaIAhK8=
+		8RfE1mydIheQ0ncLRRo2a0HjI8Y=
 		</data>
 		<key>LaunchImage-700-568h@2x.png</key>
 		<data>
@@ -215,6 +132,14 @@
 		<key>LaunchImage-700@2x.png</key>
 		<data>
 		rm+1oxAv4NwYnaq2Q3GHvitoeJo=
+		</data>
+		<key>LaunchImage-800-667h@2x.png</key>
+		<data>
+		r+L8QgPV0cwvDNQUwjGsqxkkAig=
+		</data>
+		<key>LaunchImage-800-Portrait-736h@3x.png</key>
+		<data>
+		JzrF62Mbp8ONMK12nS0q6HPY71A=
 		</data>
 		<key>MPArrowLeft.png</key>
 		<data>
@@ -264,117 +189,45 @@
 		<data>
 		LeoB2oasdphT/c0z9n8dyumPQr8=
 		</data>
-		<key>MPNotification.storyboardc/Info-8.0+.plist</key>
-		<data>
-		capiHG+Ge67eYJ1+M+dfJv4ijrw=
-		</data>
 		<key>MPNotification.storyboardc/Info.plist</key>
 		<data>
 		capiHG+Ge67eYJ1+M+dfJv4ijrw=
 		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/objects-8.0+.nib</key>
+		<key>MPNotification.storyboardc/MPNotificationViewController.nib</key>
 		<data>
-		q7Hf2pIlESbA+JJnxTZvylkgOqw=
+		eNsG+yOQfn0KEZlSQS8rVljc2n4=
 		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/objects.nib</key>
+		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib</key>
 		<data>
-		B6pE7szQf0+IGPg3osZNqu2Ww/o=
-		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/runtime.nib</key>
-		<data>
-		ra9hpHUa3Qd1LWWGzEMLrmyu6Bw=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/objects-8.0+.nib</key>
-		<data>
-		lHj811rCyT4TuyKY2Bwe1749uD8=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/objects.nib</key>
-		<data>
-		zIMkK7CU54+6/yjYQQqo35fuQLc=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/runtime.nib</key>
-		<data>
-		AOCgrM0FnOIcDNaiOMQaXi4RozA=
-		</data>
-		<key>MPSurvey.storyboardc/Info-8.0+.plist</key>
-		<data>
-		kpww18oQeAayknALsApjv+Pwsns=
+		YkJtZMsnsgArsY21qG8pEoOQlbU=
 		</data>
 		<key>MPSurvey.storyboardc/Info.plist</key>
 		<data>
 		kpww18oQeAayknALsApjv+Pwsns=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/objects-8.0+.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib</key>
 		<data>
-		UzFNFJ17+PRq8bsdR0SO5AM+DPc=
+		Nxkg8AAgliQ8tiwyuVxUWLeEn34=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/objects.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib</key>
 		<data>
-		AIWrjK4SIIjZj2vHWnlXDWzsC5I=
+		N1SVnHEUis9tLuT5JIn7An2z2y4=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/runtime.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib</key>
 		<data>
-		ec80KmvKcPiLnKaI8sciJyvS+1o=
+		YdwLEGVo/LRpN3XHkowdqHISAIE=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/objects-8.0+.nib</key>
+		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib</key>
 		<data>
-		73bgD0fKEh7AlDfVLfOlUiXPmDo=
+		iPqRcbHtromOgrb/+N3tQmwsfXc=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/objects.nib</key>
+		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib</key>
 		<data>
-		cTE4C3JBeTvgqXbKEQN4egdFwbI=
+		u+LB9Y3a5w1BHHyj3pBiY95qHSA=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/runtime.nib</key>
+		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib</key>
 		<data>
-		67rtDWdkLANEVAmm52SwRBROtu4=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/objects-8.0+.nib</key>
-		<data>
-		MelDz9AHBLDPBxf9jjg/UzUL/BU=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/objects.nib</key>
-		<data>
-		qRmNohmEgwIYdkiug52UKOj2d30=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/runtime.nib</key>
-		<data>
-		eqd3VkfkhC4FN2OO33a9s8k3jnA=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/objects-8.0+.nib</key>
-		<data>
-		WSKpNwFsoDeHs/dGROZGxl0rGYc=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/objects.nib</key>
-		<data>
-		JBIppr6k5qW36duTagqBrL93LxQ=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/runtime.nib</key>
-		<data>
-		ca8FGAUXwauFA9ZWFvGAR9NRDW4=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/objects-8.0+.nib</key>
-		<data>
-		C+LSUQCGI05qLJiSDkcY+7fdZkQ=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/objects.nib</key>
-		<data>
-		DduI5099CmT1O9S8XHMnQVLenRI=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/runtime.nib</key>
-		<data>
-		Fgj5ha6wRpa4NErSNaiAIahsDWc=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/objects-8.0+.nib</key>
-		<data>
-		N4zNj75QlY5aZjumErd6YhZzWJ0=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/objects.nib</key>
-		<data>
-		yZ1tFv/5f0sLe03vcOJ8WKT6qQ0=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/runtime.nib</key>
-		<data>
-		ZzLlsTWOrA3Q49rtWkp8Hgypey0=
+		PchberVJMJE6igbhH9XgecXMUqs=
 		</data>
 		<key>PantsDataModel.momd/PantsDataModel 2.mom</key>
 		<data>
@@ -396,6 +249,14 @@
 		<data>
 		xmOgE/f+uVT6YtKxhue1IN5InUU=
 		</data>
+		<key>PantsSettingsCell.nib/objects-8.0+.nib</key>
+		<data>
+		ysCXXHiOzpws7QjQmnWZNSlTb6U=
+		</data>
+		<key>PantsSettingsCell.nib/runtime.nib</key>
+		<data>
+		nB0k91MxqIus93lS4n0Erg/2qqE=
+		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
@@ -404,9 +265,17 @@
 		<data>
 		PQgWyBhyP268KURM7auezGIc7HY=
 		</data>
+		<key>down@2x.png</key>
+		<data>
+		9ziUl+DlKagurbgYczPYdSTWPlA=
+		</data>
+		<key>down@3x.png</key>
+		<data>
+		BjA670OtPs+SHXzVPLZtvrM8Tgc=
+		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		qB3SOmu+gevfksrfsLpVik4E9HA=
+		j4ZkcuCDfDj1xq6nTEJ8fGRmEDk=
 		</data>
 		<key>en.lproj/InfoPlist.strings</key>
 		<dict>
@@ -420,6 +289,14 @@
 		<key>office.gpx</key>
 		<data>
 		MicIX3b4dAWUuV2Py8BDYZtRSrU=
+		</data>
+		<key>pantsContainer@2x.png</key>
+		<data>
+		TIzwXpXFxy8D9+QE2lbUugnL5Us=
+		</data>
+		<key>pantsContainer@3x.png</key>
+		<data>
+		BDTxX8bvbDmjN6/ofq51hg2cMro=
 		</data>
 		<key>separator.png</key>
 		<data>
@@ -464,46 +341,35 @@
 		<data>
 		6SZhOpzidkhgGB5ZpTbI0SrAz3I=
 		</data>
+		<key>AppIcon29x29@3x.png</key>
+		<data>
+		Wa4WnHnKVG1qfqhdKPKIb7Bjq3Y=
+		</data>
 		<key>AppIcon40x40@2x.png</key>
 		<data>
 		3P4IVYXKy956U3TShwCOXzCsi5A=
+		</data>
+		<key>AppIcon40x40@3x.png</key>
+		<data>
+		JuyccNnpCOtK70rKhan2FnpdjDg=
 		</data>
 		<key>AppIcon60x60@2x.png</key>
 		<data>
 		Y3sm7SSsaFHoJ4Uf8N/EtF2e+yo=
 		</data>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/objects-8.0+.nib</key>
+		<key>AppIcon60x60@3x.png</key>
+		<data>
+		nyx95WYyO+oqnOC5K4YiadFd/PY=
+		</data>
+		<key>Assets.car</key>
+		<data>
+		rkd7KA4mRasMEYXSw08LSzEDS7c=
+		</data>
+		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			svPghHzWEbqGnSLB+hpHYmaLCWE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			fouL2E3T23WWVQlUT8/erQvtTv4=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/9jK-i8-euJ-view-1lT-xX-NME.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			XAxFEo5eJtJSeXMsEJs3jsPc0+s=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/Info-8.0+.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6lY79r2vmd894sGX/p9q+d6cLsM=
+			nNarnvnpXxEkJOgu3XuHCyjTuoI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -512,149 +378,77 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zKXS4c20kbFh/iB7fpIKK0yAg7s=
+			xePzwGIavI4BdcN+JUeU9yMdVko=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/OG7-Ox-IZv-view-Sex-7G-fIc.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			aHuk9Tm4vE4xoHmqdQUkcI0eEmI=
+			KatYn7zgGZ1x+vJZ47BGAmt6QG0=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/objects.nib</key>
+		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			auJ/dgpYL3FEycJdIXYW8hO3Zk0=
+			fL0F0KdlU/NLqcUiWooFaWHP3BY=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/UIViewController-vXZ-lx-hvc.nib/runtime.nib</key>
+		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vdXfh1x1sknjJRCDhnCMDmNPPzo=
+			+UZremWX2mVO+9sIkGMe0MUmFrE=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1SePIgvP+I7ADLRVT0NimxP5qIg=
+			e0kTYVIm5uDJtDENYeFLcAShDTY=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/objects.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yMPJxKvIZpk950F6sweyV9LogYc=
+			TOWRFVv4T9DaJllxIRYMDFkup3M=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/jmg-DY-a6y-view-tEq-RC-Wim.nib/runtime.nib</key>
+		<key>Base.lproj/Main.storyboardc/pantsSettingsView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S0FHFRVK9vXdFybIRS4pfBCe2Co=
+			kvFmH2yOgNkWaHjuVcfTPn37Wic=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/objects-8.0+.nib</key>
+		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gpAV9fc3DF17SnywvPpJ9LRrROc=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			TJxf3BdMAAMmHmnTl2gUtwkBZpE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsOnboardingView.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			xCmnBRZeo4FuwmLpfNB32pEsm8M=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/objects-8.0+.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			qM54QkNFNxYpkT/jMMSIN+8YPqE=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6OhwWlbP62WT8qnf0S9u+YfDIuI=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/pantsPushSettingsView.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ht2wScMwtxJFqNkj6ARNCwSiYe0=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/objects-8.0+.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Mi3eAkI8hmU0DImNWjeT+AFhJGs=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/objects.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			LWpEVGK0y3XuczOTvyAT1Dp2Khc=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Base.lproj/Main.storyboardc/vXZ-lx-hvc-view-kh9-bI-dsS.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			aOwa9Ea0RULAl6dqf9r+mn4cgSU=
+			E22PXkG3fNEXXn6UVnq2NOnU5dg=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Launch Screen.nib</key>
 		<data>
-		euSu8JOnfxPdbSSQuKXkmaIAhK8=
+		8RfE1mydIheQ0ncLRRo2a0HjI8Y=
 		</data>
 		<key>LaunchImage-700-568h@2x.png</key>
 		<data>
@@ -663,6 +457,14 @@
 		<key>LaunchImage-700@2x.png</key>
 		<data>
 		rm+1oxAv4NwYnaq2Q3GHvitoeJo=
+		</data>
+		<key>LaunchImage-800-667h@2x.png</key>
+		<data>
+		r+L8QgPV0cwvDNQUwjGsqxkkAig=
+		</data>
+		<key>LaunchImage-800-Portrait-736h@3x.png</key>
+		<data>
+		JzrF62Mbp8ONMK12nS0q6HPY71A=
 		</data>
 		<key>MPArrowLeft.png</key>
 		<data>
@@ -712,117 +514,45 @@
 		<data>
 		LeoB2oasdphT/c0z9n8dyumPQr8=
 		</data>
-		<key>MPNotification.storyboardc/Info-8.0+.plist</key>
-		<data>
-		capiHG+Ge67eYJ1+M+dfJv4ijrw=
-		</data>
 		<key>MPNotification.storyboardc/Info.plist</key>
 		<data>
 		capiHG+Ge67eYJ1+M+dfJv4ijrw=
 		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/objects-8.0+.nib</key>
+		<key>MPNotification.storyboardc/MPNotificationViewController.nib</key>
 		<data>
-		q7Hf2pIlESbA+JJnxTZvylkgOqw=
+		eNsG+yOQfn0KEZlSQS8rVljc2n4=
 		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/objects.nib</key>
+		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib</key>
 		<data>
-		B6pE7szQf0+IGPg3osZNqu2Ww/o=
-		</data>
-		<key>MPNotification.storyboardc/MPNotificationViewController.nib/runtime.nib</key>
-		<data>
-		ra9hpHUa3Qd1LWWGzEMLrmyu6Bw=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/objects-8.0+.nib</key>
-		<data>
-		lHj811rCyT4TuyKY2Bwe1749uD8=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/objects.nib</key>
-		<data>
-		zIMkK7CU54+6/yjYQQqo35fuQLc=
-		</data>
-		<key>MPNotification.storyboardc/puo-Hy-QiQ-view-Wch-Xc-Avw.nib/runtime.nib</key>
-		<data>
-		AOCgrM0FnOIcDNaiOMQaXi4RozA=
-		</data>
-		<key>MPSurvey.storyboardc/Info-8.0+.plist</key>
-		<data>
-		kpww18oQeAayknALsApjv+Pwsns=
+		YkJtZMsnsgArsY21qG8pEoOQlbU=
 		</data>
 		<key>MPSurvey.storyboardc/Info.plist</key>
 		<data>
 		kpww18oQeAayknALsApjv+Pwsns=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/objects-8.0+.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib</key>
 		<data>
-		UzFNFJ17+PRq8bsdR0SO5AM+DPc=
+		Nxkg8AAgliQ8tiwyuVxUWLeEn34=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/objects.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib</key>
 		<data>
-		AIWrjK4SIIjZj2vHWnlXDWzsC5I=
+		N1SVnHEUis9tLuT5JIn7An2z2y4=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyMultipleChoiceQuestionViewController.nib/runtime.nib</key>
+		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib</key>
 		<data>
-		ec80KmvKcPiLnKaI8sciJyvS+1o=
+		YdwLEGVo/LRpN3XHkowdqHISAIE=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/objects-8.0+.nib</key>
+		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib</key>
 		<data>
-		73bgD0fKEh7AlDfVLfOlUiXPmDo=
+		iPqRcbHtromOgrb/+N3tQmwsfXc=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/objects.nib</key>
+		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib</key>
 		<data>
-		cTE4C3JBeTvgqXbKEQN4egdFwbI=
+		u+LB9Y3a5w1BHHyj3pBiY95qHSA=
 		</data>
-		<key>MPSurvey.storyboardc/MPSurveyNavigationController.nib/runtime.nib</key>
+		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib</key>
 		<data>
-		67rtDWdkLANEVAmm52SwRBROtu4=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/objects-8.0+.nib</key>
-		<data>
-		MelDz9AHBLDPBxf9jjg/UzUL/BU=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/objects.nib</key>
-		<data>
-		qRmNohmEgwIYdkiug52UKOj2d30=
-		</data>
-		<key>MPSurvey.storyboardc/MPSurveyTextQuestionViewController.nib/runtime.nib</key>
-		<data>
-		eqd3VkfkhC4FN2OO33a9s8k3jnA=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/objects-8.0+.nib</key>
-		<data>
-		WSKpNwFsoDeHs/dGROZGxl0rGYc=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/objects.nib</key>
-		<data>
-		JBIppr6k5qW36duTagqBrL93LxQ=
-		</data>
-		<key>MPSurvey.storyboardc/RIP-po-dgx-view-cp6-lZ-a9t.nib/runtime.nib</key>
-		<data>
-		ca8FGAUXwauFA9ZWFvGAR9NRDW4=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/objects-8.0+.nib</key>
-		<data>
-		C+LSUQCGI05qLJiSDkcY+7fdZkQ=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/objects.nib</key>
-		<data>
-		DduI5099CmT1O9S8XHMnQVLenRI=
-		</data>
-		<key>MPSurvey.storyboardc/V5X-Ik-MvF-view-dcL-M9-gG3.nib/runtime.nib</key>
-		<data>
-		Fgj5ha6wRpa4NErSNaiAIahsDWc=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/objects-8.0+.nib</key>
-		<data>
-		N4zNj75QlY5aZjumErd6YhZzWJ0=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/objects.nib</key>
-		<data>
-		yZ1tFv/5f0sLe03vcOJ8WKT6qQ0=
-		</data>
-		<key>MPSurvey.storyboardc/tDf-fb-udT-view-LG7-cL-aRp.nib/runtime.nib</key>
-		<data>
-		ZzLlsTWOrA3Q49rtWkp8Hgypey0=
+		PchberVJMJE6igbhH9XgecXMUqs=
 		</data>
 		<key>PantsDataModel.momd/PantsDataModel 2.mom</key>
 		<data>
@@ -844,13 +574,29 @@
 		<data>
 		xmOgE/f+uVT6YtKxhue1IN5InUU=
 		</data>
+		<key>PantsSettingsCell.nib/objects-8.0+.nib</key>
+		<data>
+		ysCXXHiOzpws7QjQmnWZNSlTb6U=
+		</data>
+		<key>PantsSettingsCell.nib/runtime.nib</key>
+		<data>
+		nB0k91MxqIus93lS4n0Erg/2qqE=
+		</data>
 		<key>SignPainter.otf</key>
 		<data>
 		PQgWyBhyP268KURM7auezGIc7HY=
 		</data>
+		<key>down@2x.png</key>
+		<data>
+		9ziUl+DlKagurbgYczPYdSTWPlA=
+		</data>
+		<key>down@3x.png</key>
+		<data>
+		BjA670OtPs+SHXzVPLZtvrM8Tgc=
+		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		qB3SOmu+gevfksrfsLpVik4E9HA=
+		j4ZkcuCDfDj1xq6nTEJ8fGRmEDk=
 		</data>
 		<key>en.lproj/InfoPlist.strings</key>
 		<dict>
@@ -864,6 +610,14 @@
 		<key>office.gpx</key>
 		<data>
 		MicIX3b4dAWUuV2Py8BDYZtRSrU=
+		</data>
+		<key>pantsContainer@2x.png</key>
+		<data>
+		TIzwXpXFxy8D9+QE2lbUugnL5Us=
+		</data>
+		<key>pantsContainer@3x.png</key>
+		<data>
+		BDTxX8bvbDmjN6/ofq51hg2cMro=
 		</data>
 		<key>separator.png</key>
 		<data>

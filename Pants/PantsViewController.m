@@ -30,6 +30,7 @@
     int pantsOnHour;
     float tempThreshold;
     NSTimer *loadingTimer;
+    BOOL animating;
 }
 
 @property (strong, nonatomic)  UILabel *pantsLabel;
@@ -38,9 +39,8 @@
 @property (strong, nonatomic)  UIImageView *noPantsImageView;
 @property (strong, nonatomic)  UILabel *timerLabel;
 @property (strong, nonatomic)  UIImageView *timerView;
-@property (strong, nonatomic)  UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic)  PantsInsetLabel *loadingLabel;
 @property (strong, nonatomic)  PantsWeather *currentWeather;
+@property (strong, nonatomic)   UIImageView *pantsView;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *morningLabel;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *nightLabel;
@@ -61,49 +61,43 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     noPantsString = @"#NOPANTS";
     
     
-    UIImageView *triangle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down"]];
+    UIImageView *container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pantsContainer"]];
     
-    self.timerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, triangle.height)];
+    self.timerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, container.height)];
     [self.timerView setBackgroundColor:[UIColor clearColor]];
     [self.timerView setCenter:self.view.center];
     
+    self.pantsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pants"]];
+    
+    [self.pantsView setCenterY:self.timerView.height/2-10];
+    [self.pantsView setCenterX:self.timerView.width/2];
+    
     float height = 18;
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timerView.height/2-height/2, self.timerView.width, height)];
-    [lineView setBackgroundColor:[UIColor whiteColor]];
+    //UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timerView.height/2-height/2, self.timerView.width, height)];
+    //[lineView setBackgroundColor:[UIColor whiteColor]];
     
-    [self.timerView addSubview:lineView];
+    //[self.timerView addSubview:lineView];
     
-    [self.timerView addSubview:triangle];
-    triangle.left = self.morningLabel.left;
-    triangle.centerY = self.timerView.height/2+10;
-
-    [self.view addSubview:self.timerView];
-
-    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 54, 54)];
+    [self.timerView addSubview:container];
+    [self.timerView addSubview:self.pantsView];
+    container.left = 0;
+    container.centerY = self.timerView.height/2;
+    
+    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
     [self.timerLabel setText:@""];
     [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.timerLabel setCenterX:self.morningLabel.left + triangle.width/2];
+    [self.timerLabel setCenterX:self.timerView.width/2];
     [self.timerLabel setTextColor:[UIColor blackColor]];
-    [self.timerLabel setCenterY:lineView.centerY];
+    [self.timerLabel setBottom:container.bottom-14];
     [self.timerView addSubview:self.timerLabel];
+
+    [self.view addSubview:self.timerView];
     
-    
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.activityIndicator setCenter:self.view.center];
-    [self.activityIndicator setHidesWhenStopped:YES];
-    [self.view addSubview:self.activityIndicator];
-    
-    self.loadingLabel = [[PantsInsetLabel alloc] initWithFrame:CGRectMake(0, 0, self.timerView.bounds.size.width, self.timerView.bounds.size.height)];
-    self.loadingLabel.text = @"          calculating the time to put on pants...";
-    self.loadingLabel.textAlignment = NSTextAlignmentLeft;
-    [self.loadingLabel setBackgroundColor:[UIColor whiteColor]];
-    [self.loadingLabel setCenter:self.view.center];
-    [self.loadingLabel setTextColor:[UIColor blackColor]];
+   
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findLocation)];
-    [self.loadingLabel addGestureRecognizer:tap];
-    [self.loadingLabel setUserInteractionEnabled:NO];
-    [self.view addSubview:self.loadingLabel];
+    [self.timerView addGestureRecognizer:tap];
+    [self.timerView setUserInteractionEnabled:NO];
     
     self.pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     [self.pantsImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
@@ -130,7 +124,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
     [self.pantsLabel setCenterY:(self.pantsImageView.height/2)];
     [self.pantsLabel setCenterX:self.view.centerX];
-    [self.pantsImageView addSubview:self.pantsLabel];
+    //[self.pantsImageView addSubview:self.pantsLabel];
     
     
     self.noPantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.noPantsImageView.width, self.noPantsImageView.height)];
@@ -140,7 +134,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsLabel setTextAlignment:NSTextAlignmentCenter];
     [self.noPantsLabel setCenterY:(self.noPantsImageView.height/2)];
     [self.noPantsLabel setCenterX:self.view.centerX];
-    [self.noPantsImageView addSubview:self.noPantsLabel];
+    //[self.noPantsImageView addSubview:self.noPantsLabel];
     
     
     [self.morningLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
@@ -152,8 +146,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
     [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
-    [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:16]];
-    [self.loadingLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:20]];
+    [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:20]];
     
     tempThreshold = 73.0f;
     
@@ -165,17 +158,15 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.pantsImageView setUserInteractionEnabled:YES];
     [self.noPantsImageView setUserInteractionEnabled:YES];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleExplanation:)];
-    [self.timerView addGestureRecognizer:tapGesture];
-    [self.timerView setUserInteractionEnabled:YES];
-    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     
     [self.view addGestureRecognizer:panGesture];
     
+    [tap requireGestureRecognizerToFail:panGesture];
+    
     viewAppeared = false;
     
-    [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
+    [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.infoButton];
     [self.view bringSubviewToFront:self.morningLabel];
     [self.view bringSubviewToFront:self.nightLabel];
@@ -186,45 +177,54 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showLoading
 {
-    [self.loadingLabel setUserInteractionEnabled:NO];
-    loadingTimer = [NSTimer scheduledTimerWithTimeInterval:.25 target:self selector:@selector(changeLoadingText:) userInfo:nil repeats:YES];
+    [self.timerView setUserInteractionEnabled:NO];
+    [self startSpin];
 }
 
--(void)changeLoadingText:(NSTimer*)timer{
-    NSString *text = self.loadingLabel.text;
-    if([text containsString:@"..."]){
-        self.loadingLabel.text = @"          calculating the time to put on pants";
-    }else if([text containsString:@".."]){
-        self.loadingLabel.text = @"          calculating the time to put on pants...";
-    }else if([text containsString:@"."]){
-        self.loadingLabel.text = @"          calculating the time to put on pants..";
-    }else{
-        self.loadingLabel.text = @"          calculating the time to put on pants.";
+
+
+- (void) spinWithOptions: (UIViewAnimationOptions) options {
+    // this spin completes 360 degrees every 1 seconds
+    [UIView animateWithDuration: 0.5f
+                          delay: 0.0f
+                        options: options
+                     animations: ^{
+                         self.pantsView.transform = CGAffineTransformRotate(self.pantsView.transform, M_PI);
+                     }
+                     completion: ^(BOOL finished) {
+                         if (finished) {
+                             if (animating) {
+                                 // if flag still set, keep spinning with constant speed
+                                 [self spinWithOptions: UIViewAnimationOptionCurveLinear];
+                             } else if (options != UIViewAnimationOptionCurveEaseOut) {
+                                 // one last spin, with deceleration
+                                 [self spinWithOptions: UIViewAnimationOptionCurveEaseOut];
+                             }else{
+                                 [self.timerView setUserInteractionEnabled:YES];
+                             }
+                         }
+                     }];
+}
+
+- (void) startSpin {
+    if (!animating) {
+        animating = YES;
+        [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
     }
 }
+
+- (void) stopSpin {
+    // set the flag to stop spinning after one last 90 degree increment
+    animating = NO;
+}
+
 
 - (void)stopLoading{
-    [self.loadingLabel setUserInteractionEnabled:YES];
-    [loadingTimer invalidate];
-    loadingTimer = nil;
-}
-
-- (void)toggleExplanation:(UITapGestureRecognizer*)recognizer
-{
-    if(self.loadingLabel.alpha != 1){
-        
-        [UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            [self.loadingLabel setAlpha:1];
-            self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-        } completion:^(BOOL finished) {
-            [[LocationClient sharedClient] updateUsersLocation];
-        }];
-    }
+    [self stopSpin];
 }
 
 - (void)awakeFromNib{
     [self.timerView setCenterY:self.view.centerY];
-    [self.activityIndicator setCenterY:self.view.centerY];
 }
 
 -(void)didBecomeActive:(NSNotification*)notification
@@ -257,9 +257,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)findLocation{
     [[LocationClient sharedClient] updateUsersLocation];
-    [self.activityIndicator startAnimating];
     [self showLoading];
-    [self.timerView setAlpha:0];
+    [self.timerView setAlpha:1];
 }
 
 -(void)locationAccessDenied:(NSNotification*)notification{
@@ -283,14 +282,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     CGPoint translation = [recognizer translationInView:self.view];
     
-    [self.loadingLabel setCenterY:self.loadingLabel.centerY + translation.y];
     [self.pantsImageView setTop:self.pantsImageView.top + translation.y];
     [self.pantsImageView setHeight:self.pantsImageView.height - translation.y];
     [self.noPantsImageView setHeight:self.noPantsImageView.height + translation.y];
     [self.noPantsLabel setCenterY:self.noPantsImageView.height/2];
     [self.pantsLabel setCenterY:self.pantsImageView.height/2];
     [self.timerView setCenterY:self.timerView.center.y + translation.y];
-    [self.activityIndicator setCenterY:self.activityIndicator.center.y + translation.y];
     
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
@@ -330,43 +327,13 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)showOnboarding
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                                
+    
+    
     PantsOnboardingViewController *onb = (PantsOnboardingViewController*)[storyboard instantiateViewControllerWithIdentifier:@"pantsOnboardingView"];
     
-    [self presentViewController:onb animated:YES completion:^{
-        
-        [onb.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
-        
-        [onb setAcceptButtonBlock:^(UIButton *actionButton){
-            NSLog(@"Accept Pressed");
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            
-            [mixpanel track:@"Accepted Location Access"];
-            
-
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self findLocation];
-            }];
-            
-        }];
-        
-        [onb.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
-        __weak typeof(onb) weakOnb = onb;
-        [onb setDenyButtonBlock:^(UIButton *actionButton){
-            NSLog(@"Deny Pressed");
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            
-            [mixpanel track:@"Denied Location Access"];
-            
-            weakOnb.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:onb];
     
-        }];
-        
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-        
-        [mixpanel track:@"Showing Onboarding"];
-    }];
-    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -451,7 +418,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 - (void)showFailedToGetWeather{
     [self stopLoading];
-    [self.loadingLabel setText:@"          No connection. Tap to try again."];
     [self.pantsImageView setUserInteractionEnabled:YES];
 }
 
@@ -486,7 +452,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
     //[self.noPantsLabel setText:@"What?\nYou don't trust me?"];
     
-    [self.activityIndicator stopAnimating];
     [self stopLoading];
     
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
@@ -499,7 +464,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         [self.view bringSubviewToFront:self.noPantsImageView];
         [self.view bringSubviewToFront:self.infoButton];
-        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
+        [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
         [self.pantsImageView setTop:0];
         [self.pantsImageView setHeight:self.view.height];
         [self.noPantsImageView setHeight:0];
@@ -511,13 +476,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, 0)];
-        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, 0)];
-        [self.loadingLabel setCenterY:0];
-        [self.loadingLabel setAlpha:0];
-        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
-    } completion:^(BOOL finished) {
-        //[self.pantsImageView setUserInteractionEnabled:YES];
-    }];
+    } completion:nil];
 
 }
 
@@ -527,7 +486,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsLabel setText:[NSString stringWithFormat:@"%@\n%@",noPantsString,flavorText]];
     //[self.pantsLabel setText:@"What?\nYou don't trust me?"];
     
-    [self.activityIndicator stopAnimating];
     [self stopLoading];
     
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
@@ -540,7 +498,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         [self.view bringSubviewToFront:self.pantsImageView];
         [self.view bringSubviewToFront:self.infoButton];
-        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_red"] forState:UIControlStateNormal];
+        [self.infoButton setImage:[UIImage imageNamed:@"smiley_red"] forState:UIControlStateNormal];
         [self.pantsImageView setTop:self.view.height];
         [self.pantsImageView setHeight:0];
         [self.noPantsImageView setHeight:self.view.height];
@@ -552,10 +510,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, self.view.height)];
-        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, self.view.height)];
-        [self.loadingLabel setCenterY:self.view.height];
-        [self.loadingLabel setAlpha:0];
-        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
     } completion:^(BOOL finished) {
         //[self.pantsImageView setUserInteractionEnabled:YES];
     }];
@@ -595,7 +549,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     float heightOfBGView = self.view.height-distanceFromTop;
     
-    [self.activityIndicator stopAnimating];
     [self stopLoading];
     
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
@@ -610,7 +563,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.pantsImageView setHeight:heightOfBGView];
         [self.noPantsImageView setHeight:distanceFromTop];
         [self.noPantsImageView setTop:0];
-        [self.infoButton setBackgroundImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
+        [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
         [self.view bringSubviewToFront:self.infoButton];
         [self.view bringSubviewToFront:self.morningLabel];
         [self.view bringSubviewToFront:self.nightLabel];
@@ -622,12 +575,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         
         
         [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
-        [self.activityIndicator setCenter:CGPointMake(self.activityIndicator.center.x, distanceFromTop)];
-        [self.loadingLabel setCenterY:distanceFromTop];
-        [self.loadingLabel setAlpha:0];
-        self.loadingLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, .1);
     } completion:^(BOOL finished) {
-        //[self.pantsImageView setUserInteractionEnabled:YES];
+        
     }];
     
     

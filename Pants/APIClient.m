@@ -53,7 +53,7 @@ BOOL creatingNewUser;
         // This sends the deviceToken to Mixpanel
         [mixpanel.people addPushDeviceToken:token];
         
-        [mixpanel track:@"SIGNUP-Updating Device Token" properties:nil];
+        [mixpanel track:@"Updating Device Token" properties:nil];
         
         NSString *path = [NSString stringWithFormat:@"api/v1/users/%@/sns_endpoints",[[PantsStore sharedStore] userID]];
         
@@ -70,8 +70,6 @@ BOOL creatingNewUser;
         
         NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:userDic,@"sns_endpoint", nil];
         
-        [self saveDeviceToken:token];
-        
         
         [self POST:path
             parameters:params
@@ -79,12 +77,56 @@ BOOL creatingNewUser;
             {
                 NSLog(@"Confirming user has updated device token");
             
+                [self saveDeviceToken:token];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error)
             {
                 NSLog(@"Not updating device token for user: %@", error.description);
                 
             }];
+    }
+}
+
+-(void)updateTimeForNotifications:(NSDate *)newDate withCompletion:(void (^)(NSError *error))completionBlock{
+    
+    if(newDate && [[PantsStore sharedStore] userID]){
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        // Make sure identify has been called before sending
+        // a device token.
+        // This sends the deviceToken to Mixpanel
+        
+        [mixpanel track:@"Updating Notification Time" properties:nil];
+        
+        NSString *path = [NSString stringWithFormat:@"api/v1/users/%@",[[PantsStore sharedStore] userID]];
+
+        
+        NSDictionary *userDic = @{@"send_forecast_notification_at":newDate};
+        
+        
+        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:userDic,@"user", nil];
+        
+        NSLog(@"Updating forecast notification to be sent at: %@",newDate);
+        
+        [self PATCH:path
+        parameters:params
+           success:^(AFHTTPRequestOperation *operation, id JSON)
+         {
+             NSLog(@"Confirming user has set new push notification time");
+             [[PantsStore sharedStore] setUserWeatherNotificationDate:newDate];
+             
+             if(completionBlock){
+                 completionBlock(nil);
+             }
+             
+         }
+           failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Not updating notification time for user: %@", error.description);
+             if(completionBlock){
+                 completionBlock(error);
+             }
+             
+         }];
     }
 }
 
@@ -118,27 +160,6 @@ BOOL creatingNewUser;
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeviceTokenSaved object:nil];
-}
-
-- (void)updateNotificationTime:(NSDate*)dateForNotification {
-    
-        NSString *userId = [[PantsStore sharedStore] userID];
-        
-        if(userId){
-            
-            NSString *path = [NSString stringWithFormat:@"api/v1/users/%@",userId];
-            NSDictionary *params = @{@"user":@{@"weather_notification_at":dateForNotification.toGlobalTime}};
-            
-            [self PATCH:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"User Succesfully updated date for notification: %@", responseObject);
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"User Failed to update date: %@", error);
-                
-            }];
-            
-        }
-    
 }
 
 

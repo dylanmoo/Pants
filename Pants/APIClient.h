@@ -18,6 +18,8 @@
 
 - (void)updateDeviceToken:(NSData*)token;
 
+-(void)updateTimeForNotifications:(NSDate *)newDate withCompletion:(void (^)(NSError *error))completionBlock;
+
 - (void)saveUbiquityToken:(NSData*)token;
 
 - (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock;
