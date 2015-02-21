@@ -31,6 +31,7 @@
     float tempThreshold;
     NSTimer *loadingTimer;
     BOOL animating;
+    BOOL showingOnboarding;
 }
 
 @property (strong, nonatomic)  UILabel *pantsLabel;
@@ -38,9 +39,8 @@
 @property (strong, nonatomic)  UIImageView *pantsImageView;
 @property (strong, nonatomic)  UIImageView *noPantsImageView;
 @property (strong, nonatomic)  UILabel *timerLabel;
-@property (strong, nonatomic)  UIImageView *timerView;
+@property (strong, nonatomic)  UIImageView *beltView;
 @property (strong, nonatomic)  PantsWeather *currentWeather;
-@property (strong, nonatomic)   UIImageView *pantsView;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *morningLabel;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *nightLabel;
@@ -61,52 +61,25 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     noPantsString = @"#NOPANTS";
     
     
-    UIImageView *container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pantsContainer"]];
+    [self.beltView setBackgroundColor:[UIColor clearColor]];
+    self.beltView.centerY = self.pantsImageView.top;
     
-    self.timerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, container.height)];
-    [self.timerView setBackgroundColor:[UIColor clearColor]];
-    [self.timerView setCenter:self.view.center];
-    
-    self.pantsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pants"]];
-    
-    [self.pantsView setCenterY:self.timerView.height/2-10];
-    [self.pantsView setCenterX:self.timerView.width/2];
-    
-    float height = 18;
-    
-    //UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timerView.height/2-height/2, self.timerView.width, height)];
+    //UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.beltView.height/2-height/2, self.beltView.width, height)];
     //[lineView setBackgroundColor:[UIColor whiteColor]];
     
-    //[self.timerView addSubview:lineView];
-    
-    [self.timerView addSubview:container];
-    [self.timerView addSubview:self.pantsView];
-    container.left = 0;
-    container.centerY = self.timerView.height/2;
-    
-    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-    [self.timerLabel setText:@""];
-    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.timerLabel setCenterX:self.timerView.width/2];
-    [self.timerLabel setTextColor:[UIColor blackColor]];
-    [self.timerLabel setBottom:container.bottom-14];
-    [self.timerView addSubview:self.timerLabel];
+    //[self.beltView addSubview:lineView];
 
-    [self.view addSubview:self.timerView];
+    [self.view addSubview:self.beltView];
     
    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findLocation)];
-    [self.timerView addGestureRecognizer:tap];
-    [self.timerView setUserInteractionEnabled:NO];
+    [self.beltView addGestureRecognizer:tap];
+    [self.beltView setUserInteractionEnabled:NO];
     
-    self.pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    [self.pantsImageView setBackgroundColor:DEFAULT_BLUE_COLOR];
     [self.pantsImageView setTop:self.view.centerY];
     [self.pantsImageView setHeight:(self.view.height - self.view.centerY)];
 
-    [self.pantsImageView setAutoresizesSubviews:YES];
-    
-    [self.view insertSubview:self.pantsImageView belowSubview:self.timerView];
+    [self.view insertSubview:self.pantsImageView belowSubview:self.beltView];
     
     self.noPantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     [self.noPantsImageView setBackgroundColor:DEFAULT_YELLOW_COLOR];
@@ -114,8 +87,8 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsImageView setHeight:self.view.centerY];
     
     [self.noPantsImageView setAutoresizesSubviews:YES];
-    
-    [self.view insertSubview:self.noPantsImageView belowSubview:self.timerView];
+    self.view.backgroundColor = DEFAULT_YELLOW_COLOR;
+    //[self.view insertSubview:self.noPantsImageView belowSubview:self.beltView];
     
     self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
     [self.pantsLabel setText:pantsString];
@@ -177,60 +150,26 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showLoading
 {
-    [self.timerView setUserInteractionEnabled:NO];
-    [self startSpin];
+    [self.beltView setUserInteractionEnabled:NO];
+   
 }
-
-
-
-- (void) spinWithOptions: (UIViewAnimationOptions) options {
-    // this spin completes 360 degrees every 1 seconds
-    [UIView animateWithDuration: 0.5f
-                          delay: 0.0f
-                        options: options
-                     animations: ^{
-                         self.pantsView.transform = CGAffineTransformRotate(self.pantsView.transform, M_PI);
-                     }
-                     completion: ^(BOOL finished) {
-                         if (finished) {
-                             if (animating) {
-                                 // if flag still set, keep spinning with constant speed
-                                 [self spinWithOptions: UIViewAnimationOptionCurveLinear];
-                             } else if (options != UIViewAnimationOptionCurveEaseOut) {
-                                 // one last spin, with deceleration
-                                 [self spinWithOptions: UIViewAnimationOptionCurveEaseOut];
-                             }else{
-                                 [self.timerView setUserInteractionEnabled:YES];
-                             }
-                         }
-                     }];
-}
-
-- (void) startSpin {
-    if (!animating) {
-        animating = YES;
-        [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
-    }
-}
-
-- (void) stopSpin {
-    // set the flag to stop spinning after one last 90 degree increment
-    animating = NO;
-}
-
 
 - (void)stopLoading{
-    [self stopSpin];
+   
 }
 
 - (void)awakeFromNib{
-    [self.timerView setCenterY:self.view.centerY];
+    [self.beltView setCenterY:self.view.centerY];
 }
 
 -(void)didBecomeActive:(NSNotification*)notification
 {
     if([[LocationClient sharedClient] currentLocation])
     {
+        if(!self.isFirstResponder){
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        
         [self findLocation];
         
     }
@@ -258,7 +197,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 -(void)findLocation{
     [[LocationClient sharedClient] updateUsersLocation];
     [self showLoading];
-    [self.timerView setAlpha:1];
+    [self.beltView setAlpha:1];
 }
 
 -(void)locationAccessDenied:(NSNotification*)notification{
@@ -287,7 +226,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.noPantsImageView setHeight:self.noPantsImageView.height + translation.y];
     [self.noPantsLabel setCenterY:self.noPantsImageView.height/2];
     [self.pantsLabel setCenterY:self.pantsImageView.height/2];
-    [self.timerView setCenterY:self.timerView.center.y + translation.y];
+    [self.beltView setCenterY:self.beltView.center.y + translation.y];
     
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
@@ -326,14 +265,24 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showOnboarding
 {
+    showingOnboarding = true;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     
     
     PantsOnboardingViewController *onb = (PantsOnboardingViewController*)[storyboard instantiateViewControllerWithIdentifier:@"pantsOnboardingView"];
+    onb.delegate = self;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:onb];
+    [nav setNavigationBarHidden:YES];
     
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)finishedOnboarding{
+    showingOnboarding = false;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self findLocation];
+    }];
 }
 
 
@@ -380,10 +329,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)locationUpdated:(NSNotification*)notification{
     
-    
-    if(![[PantsStore sharedStore] userID]){
-        [[APIClient sharedClient] signIn];
-    }
+    if(showingOnboarding) return;
     
     NSDictionary *currentLocation = [[LocationClient sharedClient] currentLocation];
     
@@ -411,9 +357,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if(!self.isFirstResponder){
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 - (void)showFailedToGetWeather{
@@ -457,7 +400,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:0];
-        [self.timerView setAlpha:0];
+        [self.beltView setAlpha:0];
         [self.morningLabel setAlpha:0];
         [self.nightLabel setAlpha:0];
         [self.infoButton setAlpha:1];
@@ -475,7 +418,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
         
         
-        [self.timerView setCenter:CGPointMake(self.timerView.center.x, 0)];
+        [self.beltView setCenter:CGPointMake(self.beltView.center.x, 0)];
     } completion:nil];
 
 }
@@ -491,7 +434,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:0];
         [self.noPantsLabel setAlpha:1];
-        [self.timerView setAlpha:0];
+        [self.beltView setAlpha:0];
         [self.morningLabel setAlpha:0];
         [self.nightLabel setAlpha:0];
         [self.infoButton setAlpha:1];
@@ -509,7 +452,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
         
         
-        [self.timerView setCenter:CGPointMake(self.timerView.center.x, self.view.height)];
+        [self.beltView setCenter:CGPointMake(self.beltView.center.x, self.view.height)];
     } completion:^(BOOL finished) {
         //[self.pantsImageView setUserInteractionEnabled:YES];
     }];
@@ -554,7 +497,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:1];
         [self.noPantsLabel setAlpha:1];
-        [self.timerView setAlpha:1];
+        [self.beltView setAlpha:1];
         [self.morningLabel setAlpha:1];
         [self.nightLabel setAlpha:1];
         [self.infoButton setAlpha:1];
@@ -567,14 +510,14 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.view bringSubviewToFront:self.infoButton];
         [self.view bringSubviewToFront:self.morningLabel];
         [self.view bringSubviewToFront:self.nightLabel];
-        [self.view bringSubviewToFront:self.timerView];
+        [self.view bringSubviewToFront:self.beltView];
         
         
         [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
         [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
         
         
-        [self.timerView setCenter:CGPointMake(self.timerView.center.x, distanceFromTop)];
+        [self.beltView setCenter:CGPointMake(self.beltView.center.x, distanceFromTop)];
     } completion:^(BOOL finished) {
         
     }];
@@ -629,8 +572,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self presentViewController:settingsVc animated:YES completion:nil];
     
 }
-
-
 
 
 
@@ -759,6 +700,71 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     }
     
     [self showPantsAtHour:hourToPutOnPants];
+}
+
+- (UIImageView*)beltView{
+    if(_beltView) return _beltView;
+    
+    UIImageView *circleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self widthFromRatio:.4828125], [self heightFromRatio:.144366197])];
+    [circleImageView setBackgroundColor:DEFAULT_YELLOW_COLOR];
+    circleImageView.layer.cornerRadius = circleImageView.height/2;
+    
+    
+    UIImageView *beltLine = [[UIImageView alloc] initWithFrame:CGRectMake([self widthFromRatio:0.0671875], 0, [self widthFromRatio:0.9546875-0.0671875], [self heightFromRatio:0.02728873239])];
+    beltLine.backgroundColor = DEFAULT_SUPER_LIGHT_BLUE;
+    _beltView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, circleImageView.height)];
+    circleImageView.center = CGPointMake(_beltView.centerX, _beltView.height/2);
+    beltLine.center = CGPointMake(_beltView.centerX, _beltView.height/2);
+    [_beltView addSubview:beltLine];
+    [_beltView addSubview:circleImageView];
+    
+    self.timerLabel = [[UILabel alloc] initWithFrame:circleImageView.bounds];
+    [self.timerLabel setText:@""];
+    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.timerLabel setCenter:circleImageView.center];
+    [self.timerLabel setTextColor:[UIColor blackColor]];
+    [_beltView addSubview:self.timerLabel];
+    
+    return _beltView;
+}
+
+- (UIImageView*)pantsImageView{
+    if(_pantsImageView) return _pantsImageView;
+    
+    _pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    _pantsImageView.backgroundColor = DEFAULT_BLUE_COLOR;
+    
+    UIBezierPath *maskPath;
+    
+    maskPath = [UIBezierPath bezierPath];
+    
+    [maskPath moveToPoint:[self pointWithCoordinateRatioX:0.0859375 andY:0]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:0.9453125 andY:0]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:1.2484375 andY:0.9718309859]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:0.909375 andY:1.036091549]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:0.521875 andY:0.301056338]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:0.128125 andY:1.036091549]];
+    [maskPath addLineToPoint:[self pointWithCoordinateRatioX:-0.23125 andY:0.9718309859]];
+    [maskPath closePath];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _pantsImageView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _pantsImageView.layer.mask = maskLayer;
+    
+    return _pantsImageView;
+}
+
+- (float)widthFromRatio:(float)ratio{
+    return ratio*self.view.width;
+}
+
+- (float)heightFromRatio:(float)ratio{
+    return ratio*self.view.height;
+}
+
+- (CGPoint)pointWithCoordinateRatioX:(float)x andY:(float)y{
+    return CGPointMake(x*self.view.width, y*self.view.height);
 }
 
 - (void)didReceiveMemoryWarning

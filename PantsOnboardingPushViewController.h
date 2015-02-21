@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LetterTileButton.h"
+#import "PantsInsetLabel.h"
 
-@interface PantsOnboardingPushViewController : UIViewController
+@protocol PantsOnboardingPushDelegate <NSObject>
+
+- (void)pushNotificationsAccepted:(BOOL)accepted;
+
+@end
+
+@interface PantsOnboardingPushViewController : UIViewController <UIAlertViewDelegate>
+
+@property (nonatomic, weak) NSObject<PantsOnboardingPushDelegate> *delegate;
+@property (weak, nonatomic) IBOutlet PantsInsetLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet PantsInsetLabel *mainLabel;
+@property (weak, nonatomic) IBOutlet PantsInsetLabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet LetterTileButton *acceptButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

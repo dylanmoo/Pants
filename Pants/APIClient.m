@@ -84,6 +84,8 @@ BOOL creatingNewUser;
                 NSLog(@"Not updating device token for user: %@", error.description);
                 
             }];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeviceTokenCouldNotBeSaved object:nil];
     }
 }
 
@@ -99,11 +101,15 @@ BOOL creatingNewUser;
         
         NSString *path = [NSString stringWithFormat:@"api/v1/users/%@",[[PantsStore sharedStore] userID]];
 
+        NSString *timeZone = [NSTimeZone systemTimeZone].name;
         
-        NSDictionary *userDic = @{@"send_forecast_notification_at":newDate};
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        [calendar setTimeZone:[NSTimeZone systemTimeZone]];
+        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:newDate];
         
+        NSDictionary *tod = @{@"utc_minutes_since_midnight":[NSNumber numberWithInteger:components.minute+(components.hour*60)],@"time_zone":timeZone};
         
-        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:userDic,@"user", nil];
+        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:tod,@"tod", nil];
         
         NSLog(@"Updating forecast notification to be sent at: %@",newDate);
         
@@ -163,7 +169,7 @@ BOOL creatingNewUser;
 }
 
 
-- (void)signIn {
+- (void)signInWithCompletion:(void (^)(NSError *error))completionBlock {
     if([[LocationClient sharedClient] currentLocation]){
         
         NSString *lastLongitude = [[LocationClient sharedClient] currentLongitude];
@@ -175,7 +181,6 @@ BOOL creatingNewUser;
         if(!userId && [[PantsStore sharedStore] needsToCreateNewUser] && !creatingNewUser){
             
             creatingNewUser = true;
-            
             
             
             NSString *timeZone = [NSTimeZone systemTimeZone].name;
@@ -196,17 +201,69 @@ BOOL creatingNewUser;
                 
                 creatingNewUser = false;
                 
+                
+                if(completionBlock){
+                    completionBlock(nil);
+                }
+                
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"User Failed to sign in: %@", error);
                 
                 creatingNewUser = false;
                 
+                if(completionBlock){
+                    completionBlock(error);
+                }
             }];
             
+        }else{
+            if(completionBlock){
+                completionBlock(nil);
+            }
         }
         
         
     }
+}
+
+- (void)updateLocationWithCompletion:(void (^)(NSError *error))completionBlock {
+    if([[LocationClient sharedClient] currentLocation] && [[PantsStore sharedStore] userID]){
+        
+        
+        NSString *lastLongitude = [[LocationClient sharedClient] currentLongitude];
+        NSString *lastLatitude = [[LocationClient sharedClient] currentLatitude];
+        
+        
+        NSString *userId = [[PantsStore sharedStore] userID];
+        
+        NSString *timeZone = [NSTimeZone systemTimeZone].name;
+        
+        NSLog(@"Creating new user with Timezone: %@", timeZone);
+        
+        NSString *path = [NSString stringWithFormat:@"api/v1/users/%@",userId];
+        NSDictionary *params = @{@"last_latitude":lastLatitude, @"last_longitude":lastLongitude, @"last_time_zone":timeZone};
+        
+        [self PATCH:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"User Succesfully Signed in: %@", responseObject);
+            
+            if(completionBlock){
+                completionBlock(nil);
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"User Failed to sign in: %@", error);
+            
+            if(completionBlock){
+                completionBlock(error);
+            }
+        }];
+        
+    }else{
+        if(completionBlock){
+            completionBlock(nil);
+        }
+    }
+    
 }
 
 - (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock{

@@ -24,6 +24,8 @@
 
 - (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock;
 
-- (void)signIn;
+- (void)signInWithCompletion:(void (^)(NSError *error))completionBlock;
+
+- (void)updateLocationWithCompletion:(void (^)(NSError *error))completionBlock;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "PantsOnboardingViewController.h"
 
-@interface PantsViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate, UIAlertViewDelegate>{
+
+@interface PantsViewController : UIViewController <CLLocationManagerDelegate,NSURLConnectionDelegate, UIAlertViewDelegate, PantsOnboardingDelegate>{
 
 }
 

@@ -9,7 +9,9 @@
 #import "PantsAppDelegate.h"
 #import "Mixpanel.h"
 #import "PantsStore.h"
+#import <Appirater.h>
 #import "APIClient.h"
+#import "LocationClient.h"
 
 #define MIXPANEL_TOKEN @"10368102de1354bfe301c6f5212fe883"
 
@@ -22,12 +24,21 @@
     // Override point for customization after application launch.
     // Initialize the library with your
     // Mixpanel project token, MIXPANEL_TOKEN
+    [Appirater setAppId:@"900751118"];
+    [Appirater setDaysUntilPrompt:7];
+    [Appirater setUsesUntilPrompt:0];
+    [Appirater setSignificantEventsUntilPrompt:-1];
+    [Appirater setTimeBeforeReminding:2];
+    [Appirater setDebug:NO];
+    
     [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
     
     // Later, you can get your instance with
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
     [mixpanel track:@"Launched"];
+    
+    [Appirater appLaunched:YES];
     
     return YES;
 }
@@ -50,6 +61,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [Appirater appEnteredForeground:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -74,6 +86,32 @@
     [mixpanel.people addPushDeviceToken:deviceToken];
     
     [[APIClient sharedClient] updateDeviceToken:deviceToken];
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    if(![userInfo objectForKey:@"apns"]) completionHandler(UIBackgroundFetchResultNoData);
+    
+    NSDictionary *apns = [userInfo objectForKey:@"apns"];
+    
+    if(![apns objectForKey:@"type"]) completionHandler(UIBackgroundFetchResultNoData);
+    
+    NSString *type = [apns objectForKey:@"type"];
+    
+    if(![type isEqualToString:@"update_location"]) completionHandler(UIBackgroundFetchResultNoData);
+    
+    if([[LocationClient sharedClient] currentLocation]){
+        
+        [[LocationClient sharedClient] updateLocationWithBlock:^(NSString *lat, NSString *lon) {
+            [[APIClient sharedClient] updateLocationWithCompletion:^(NSError *error) {
+                if(!error){
+                    completionHandler(UIBackgroundFetchResultNewData);
+                }else{
+                    completionHandler(UIBackgroundFetchResultNoData);
+                }
+            }];
+        }];
+    }
     
 }
 

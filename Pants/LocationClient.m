@@ -18,13 +18,16 @@ CLLocationManager *locationManager;
 
 @implementation LocationClient
 
-
 + (LocationClient *)sharedClient
 {
     static LocationClient *_sharedClient = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         _sharedClient = [[self alloc] init];
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = _sharedClient;
+        locationManager.pausesLocationUpdatesAutomatically = YES;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 
     });
     return _sharedClient;
@@ -33,16 +36,12 @@ CLLocationManager *locationManager;
 #pragma mark Foursquare
 
 -(void)updateUsersLocation{
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.pausesLocationUpdatesAutomatically = YES;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     if(IS_IOS8){
         int authStatus = [CLLocationManager authorizationStatus];
         
         if(authStatus== kCLAuthorizationStatusNotDetermined){
-            [locationManager requestWhenInUseAuthorization];
+            [locationManager requestAlwaysAuthorization];
         }else if(authStatus == kCLAuthorizationStatusDenied){
             [self locationServicesDisabled];
         }else if(authStatus == kCLAuthorizationStatusRestricted){
@@ -53,6 +52,12 @@ CLLocationManager *locationManager;
     }else{
         [locationManager startUpdatingLocation];
     }
+}
+
+- (void)updateLocationWithBlock:(void (^)(NSString *lat, NSString *lon))completionBlock{
+    self.afterUpdateLocationBlock = completionBlock;
+    
+    [self updateUsersLocation];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
@@ -72,6 +77,12 @@ CLLocationManager *locationManager;
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"LocationManager DidFailWithError: %@", error);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLocationServicesError object:nil];
+    
+    if(self.afterUpdateLocationBlock){
+        self.afterUpdateLocationBlock(nil,nil);
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -92,6 +103,10 @@ CLLocationManager *locationManager;
     
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLocationServicesEnabled object:nil];
+    
+    if(self.afterUpdateLocationBlock){
+        self.afterUpdateLocationBlock(myCurrentLatitude, myCurrentLongitude);
+    }
 }
 
 -(NSDictionary*)currentLocation{

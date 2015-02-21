@@ -8,9 +8,12 @@
 
 #import "PantsOnboardingViewController.h"
 #import "Mixpanel.h"
+#import "LocationClient.h"
+#import "APIClient.h"
 
-@interface PantsOnboardingViewController ()
-
+@interface PantsOnboardingViewController (){
+    BOOL locationAccessGranted;
+}
 
 @end
 
@@ -61,7 +64,7 @@
     self.acceptButton.layer.borderColor = DEFAULT_RED_COLOR.CGColor;
     self.acceptButton.layer.borderWidth = 2;
     
-    [self.denyButton setTitleColor:DEFAULT_SUPER_LIGHT_BLUE forState:UIControlStateNormal];
+    [self.denyButton setTitleColor:DEFAULT_RED_COLOR forState:UIControlStateNormal];
     [self.denyButton.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
     [self.denyButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     
@@ -69,29 +72,13 @@
     
     [self.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
     
-    __weak typeof(self) weakSelf = self;
+    locationAccessGranted = false;
     
-    [self setAcceptButtonBlock:^(UIButton *actionButton){
-        NSLog(@"Accept Pressed");
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-        
-        [mixpanel track:@"Accepted Location Access"];
-        
-        [weakSelf showPushNotificationController];
-        
-    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationAccessGranted:) name:kNotificationLocationServicesEnabled object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationAccessDenied:) name:kNotificationLocationServicesDisabled object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationAccessError:) name:kNotificationLocationServicesError object:nil];
     
     [self.denyButton setTitle:@"Nah" forState:UIControlStateNormal];
-    
-    [self setDenyButtonBlock:^(UIButton *actionButton){
-        NSLog(@"Deny Pressed");
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-        
-        [mixpanel track:@"Denied Location Access"];
-        
-        weakSelf.subtitleLabel.text = @"really needs your location so we can give you the most accurate time to put on pants...Thank you!!";
-        
-    }];
     
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
@@ -100,8 +87,52 @@
 
 }
 
-- (void)showPushNotificationController{
+- (void)locationAccessGranted:(NSNotification*)notification{
+    //Show stop loading
+    if(locationAccessGranted) return;
     
+    locationAccessGranted = true;
+    [[APIClient sharedClient] signInWithCompletion:^(NSError *error) {
+        if(!error){
+            [self showPushNotificationController];
+        }else{
+            [self.acceptButton setTitle:@"Okay!" forState:UIControlStateNormal];
+            self.acceptButton.enabled = YES;
+            [self.activityIndicator stopAnimating];
+            //Can't sign in so show pants
+            if([self.delegate respondsToSelector:@selector(finishedOnboarding)]){
+                [self.delegate finishedOnboarding];
+            }
+        }
+    }];
+}
+
+- (void)locationAccessDenied:(NSNotification*)notification{
+    //Show stop loading
+    self.acceptButton.enabled = YES;
+    [self.acceptButton setTitle:@"Retry!" forState:UIControlStateNormal];
+    [self.activityIndicator stopAnimating];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"We really need your location. Please enable by going to Settings>Pants>Location. This app is useless otherwise." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alert show];
+    
+}
+
+- (void)locationAccessError:(NSNotification*)notification{
+    //Show stop loading
+    self.acceptButton.enabled = YES;
+    [self.activityIndicator stopAnimating];
+    [self.acceptButton setTitle:@"Retry!" forState:UIControlStateNormal];
+    [self.subtitleLabel setText:@"We're having trouble connecting you. Try again with better service please."];
+    
+}
+
+- (void)showPushNotificationController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    PantsOnboardingPushViewController *pushView = (PantsOnboardingPushViewController*)[storyboard instantiateViewControllerWithIdentifier:@"pantsOnboardingPushView"];
+    pushView.delegate = self;
+    
+    [self.navigationController pushViewController:pushView animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,11 +142,45 @@
 }
 
 - (IBAction)acceptButtonPressed:(id)sender {
-    self.acceptButtonBlock(self.acceptButton);
+    if(self.acceptButtonBlock){
+        self.acceptButtonBlock(self.acceptButton);
+    }else{
+        [self.acceptButton setTitle:@"" forState:UIControlStateNormal];
+        self.acceptButton.enabled = NO;
+        [self.activityIndicator startAnimating];
+        NSLog(@"Accept Pressed");
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Accepted Location Access"];
+        
+        //Ask for permission
+        [[LocationClient sharedClient] updateUsersLocation];
+    }
 }
 
 - (IBAction)denyButtonPressed:(id)sender {
-    self.denyButtonBlock(self.denyButton);
+    if(self.denyButtonBlock){
+        self.denyButtonBlock(self.denyButton);
+    }else{
+        NSLog(@"Deny Pressed");
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Denied Location Access"];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"We really need your location so we can give you the most accurate time to put on pants. Please press Okay." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidDisappear:animated];
+}
+
+- (void)pushNotificationsAccepted:(BOOL)accepted{
+    if([self.delegate respondsToSelector:@selector(finishedOnboarding)]){
+        [self.delegate finishedOnboarding];
+    }
 }
 
 /*

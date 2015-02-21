@@ -24,8 +24,10 @@
 
 //Notifications
 #define kNotificationDeviceTokenSaved @"deviceTokenSaved"
+#define kNotificationDeviceTokenCouldNotBeSaved @"deviceTokenNotSaved"
 #define kNotificationLocationServicesEnabled @"locationEnabled"
 #define kNotificationLocationServicesDisabled @"locationDisabled"
+#define kNotificationLocationServicesError @"locationError"
 #define kNotificationLocationUpdated @"locationUpdated"
 
 #define kPantsBaseURL   @"https://pantsapp.herokuapp.com/"

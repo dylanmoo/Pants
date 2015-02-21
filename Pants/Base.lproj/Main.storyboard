@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -128,15 +128,21 @@
                                     <action selector="denyButtonPressed:" destination="jmg-DY-a6y" eventType="touchUpInside" id="i6p-Q8-1Oj"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aji-hc-ksT">
+                                <rect key="frame" x="150" y="446" width="20" height="20"/>
+                                <color key="color" red="0.8901960784313725" green="0.33725490196078434" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="RDa-EJ-ewy" firstAttribute="top" secondItem="PpQ-R7-FNt" secondAttribute="bottom" constant="35" id="9mD-jw-jqG"/>
                             <constraint firstAttribute="centerX" secondItem="62g-g3-6XC" secondAttribute="centerX" id="BNx-jA-EBn"/>
+                            <constraint firstItem="aji-hc-ksT" firstAttribute="centerX" secondItem="NAt-pd-V4C" secondAttribute="centerX" id="HzS-JK-FoR"/>
                             <constraint firstAttribute="centerX" secondItem="RDa-EJ-ewy" secondAttribute="centerX" id="Jp4-8M-Ta9"/>
                             <constraint firstItem="bTq-NZ-6eH" firstAttribute="top" secondItem="62g-g3-6XC" secondAttribute="bottom" constant="18" id="WEV-uH-8NY"/>
                             <constraint firstItem="bTq-NZ-6eH" firstAttribute="top" secondItem="NAt-pd-V4C" secondAttribute="bottom" constant="62" id="Zvm-Xb-CrW"/>
                             <constraint firstItem="G3v-3e-OXg" firstAttribute="top" secondItem="RDa-EJ-ewy" secondAttribute="bottom" constant="5" id="caz-Ke-ABz"/>
                             <constraint firstAttribute="centerX" secondItem="NAt-pd-V4C" secondAttribute="centerX" id="fq1-5w-GfR"/>
+                            <constraint firstItem="aji-hc-ksT" firstAttribute="centerY" secondItem="NAt-pd-V4C" secondAttribute="centerY" constant="0.5" id="nKS-bT-7RS"/>
                             <constraint firstAttribute="centerX" secondItem="G3v-3e-OXg" secondAttribute="centerX" id="ptG-hY-Mt6"/>
                             <constraint firstItem="G3v-3e-OXg" firstAttribute="leading" secondItem="tEq-RC-Wim" secondAttribute="leadingMargin" constant="25" id="q52-NJ-pQ3"/>
                         </constraints>
@@ -145,6 +151,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="acceptButton" destination="NAt-pd-V4C" id="fLN-GB-ZeS"/>
+                        <outlet property="activityIndicator" destination="aji-hc-ksT" id="p9x-Yo-gwd"/>
                         <outlet property="denyButton" destination="62g-g3-6XC" id="FOm-gi-KdY"/>
                         <outlet property="subtitleLabel" destination="G3v-3e-OXg" id="hW6-h7-Ay3"/>
                         <outlet property="titleLabel" destination="RDa-EJ-ewy" id="8hW-cS-JyU"/>
@@ -166,7 +173,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#PANTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smH-26-IKg" customClass="PantsInsetLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smH-26-IKg" customClass="PantsInsetLabel">
                                 <rect key="frame" x="50" y="35" width="220" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="0ii-Q5-xWr"/>
@@ -176,13 +183,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-Ch-fAv" customClass="PantsInsetLabel">
-                                <rect key="frame" x="41" y="110" width="238" height="280"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like a push notification each day at 8am with the forecast?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-Ch-fAv" customClass="PantsInsetLabel">
+                                <rect key="frame" x="41" y="110" width="238" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="44p-Gl-yfF"/>
+                                    <constraint firstAttribute="height" constant="160" id="44p-Gl-yfF"/>
                                 </constraints>
-                                <string key="text">helps you figure out if you need to wear pants today. We do a bunch of complicated math and analyze when you’ll need to put on pants. We need your location. Okay?</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can change the time in settings" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQP-Hz-9SZ" customClass="PantsInsetLabel">
+                                <rect key="frame" x="41" y="247" width="238" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="XRS-iL-sob"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -196,28 +211,37 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="acceptButtonPressed:" destination="Cvi-Xv-Sgj" eventType="touchUpInside" id="0BC-09-uIR"/>
+                                    <action selector="acceptPressed:" destination="Cvi-Xv-Sgj" eventType="touchUpInside" id="DqI-DM-ng6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDO-Kv-pz4">
-                                <rect key="frame" x="126" y="512" width="68" height="38"/>
+                                <rect key="frame" x="125" y="512" width="71" height="38"/>
                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
-                                <state key="normal" title="Nah">
+                                <state key="normal" title="Skip">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="denyButtonPressed:" destination="Cvi-Xv-Sgj" eventType="touchUpInside" id="t8N-ou-1H6"/>
+                                    <action selector="skipButtonPressed:" destination="Cvi-Xv-Sgj" eventType="touchUpInside" id="35z-ff-wMJ"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="P3b-76-dKo">
+                                <rect key="frame" x="150" y="446" width="20" height="20"/>
+                                <color key="color" red="0.89019607840000003" green="0.33725490200000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="DEd-pt-Yjp" firstAttribute="top" secondItem="oDO-Kv-pz4" secondAttribute="bottom" constant="18" id="325-6b-sOm"/>
+                            <constraint firstItem="Bve-Ch-fAv" firstAttribute="leading" secondItem="oQP-Hz-9SZ" secondAttribute="leading" id="8eZ-aq-pce"/>
                             <constraint firstItem="Bve-Ch-fAv" firstAttribute="top" secondItem="smH-26-IKg" secondAttribute="bottom" constant="5" id="Ani-F7-xG0"/>
                             <constraint firstAttribute="centerX" secondItem="smH-26-IKg" secondAttribute="centerX" id="CMH-1c-btw"/>
                             <constraint firstItem="smH-26-IKg" firstAttribute="top" secondItem="on3-Tl-HgU" secondAttribute="bottom" constant="35" id="D7z-RP-X02"/>
                             <constraint firstAttribute="centerX" secondItem="O6H-vc-ehg" secondAttribute="centerX" id="MDF-ev-ffx"/>
+                            <constraint firstItem="O6H-vc-ehg" firstAttribute="centerX" secondItem="P3b-76-dKo" secondAttribute="centerX" id="Nk8-Jt-VMQ"/>
                             <constraint firstItem="DEd-pt-Yjp" firstAttribute="top" secondItem="O6H-vc-ehg" secondAttribute="bottom" constant="62" id="TY8-Ox-gY6"/>
+                            <constraint firstItem="O6H-vc-ehg" firstAttribute="centerY" secondItem="P3b-76-dKo" secondAttribute="centerY" constant="-0.5" id="aYO-Ix-o4i"/>
+                            <constraint firstItem="oQP-Hz-9SZ" firstAttribute="top" secondItem="Bve-Ch-fAv" secondAttribute="bottom" constant="-23" id="fsq-E0-Yud"/>
                             <constraint firstItem="Bve-Ch-fAv" firstAttribute="leading" secondItem="h89-KO-gwg" secondAttribute="leadingMargin" constant="25" id="hFo-PT-NIB"/>
+                            <constraint firstItem="Bve-Ch-fAv" firstAttribute="width" secondItem="oQP-Hz-9SZ" secondAttribute="width" id="mTU-Nl-OXC"/>
                             <constraint firstAttribute="centerX" secondItem="oDO-Kv-pz4" secondAttribute="centerX" id="oNZ-fO-cJn"/>
                             <constraint firstAttribute="centerX" secondItem="Bve-Ch-fAv" secondAttribute="centerX" id="pL8-Ak-Jkf"/>
                         </constraints>
@@ -225,10 +249,12 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="acceptButton" destination="O6H-vc-ehg" id="8hQ-aM-ehn"/>
-                        <outlet property="denyButton" destination="oDO-Kv-pz4" id="j4d-jK-JB4"/>
-                        <outlet property="subtitleLabel" destination="Bve-Ch-fAv" id="Fjz-8B-fBc"/>
-                        <outlet property="titleLabel" destination="smH-26-IKg" id="lUB-fh-lXI"/>
+                        <outlet property="acceptButton" destination="O6H-vc-ehg" id="Lr5-ng-jAB"/>
+                        <outlet property="activityIndicator" destination="P3b-76-dKo" id="zex-TR-7sI"/>
+                        <outlet property="mainLabel" destination="Bve-Ch-fAv" id="rCN-BS-f6Y"/>
+                        <outlet property="skipButton" destination="oDO-Kv-pz4" id="HQv-7A-pGP"/>
+                        <outlet property="subtitleLabel" destination="oQP-Hz-9SZ" id="C8h-g6-AE4"/>
+                        <outlet property="titleLabel" destination="smH-26-IKg" id="kL2-gE-fL4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nPP-nY-Jxv" sceneMemberID="firstResponder"/>
@@ -271,10 +297,11 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gme-4W-VfR">
                                 <rect key="frame" x="0.0" y="513" width="320" height="55"/>
+                                <color key="backgroundColor" red="0.92549019610000005" green="0.69803921570000005" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="14" maxX="0.0" maxY="14"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" red="0.31372549020000001" green="0.93725490199999995" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.89019607840000003" green="0.33725490200000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
