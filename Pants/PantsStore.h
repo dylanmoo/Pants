@@ -24,4 +24,6 @@
 
 - (BOOL)needsToCreateNewUser;
 
+- (void)registerForPushNotifications;
+
 @end

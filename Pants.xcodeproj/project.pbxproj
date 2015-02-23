@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		8608CDA119BA66BA003E69B2 /* LetterTileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8608CDA019BA66BA003E69B2 /* LetterTileButton.m */; };
-		863178191A902CEB00FBD3FA /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 863178181A902CEB00FBD3FA /* libPods-AFNetworking.a */; };
 		8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		8642E9761979F56C00F09F62 /* SignPainter.otf in Sources */ = {isa = PBXBuildFile; fileRef = 8642E9741979F3E400F09F62 /* SignPainter.otf */; };
 		86A61FF21976F5DC00FAB8FE /* office.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 86A61FF11976F5DC00FAB8FE /* office.gpx */; };
@@ -58,6 +57,7 @@
 		86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CD19624D0C0011D9BE /* Security.framework */; };
 		86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CF19624D140011D9BE /* SystemConfiguration.framework */; };
 		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
+		86D1BA411A98045B00B7220D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D1BA401A98045B00B7220D /* MessageUI.framework */; };
 		C6ECCE7B7E7638777C9D7678 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65389CA324B577F155575E9B /* libPods.a */; };
 		FC0E20B01A969955009ACF4D /* pantsContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */; };
 		FC0E20B11A969955009ACF4D /* pantsContainer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */; };
@@ -172,7 +172,6 @@
 		66D095BF704DCE72BBA93918 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8608CD9F19BA66BA003E69B2 /* LetterTileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterTileButton.h; sourceTree = "<group>"; };
 		8608CDA019BA66BA003E69B2 /* LetterTileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterTileButton.m; sourceTree = "<group>"; };
-		863178181A902CEB00FBD3FA /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
 		8642E9741979F3E400F09F62 /* SignPainter.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignPainter.otf; sourceTree = "<group>"; };
 		86A61FF11976F5DC00FAB8FE /* office.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = office.gpx; sourceTree = "<group>"; };
 		86A9C99919D8E1BC0029239E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -219,6 +218,7 @@
 		86C413CD19624D0C0011D9BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		86C413CF19624D140011D9BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
+		86D1BA401A98045B00B7220D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C7C334C35F60D3BC9DFE3368 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@2x.png"; sourceTree = "<group>"; };
 		FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@3x.png"; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				863178191A902CEB00FBD3FA /* libPods-AFNetworking.a in Frameworks */,
+				86D1BA411A98045B00B7220D /* MessageUI.framework in Frameworks */,
 				86A9C9A219D8E3840029239E /* Accounts.framework in Frameworks */,
 				86A9C9A019D8E3600029239E /* Social.framework in Frameworks */,
 				86A9C99E19D8E32A0029239E /* Twitter.framework in Frameworks */,
@@ -470,7 +470,7 @@
 		86C4138D196246EF0011D9BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				863178181A902CEB00FBD3FA /* libPods-AFNetworking.a */,
+				86D1BA401A98045B00B7220D /* MessageUI.framework */,
 				86A9C9A119D8E3840029239E /* Accounts.framework */,
 				86A9C99F19D8E3600029239E /* Social.framework */,
 				86A9C99D19D8E32A0029239E /* Twitter.framework */,
@@ -507,23 +507,8 @@
 				86C413A0196246EF0011D9BE /* Main.storyboard */,
 				86C413A3196246EF0011D9BE /* PantsViewController.h */,
 				86C413A4196246EF0011D9BE /* PantsViewController.m */,
-				FC0E20B21A969BC8009ACF4D /* pants@3x.png */,
-				FC0E20B31A969BC8009ACF4D /* pants@2x.png */,
-				FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */,
-				FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */,
-				FC429AD41A945D5D00487BC6 /* down@2x.png */,
-				FC429AD51A945D5D00487BC6 /* down@3x.png */,
-				FCF707CA19B54DDF00D60D5C /* PantsOnboardingViewController.h */,
-				FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */,
-				FC0E20B61A96D83A009ACF4D /* PantsOnboardingPushViewController.h */,
-				FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */,
-				FC3B5CBD1A931C2000203F6A /* PantsPushSettingsViewController.h */,
-				FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */,
-				FC3B5CC01A931EC600203F6A /* PantsSettingsViewController.h */,
-				FC3B5CC11A931EC600203F6A /* PantsSettingsViewController.m */,
-				FC429AD81A946B1A00487BC6 /* PantsSettingsCell.h */,
-				FC429AD91A946B1A00487BC6 /* PantsSettingsCell.m */,
-				FC429ADA1A946B1A00487BC6 /* PantsSettingsCell.xib */,
+				86D1BA3E1A97C93500B7220D /* Onboarding */,
+				86D1BA3F1A97C93F00B7220D /* Settings */,
 				86BE60D51A900B6D001661EA /* APIClient.h */,
 				86BE60D61A900B6D001661EA /* APIClient.m */,
 				FC3B5CB51A930A4100203F6A /* PantsWeather.h */,
@@ -533,6 +518,12 @@
 				86A9C9A319D93EA70029239E /* DSMWeatherStore.h */,
 				86A9C9A419D93EA70029239E /* DSMWeatherStore.m */,
 				86C413A6196246EF0011D9BE /* Images.xcassets */,
+				FC0E20B21A969BC8009ACF4D /* pants@3x.png */,
+				FC0E20B31A969BC8009ACF4D /* pants@2x.png */,
+				FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */,
+				FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */,
+				FC429AD41A945D5D00487BC6 /* down@2x.png */,
+				FC429AD51A945D5D00487BC6 /* down@3x.png */,
 				FC3B5CC31A93297400203F6A /* smiley_blue@2x.png */,
 				FC3B5CC41A93297400203F6A /* smiley_blue@3x.png */,
 				FC3B5CC51A93297400203F6A /* smiley_red@2x.png */,
@@ -577,6 +568,31 @@
 				86C413B6196246EF0011D9BE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		86D1BA3E1A97C93500B7220D /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				FCF707CA19B54DDF00D60D5C /* PantsOnboardingViewController.h */,
+				FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */,
+				FC0E20B61A96D83A009ACF4D /* PantsOnboardingPushViewController.h */,
+				FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		86D1BA3F1A97C93F00B7220D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FC429AD81A946B1A00487BC6 /* PantsSettingsCell.h */,
+				FC429AD91A946B1A00487BC6 /* PantsSettingsCell.m */,
+				FC429ADA1A946B1A00487BC6 /* PantsSettingsCell.xib */,
+				FC3B5CC01A931EC600203F6A /* PantsSettingsViewController.h */,
+				FC3B5CC11A931EC600203F6A /* PantsSettingsViewController.m */,
+				FC3B5CBD1A931C2000203F6A /* PantsPushSettingsViewController.h */,
+				FC3B5CBE1A931C2000203F6A /* PantsPushSettingsViewController.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		FC3B5CBC1A931B9F00203F6A /* Helpers */ = {
@@ -1158,7 +1174,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Pants/Pants.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Let'sAt, Inc. (PZ7N67B4VU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1174,7 +1190,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "49d98e25-8551-44d7-951a-42a62059f5f6";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

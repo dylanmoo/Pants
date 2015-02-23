@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isQ-hb-sSk">
-                        <rect key="frame" x="20" y="11" width="58" height="21"/>
+                        <rect key="frame" x="20" y="11" width="287" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                         <color key="textColor" red="0.31372549019607843" green="0.93725490196078431" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,6 +43,7 @@
                     <constraint firstAttribute="bottom" secondItem="1Ln-KP-AH5" secondAttribute="bottom" constant="5" id="He4-rZ-Uyq"/>
                     <constraint firstItem="isQ-hb-sSk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="JlZ-wd-DMA"/>
                     <constraint firstAttribute="centerY" secondItem="isQ-hb-sSk" secondAttribute="centerY" id="OkP-o2-VvF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="isQ-hb-sSk" secondAttribute="trailing" constant="5" id="Yy0-xM-5Mz"/>
                     <constraint firstAttribute="trailing" secondItem="G8F-dg-Ral" secondAttribute="trailing" id="nbJ-Ur-9KU"/>
                     <constraint firstItem="G8F-dg-Ral" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rcD-Zc-rLa"/>
                     <constraint firstItem="1Ln-KP-AH5" firstAttribute="top" secondItem="isQ-hb-sSk" secondAttribute="bottom" constant="5" id="t3h-Pg-OmW"/>

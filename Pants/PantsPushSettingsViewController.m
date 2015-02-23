@@ -41,6 +41,7 @@
         [self.setTimeButton setTitle:@"Saved!" forState:UIControlStateNormal];
         [self setTimeForDatePicker:[[PantsStore sharedStore] timeForNotifications]];
     }else{
+        [self setTimeForDatePicker:self.datePicker.date];
         [self.setTimeButton setTitle:@"Set" forState:UIControlStateNormal];
     }
     
@@ -63,6 +64,7 @@
     [self.denyButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceTokenSaved) name:kNotificationDeviceTokenSaved object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceTokenNotSaved) name:kNotificationDeviceTokenCouldNotBeSaved object:nil];
 
 }
 
@@ -74,34 +76,19 @@
 - (IBAction)setTimeButtonPressed:(id)sender {
     //Show time picker
     
+    if([[PantsStore sharedStore] userHasDeviceToken]){
+        [self saveNewPushNotificationDate];
+        return;
+    }
+    
     NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
     if (store == nil) {
         [[[UIAlertView alloc] initWithTitle:@"Sign in to iCloud" message:@"Sign into iCloud in your settings app to enable push notifications" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
         return;
     }
     
+    [[PantsStore sharedStore] registerForPushNotifications];
     
-    if([[PantsStore sharedStore] userHasDeviceToken]){
-        [self saveNewPushNotificationDate];
-        return;
-    }
-    
-    UIApplication *application = [UIApplication sharedApplication];
-    // Register for Push Notitications, if running iOS 8
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                        UIUserNotificationTypeBadge |
-                                                        UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                                 categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    } else {
-        // Register for Push Notifications before iOS 8
-        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                         UIRemoteNotificationTypeAlert |
-                                                         UIRemoteNotificationTypeSound)];
-    }
 
 }
 - (IBAction)datePickerValueChanged:(id)sender {
@@ -158,14 +145,20 @@
 
 - (void)setTimeForDatePicker:(NSDate*)dateToSet{
     self.timeForNotificationsNew = dateToSet;
-    
-    
     [self.datePicker setDate:self.timeForNotificationsNew];
 }
 
 -(void)deviceTokenSaved{
     if([[PantsStore sharedStore] userHasDeviceToken]){
         [self saveNewPushNotificationDate];
+        return;
+    }
+}
+
+-(void)deviceTokenNotSaved{
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
+    if (store == nil) {
+        [[[UIAlertView alloc] initWithTitle:@"Sign in to iCloud" message:@"Sign into iCloud in your settings app to enable push notifications" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
         return;
     }
 }

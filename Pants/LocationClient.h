@@ -14,14 +14,15 @@
 
 + (LocationClient *)sharedClient;
 
-#pragma mark Foursquare
+@property (copy)void (^afterUpdateLocationBlock)(NSString *lat, NSString *lon);
 
--(void)updateUsersLocation;
+- (void)updateUsersLocation;
+- (void)updateLocationWithBlock:(void (^)(NSString *lat, NSString *lon))completionBlock;
 
 - (NSDictionary*)currentLocation;
 - (NSString*)currentLatitude;
 - (NSString*)currentLongitude;
 
--(NSString*)currentCity;
+- (NSString*)currentCity;
 
 @end

@@ -24,7 +24,7 @@
 	<string>23</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>To find the weather for your current location</string>
 	<key>UIAppFonts</key>
 	<array>

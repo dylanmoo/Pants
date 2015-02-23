@@ -10,6 +10,8 @@
 #import "PantsSettingsCell.h"
 #import "PantsStore.h"
 #import "PantsPushSettingsViewController.h"
+#import "Mixpanel.h"
+#import <Appirater.h>
 
 @interface PantsSettingsViewController ()
 
@@ -66,8 +68,8 @@
     }else if(indexPath.row == 2){
         //Review
         [cell.titleLabel setText:@"Review us!"];
-    }else if(indexPath.row == 2){
-        //Review
+    }else if(indexPath.row == 3){
+        //Email
         [cell.titleLabel setText:@"Tell us what to fix...or add"];
     }
     
@@ -87,6 +89,15 @@
         [self presentViewController:pushVC animated:YES completion:^{
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
         }];
+    }else if(indexPath.row == 1){
+        //Share with a friend
+        [self openSMS];
+    }else if(indexPath.row == 2){
+        //Review
+        [Appirater rateApp];
+    }else if(indexPath.row == 3){
+        //Email
+        [self sendEmail];
     }
 }
 
@@ -106,6 +117,72 @@
     
     NSString *time = [NSString stringWithFormat:@"%ld:%@ %@",(long)hour,minute, ampm];
     return time;
+}
+
+
+- (void)openSMS;
+{
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.messageComposeDelegate = self;
+        controller.delegate = self;
+        controller.body = [NSString stringWithFormat:@"Hey, this app told me not to wear pants today. Sorry, I'm not sorry"];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        [[Mixpanel sharedInstance] track:@"Send SMS Pressed"];
+    }
+    
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    
+    switch (result) {
+        case MessageComposeResultCancelled:{
+            [[Mixpanel sharedInstance] track:@"=Send SMS Cancelled"];
+        }
+            break;
+        case MessageComposeResultFailed:{
+            [[Mixpanel sharedInstance] track:@"Send SMS Failed"];
+        }
+            break;
+        case MessageComposeResultSent:{
+            [[Mixpanel sharedInstance] track:@"Sent SMS Finished"];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }];
+}
+
+-(void)sendEmail{
+    NSArray *recipients = [[NSArray alloc] initWithObjects:@"team@letsat.com", nil];
+
+    if([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc]init];
+        [mailController setMessageBody:@"" isHTML:YES];
+        [mailController setSubject:@"Pants is great, but..."];
+        [mailController setToRecipients:recipients];
+        mailController.mailComposeDelegate = self;
+        [self presentViewController:mailController animated:YES completion:nil];
+    }
+}
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if (result == MessageComposeResultCancelled){
+        NSLog(@"Message cancelled");
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you!" message:[NSString stringWithFormat:@"Your feedback is very important to us, thank you for helping us make Pants better!"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 /*
