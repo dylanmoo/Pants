@@ -31,4 +31,15 @@
     // Configure the view for the selected state
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if(highlighted){
+        self.titleLabel.textColor = DEFAULT_BLUE_COLOR;
+    }else{
+        self.titleLabel.textColor = DEFAULT_SUPER_LIGHT_BLUE;
+    }
+    // Configure the view for the selected state
+}
+
 @end

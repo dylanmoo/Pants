@@ -266,7 +266,7 @@ BOOL creatingNewUser;
     
 }
 
-- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock{
+- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather, EmojiQuote *emojiQuote))completionBlock{
     if([[LocationClient sharedClient] currentLocation]){
         
         NSString *lastLongitude = [[LocationClient sharedClient] currentLongitude];
@@ -287,16 +287,17 @@ BOOL creatingNewUser;
                 NSLog(@"User Succesfully Fetched Weather: %@", responseObject);
                 
                 PantsWeather *weather = [[PantsWeather alloc] initWithDictionary:responseObject];
+                EmojiQuote *quote = [[EmojiQuote alloc] initWithDictionary:[responseObject objectForKey:@"animal_forecast"]];
                 
                 if(completionBlock){
-                    completionBlock(weather);
+                    completionBlock(weather, quote);
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"User Failed to fetch weather: %@", error);
                 
                 if(completionBlock){
-                    completionBlock(nil);
+                    completionBlock(nil, nil);
                 }
                 
             }];

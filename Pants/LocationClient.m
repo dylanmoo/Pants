@@ -82,6 +82,7 @@ CLLocationManager *locationManager;
     
     if(self.afterUpdateLocationBlock){
         self.afterUpdateLocationBlock(nil,nil);
+        self.afterUpdateLocationBlock = nil;
     }
 }
 
@@ -106,6 +107,7 @@ CLLocationManager *locationManager;
     
     if(self.afterUpdateLocationBlock){
         self.afterUpdateLocationBlock(myCurrentLatitude, myCurrentLongitude);
+        self.afterUpdateLocationBlock = nil;
     }
 }
 

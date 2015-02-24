@@ -90,9 +90,9 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    if(![userInfo objectForKey:@"apns"]) completionHandler(UIBackgroundFetchResultNoData);
+    if(![userInfo objectForKey:@"aps"]) completionHandler(UIBackgroundFetchResultNoData);
     
-    NSDictionary *apns = [userInfo objectForKey:@"apns"];
+    NSDictionary *apns = [userInfo objectForKey:@"aps"];
     
     if(![apns objectForKey:@"type"]) completionHandler(UIBackgroundFetchResultNoData);
     

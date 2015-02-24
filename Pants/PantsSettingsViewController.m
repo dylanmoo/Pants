@@ -11,6 +11,7 @@
 #import "PantsStore.h"
 #import "PantsPushSettingsViewController.h"
 #import "Mixpanel.h"
+#import "PantsWebViewController.h"
 #import <Appirater.h>
 
 @interface PantsSettingsViewController ()
@@ -79,6 +80,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    NSString *statusBarString = [NSString stringWithFormat:@"_s%@at%@sBar",@"t",@"u"];
+    NSString *colorKey = @"foregroundColor";
+    id statusBar = [[UIApplication sharedApplication] valueForKey:statusBarString];
+    if (statusBar && [statusBar respondsToSelector:NSSelectorFromString(colorKey)])
+    {
+        [statusBar setValue:DEFAULT_SUPER_LIGHT_BLUE forKey:colorKey];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,9 +99,7 @@
         PantsPushSettingsViewController *pushVC = (PantsPushSettingsViewController*)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"pantsPushSettingsView"];
         
         pushVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:pushVC animated:YES completion:^{
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        }];
+        [self presentViewController:pushVC animated:YES completion:nil];
     }else if(indexPath.row == 1){
         //Share with a friend
         [self openSMS];
@@ -99,6 +110,7 @@
         //Email
         [self sendEmail];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction)closeButtonPressed:(id)sender {
@@ -156,7 +168,7 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        
     }];
 }
 
@@ -183,6 +195,30 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you!" message:[NSString stringWithFormat:@"Your feedback is very important to us, thank you for helping us make Pants better!"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
         [alert show];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 20.0f;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+    UIButton *creditsLabel = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 100, 20)];
+    [creditsLabel setTitle:@"Powered by Forecast" forState:UIControlStateNormal];
+    [creditsLabel setTitleColor:DEFAULT_SUPER_LIGHT_BLUE forState:UIControlStateNormal];
+    [creditsLabel.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:14]];
+    [creditsLabel addTarget:self action:@selector(creditsTapped) forControlEvents:UIControlEventTouchUpInside];
+    [footer addSubview:creditsLabel];
+    return footer;
+}
+
+- (void)creditsTapped{
+    NSLog(@"Tapped");
+    
+    PantsWebViewController *webVC = (PantsWebViewController*)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"pantsWebView"];
+    
+    webVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:webVC animated:YES completion:nil];
 }
 
 /*
