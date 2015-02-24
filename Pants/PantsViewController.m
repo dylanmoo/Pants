@@ -804,6 +804,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self.beltBuckleView addSubview:self.bottomTimerLabel];
     
     
+    if(self.view.height>568){
+        self.topDotsTimerLabel.bottom = self.middleTimerLabel.top+8;
+        self.topTimerLabel.bottom = self.topDotsTimerLabel.top+5;
+        self.bottomDotsTimerLabel.top = self.middleTimerLabel.bottom-8;
+        self.bottomTimerLabel.top = self.bottomDotsTimerLabel.bottom-5;
+    }
     
     self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
     [self.pantsLabel setText:pantsString];
