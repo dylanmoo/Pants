@@ -148,21 +148,21 @@ BOOL creatingNewUser;
         if([store objectForKey:kDeviceToken]){
             NSData *savedToken = [store objectForKey:kDeviceToken];
             if([savedToken isEqualToData:token]){
-                [[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token found on iCloud is same as new one" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                //[[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token found on iCloud is same as new one" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
             }else{
-                [[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token found on iCloud is different from new one. Saving new one." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                //[[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token found on iCloud is different from new one. Saving new one." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                 
                 [store setObject:token forKey:kDeviceToken];
                 [store synchronize];
             }
         }else{
-            [[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token not found on iCloud. Saving new one to iCloud." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+           // [[[UIAlertView alloc] initWithTitle:@"Test" message:@"Device token not found on iCloud. Saving new one to iCloud." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
             
             [store setObject:token forKey:kDeviceToken];
             [store synchronize];
         }
     }else{
-        [[[UIAlertView alloc] initWithTitle:@"Test" message:@"No iCloud store found." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+       // [[[UIAlertView alloc] initWithTitle:@"Test" message:@"No iCloud store found." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeviceTokenSaved object:nil];
@@ -229,6 +229,11 @@ BOOL creatingNewUser;
 - (void)updateLocationWithCompletion:(void (^)(NSError *error))completionBlock {
     if([[LocationClient sharedClient] currentLocation] && [[PantsStore sharedStore] userID]){
         
+        UILocalNotification* localNotification5 = [[UILocalNotification alloc] init];
+        localNotification5.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+        localNotification5.alertBody = [NSString stringWithFormat:@"HAS USER ID"];
+        localNotification5.timeZone = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification5];
         
         NSString *lastLongitude = [[LocationClient sharedClient] currentLongitude];
         NSString *lastLatitude = [[LocationClient sharedClient] currentLatitude];
@@ -246,6 +251,12 @@ BOOL creatingNewUser;
         [self PATCH:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"User Succesfully Signed in: %@", responseObject);
             
+            UILocalNotification* localNotification5 = [[UILocalNotification alloc] init];
+            localNotification5.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            localNotification5.alertBody = [NSString stringWithFormat:@"WAIT IT WORKED...?"];
+            localNotification5.timeZone = [NSTimeZone defaultTimeZone];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification5];
+            
             if(completionBlock){
                 completionBlock(nil);
             }
@@ -253,12 +264,24 @@ BOOL creatingNewUser;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"User Failed to sign in: %@", error);
             
+            UILocalNotification* localNotification5 = [[UILocalNotification alloc] init];
+            localNotification5.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            localNotification5.alertBody = [NSString stringWithFormat:@"WAIT IT FAILED!!!"];
+            localNotification5.timeZone = [NSTimeZone defaultTimeZone];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification5];
+            
             if(completionBlock){
                 completionBlock(error);
             }
         }];
         
     }else{
+        UILocalNotification* localNotification5 = [[UILocalNotification alloc] init];
+        localNotification5.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+        localNotification5.alertBody = [NSString stringWithFormat:@"NO USER ID"];
+        localNotification5.timeZone = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification5];
+        
         if(completionBlock){
             completionBlock(nil);
         }
@@ -266,7 +289,7 @@ BOOL creatingNewUser;
     
 }
 
-- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock{
+- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather, EmojiQuote *emojiQuote))completionBlock{
     if([[LocationClient sharedClient] currentLocation]){
         
         NSString *lastLongitude = [[LocationClient sharedClient] currentLongitude];
@@ -287,16 +310,17 @@ BOOL creatingNewUser;
                 NSLog(@"User Succesfully Fetched Weather: %@", responseObject);
                 
                 PantsWeather *weather = [[PantsWeather alloc] initWithDictionary:responseObject];
+                EmojiQuote *quote = [[EmojiQuote alloc] initWithDictionary:[responseObject objectForKey:@"animal_forecast"]];
                 
                 if(completionBlock){
-                    completionBlock(weather);
+                    completionBlock(weather, quote);
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"User Failed to fetch weather: %@", error);
                 
                 if(completionBlock){
-                    completionBlock(nil);
+                    completionBlock(nil, nil);
                 }
                 
             }];
@@ -319,22 +343,22 @@ BOOL creatingNewUser;
             if([store objectForKey:kUserID]){
                 NSString *savedID = [store objectForKey:kUserID];
                 if([userID isEqualToString:savedID]){
-                    [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is same as new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                   // [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is same as new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                     
                 }else{
-                    [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is different from new one. Saving new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                   // [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID found on iCloud is different from new one. Saving new one. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                     
                     [store setObject:userID forKey:kUserID];
                     [store synchronize];
                 }
             }else{
-                [[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID not found on iCloud. Saving new one to iCloud. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                //[[[UIAlertView alloc] initWithTitle:@"Test" message:[NSString stringWithFormat:@"ID not found on iCloud. Saving new one to iCloud. User %@", userID] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                 
                 [store setObject:userID forKey:kUserID];
                 [store synchronize];
             }
         }else{
-            [[[UIAlertView alloc] initWithTitle:@"Test" message:@"No iCloud store found." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+           // [[[UIAlertView alloc] initWithTitle:@"Test" message:@"No iCloud store found." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
         }
         
     }

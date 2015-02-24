@@ -22,6 +22,9 @@
 #define DEFAULT_FONT_BOLD @"GothamBold"
 #define DEFAULT_FONT_REGULAR @"SignPainter-HouseScript"
 
+#define CABIN_FONT_REGULAR @"CabinSketch-Regular"
+#define CABIN_FONT_BOLD @"CabinSketch-Bold"
+
 //Notifications
 #define kNotificationDeviceTokenSaved @"deviceTokenSaved"
 #define kNotificationDeviceTokenCouldNotBeSaved @"deviceTokenNotSaved"
@@ -59,3 +62,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #define DEFAULT_RED_COLOR UIColorFromRGBAndAlpha(0xE35645, 1)
 #define DEFAULT_BLUE_COLOR UIColorFromRGBAndAlpha(0x2D8586, 1)
 #define DEFAULT_LIGHT_BLUE_COLOR UIColorFromRGBAndAlpha(0x61B99E, 1)
+#define DEFAULT_BROWN_COLOR UIColorFromRGBAndAlpha(0x895629, 1)
+#define DEFAULT_OFFWHITE_COLOR UIColorFromRGBAndAlpha(0xF3E4C8, 1)
+#define DEFAULT_COPPER_COLOR UIColorFromRGBAndAlpha(0xBF7738, 1)

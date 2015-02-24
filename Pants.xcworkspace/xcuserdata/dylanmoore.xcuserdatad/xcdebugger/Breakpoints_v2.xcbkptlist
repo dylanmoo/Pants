@@ -89,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pants/LocationClient.m"
-            timestampString = "446173504.733302"
+            filePath = "Pants/PantsPushSettingsViewController.m"
+            timestampString = "446430429.948036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-locationManager:didFailWithError:"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-saveNewPushNotificationDate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pants/LocationClient.m"
-            timestampString = "446173505.696745"
+            filePath = "Pants/PantsPushSettingsViewController.m"
+            timestampString = "446430437.753057"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-setTimeButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

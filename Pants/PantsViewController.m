@@ -15,6 +15,7 @@
 #import "APIClient.h"
 #import "PantsInsetLabel.h"
 #import "PantsSettingsViewController.h"
+#import "EmojiQuote.h"
 
 @interface PantsViewController (){
     NSMutableData *_responseData;
@@ -35,15 +36,22 @@
 }
 
 @property (strong, nonatomic)  UILabel *pantsLabel;
-@property (strong, nonatomic)  UILabel *noPantsLabel;
+
 @property (strong, nonatomic)  UIImageView *pantsImageView;
-@property (strong, nonatomic)  UIImageView *noPantsImageView;
-@property (strong, nonatomic)  UILabel *timerLabel;
+@property (strong, nonatomic) UILabel *topTimerLabel;
+@property (strong, nonatomic) UILabel *middleTimerLabel;
+@property (strong, nonatomic)  UILabel *bottomTimerLabel;
+@property (strong, nonatomic) UILabel *topDotsTimerLabel;
+@property (strong, nonatomic) UILabel *bottomDotsTimerLabel;
 @property (strong, nonatomic)  UIImageView *beltView;
 @property (strong, nonatomic)  PantsWeather *currentWeather;
+@property (strong, nonatomic) EmojiQuote *currentEmojiQuote;
+@property (weak, nonatomic)  IBOutlet UILabel *noPantsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
-@property (weak, nonatomic) IBOutlet PantsInsetLabel *morningLabel;
-@property (weak, nonatomic) IBOutlet PantsInsetLabel *nightLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *emojiImageView;
+@property (weak, nonatomic) IBOutlet UILabel *emojiQuote;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *quoteDistanceFromTop;
+@property (strong, nonatomic) UIImageView *beltBuckleView;
 
 @end
 
@@ -58,8 +66,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     pantsString = @"#PANTS";
-    noPantsString = @"#NOPANTS";
+    noPantsString = @"NO PANTS";
     
+    [self.pantsImageView setTop:120];
+    [self.pantsImageView setLeft:-5];
+
+    [self.view addSubview:self.pantsImageView];
     
     [self.beltView setBackgroundColor:[UIColor clearColor]];
     self.beltView.centerY = self.pantsImageView.top;
@@ -68,58 +80,27 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     //[lineView setBackgroundColor:[UIColor whiteColor]];
     
     //[self.beltView addSubview:lineView];
-
+    
     [self.view addSubview:self.beltView];
     
-   
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findLocation)];
     [self.beltView addGestureRecognizer:tap];
     [self.beltView setUserInteractionEnabled:NO];
     
-    [self.pantsImageView setTop:self.view.centerY];
-    [self.pantsImageView setHeight:(self.view.height - self.view.centerY)];
-
-    [self.view insertSubview:self.pantsImageView belowSubview:self.beltView];
-    
-    self.noPantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    [self.noPantsImageView setBackgroundColor:DEFAULT_YELLOW_COLOR];
-    [self.noPantsImageView setTop:self.view.top];
-    [self.noPantsImageView setHeight:self.view.centerY];
-    
-    [self.noPantsImageView setAutoresizesSubviews:YES];
     self.view.backgroundColor = DEFAULT_YELLOW_COLOR;
     //[self.view insertSubview:self.noPantsImageView belowSubview:self.beltView];
     
-    self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
-    [self.pantsLabel setText:pantsString];
-    [self.pantsLabel setNumberOfLines:0];
-    [self.pantsLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
-    [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.pantsLabel setCenterY:(self.pantsImageView.height/2)];
-    [self.pantsLabel setCenterX:self.view.centerX];
-    //[self.pantsImageView addSubview:self.pantsLabel];
     
     
-    self.noPantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.noPantsImageView.width, self.noPantsImageView.height)];
     [self.noPantsLabel setText:noPantsString];
     [self.noPantsLabel setNumberOfLines:0];
     [self.noPantsLabel setTextColor:DEFAULT_RED_COLOR];
     [self.noPantsLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.noPantsLabel setCenterY:(self.noPantsImageView.height/2)];
-    [self.noPantsLabel setCenterX:self.view.centerX];
-    //[self.noPantsImageView addSubview:self.noPantsLabel];
     
-    
-    [self.morningLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
-    [self.morningLabel setTextColor:DEFAULT_RED_COLOR];
-    
-    [self.nightLabel setFont:[UIFont fontWithName:DEFAULT_FONT_REGULAR size:18]];
-    [self.nightLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
-    //[self.view setBackgroundColor:DEFAULT_YELLOW_COLOR];
-    
-    [self.noPantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
+    [self.noPantsLabel setFont:[UIFont fontWithName:CABIN_FONT_REGULAR size:35]];
     [self.pantsLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:35]];
-    [self.timerLabel setFont:[UIFont fontWithName:@"SignPainter-HouseScript" size:20]];
+    [self.emojiQuote setFont:[UIFont fontWithName:CABIN_FONT_REGULAR size:15]];
     
     tempThreshold = 73.0f;
     
@@ -129,7 +110,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.view setUserInteractionEnabled:YES];
     [self.pantsImageView setUserInteractionEnabled:YES];
-    [self.noPantsImageView setUserInteractionEnabled:YES];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     
@@ -141,25 +121,70 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.infoButton];
-    [self.view bringSubviewToFront:self.morningLabel];
-    [self.view bringSubviewToFront:self.nightLabel];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+
+- (void)showFakeEmojiQuote{
+    EmojiQuote *quote = [[EmojiQuote alloc] init];
+    quote.emoji = [UIImage imageNamed:@"373"];
+    quote.quote = @"What EVER with this weather. Anyway, 8PM. Pants. You’ll need them. That means it’s warm during the day. And then cold at night. Duh. Also? It’s gonna snow.";
     
+    [self showEmojiQuote:quote];
+}
+
+- (void)showEmojiQuote:(EmojiQuote*)quote{
+    self.emojiQuote.text = [quote stringForQuote];
+    self.emojiImageView.image = quote.emoji;
 }
 
 -(void)showLoading
 {
     [self.beltView setUserInteractionEnabled:NO];
-   
+    [self.pantsImageView setTop:120];
+    [self.beltView setCenterY:self.pantsImageView.top];
+    [self setBeltBuckleTextWithTop:@"" middle:@"LOADING" andBottom:@""];
+    [self startSpin];
 }
 
 - (void)stopLoading{
-   
+    [self stopSpin];
 }
 
-- (void)awakeFromNib{
-    [self.beltView setCenterY:self.view.centerY];
+- (void) spinWithOptions: (UIViewAnimationOptions) options {
+    // this spin completes 360 degrees every 2 seconds
+    [UIView animateWithDuration: 0.2f
+                          delay: 0.0f
+                        options: options
+                     animations: ^{
+                         if(animating){
+                             self.beltBuckleView.transform = CGAffineTransformRotate(self.beltBuckleView.transform, M_PI);
+                         }else{
+                             self.beltBuckleView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 2*M_PI);
+                         }
+                     }
+                     completion: ^(BOOL finished) {
+                         if (finished) {
+                             if (animating) {
+                                 // if flag still set, keep spinning with constant speed
+                                 [self spinWithOptions: UIViewAnimationOptionCurveLinear];
+                             } else if (options != UIViewAnimationOptionCurveEaseOut) {
+                                 // one last spin, with deceleration
+                                 [self spinWithOptions: UIViewAnimationOptionCurveEaseOut];
+                             }
+                         }
+                     }];
+}
+
+- (void) startSpin {
+    if (!animating) {
+        animating = YES;
+        [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
+    }
+}
+
+- (void) stopSpin {
+    // set the flag to stop spinning after one last 90 degree increment
+    animating = NO;
 }
 
 -(void)didBecomeActive:(NSNotification*)notification
@@ -198,6 +223,10 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [[LocationClient sharedClient] updateUsersLocation];
     [self showLoading];
     [self.beltView setAlpha:1];
+    [self.noPantsLabel setAlpha:0];
+    [self.infoButton setAlpha:0];
+    [self.emojiImageView setAlpha:0];
+    [self.emojiQuote setAlpha:0];
 }
 
 -(void)locationAccessDenied:(NSNotification*)notification{
@@ -212,8 +241,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         NSLog(@"LIFT");
         [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
             self.infoButton.alpha = 0;
-            self.morningLabel.alpha = 0;
-            self.nightLabel.alpha = 0;
         } completion:nil];
         
         // [self findLocation];
@@ -222,14 +249,16 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     CGPoint translation = [recognizer translationInView:self.view];
     
     [self.pantsImageView setTop:self.pantsImageView.top + translation.y];
-    [self.pantsImageView setHeight:self.pantsImageView.height - translation.y];
-    [self.noPantsImageView setHeight:self.noPantsImageView.height + translation.y];
-    [self.noPantsLabel setCenterY:self.noPantsImageView.height/2];
     [self.pantsLabel setCenterY:self.pantsImageView.height/2];
-    [self.beltView setCenterY:self.beltView.center.y + translation.y];
+    self.beltView.centerY = self.pantsImageView.top;
     
+    NSLog(@"Pants: %f",self.beltView.top);
     //[self.gifImageView setHeight:self.timerLabel.center.y];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+    
+    float distanceAway = self.beltView.top - self.emojiImageView.bottom;
+    self.emojiImageView.alpha = distanceAway/100;
+    self.emojiQuote.alpha = distanceAway/100;
     
     if(recognizer.state == UIGestureRecognizerStateEnded)
     {
@@ -243,6 +272,17 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 }
 
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    NSString *statusBarString = [NSString stringWithFormat:@"_s%@at%@sBar",@"t",@"u"];
+    NSString *colorKey = @"foregroundColor";
+    id statusBar = [[UIApplication sharedApplication] valueForKey:statusBarString];
+    if (statusBar && [statusBar respondsToSelector:NSSelectorFromString(colorKey)])
+    {
+        [statusBar setValue:[UIColor blackColor] forKey:colorKey];
+    }
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -337,15 +377,16 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         return;
     }
     
-   [[APIClient sharedClient] getWeatherWithCompletion:^(PantsWeather *weather) {
+   [[APIClient sharedClient] getWeatherWithCompletion:^(PantsWeather *weather, EmojiQuote *emojiQuote) {
        
        dispatch_async(dispatch_get_main_queue(), ^{
-           if(weather){
+           if(weather && emojiQuote){
                self.currentWeather = weather;
+               self.currentEmojiQuote = emojiQuote;
                [self displayWeather:self.currentWeather];
            }else{
-               //[self showFailedToGetWeather];
-               [self showPantsAtHour:8];
+               [self showFailedToGetWeather];
+               //[self showPantsAtHour:8];
            }
        });
        
@@ -360,12 +401,15 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 }
 
 - (void)showFailedToGetWeather{
+    [self setBeltBuckleTextWithTop:@"sorry" middle:@"TAP TO RETRY" andBottom:@"please"];
     [self stopLoading];
     [self.pantsImageView setUserInteractionEnabled:YES];
 }
 
 - (void)displayWeather:(PantsWeather*)weather{
     
+//    [self showNoPantsAllDay:weather.noPantsFlavorText];
+//    return;
     if(!weather) return;
     
     if(weather.pantsAtTime.intValue == 0)
@@ -391,68 +435,37 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 - (void)showPantsAllDay:(NSString*)flavorText{
     if(!flavorText) flavorText = @"all day";
     
-    [self.pantsLabel setText:[NSString stringWithFormat:@"%@\n%@",pantsString,flavorText]];
-
-    //[self.noPantsLabel setText:@"What?\nYou don't trust me?"];
-    
-    [self stopLoading];
-    
-    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
-        [self.pantsLabel setAlpha:1];
-        [self.noPantsLabel setAlpha:0];
-        [self.beltView setAlpha:0];
-        [self.morningLabel setAlpha:0];
-        [self.nightLabel setAlpha:0];
-        [self.infoButton setAlpha:1];
-        
-        [self.view bringSubviewToFront:self.noPantsImageView];
-        [self.view bringSubviewToFront:self.infoButton];
-        [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
-        [self.pantsImageView setTop:0];
-        [self.pantsImageView setHeight:self.view.height];
-        [self.noPantsImageView setHeight:0];
-        [self.noPantsImageView setTop:0];
-        
-        
-        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
-        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
-        
-        
-        [self.beltView setCenter:CGPointMake(self.beltView.center.x, 0)];
-    } completion:nil];
+    [self showPantsAtHour:0];
 
 }
 
 - (void)showNoPantsAllDay:(NSString*)flavorText{
-    if(!flavorText) flavorText = @"all day!";
+    if(!flavorText) flavorText = @"ALL DAY!";
     
-    [self.noPantsLabel setText:[NSString stringWithFormat:@"%@\n%@",noPantsString,flavorText]];
+    [self.noPantsLabel setText:[NSString stringWithFormat:@"%@ %@",noPantsString,flavorText]];
     //[self.pantsLabel setText:@"What?\nYou don't trust me?"];
+    
+    [self setBeltBuckleTextWithTop:@"I said" middle:@"NO PANTS" andBottom:@"silly!"];
     
     [self stopLoading];
     
+    [self showEmojiQuote:self.currentEmojiQuote];
+    self.quoteDistanceFromTop.constant = self.view.height/2-self.emojiQuote.height/2;
+    [self.view layoutIfNeeded];
+    
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
-        [self.pantsLabel setAlpha:0];
         [self.noPantsLabel setAlpha:1];
-        [self.beltView setAlpha:0];
-        [self.morningLabel setAlpha:0];
-        [self.nightLabel setAlpha:0];
         [self.infoButton setAlpha:1];
+        [self.emojiImageView setAlpha:1];
+        [self.emojiQuote setAlpha:1];
         
         [self.view bringSubviewToFront:self.pantsImageView];
+        [self.view bringSubviewToFront:self.beltView];
         [self.view bringSubviewToFront:self.infoButton];
         [self.infoButton setImage:[UIImage imageNamed:@"smiley_red"] forState:UIControlStateNormal];
-        [self.pantsImageView setTop:self.view.height];
-        [self.pantsImageView setHeight:0];
-        [self.noPantsImageView setHeight:self.view.height];
-        [self.noPantsImageView setTop:0];
+        [self.pantsImageView setTop:self.view.height+100];
+        self.beltView.centerY = self.pantsImageView.top;
         
-        
-        [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
-        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
-        
-        
-        [self.beltView setCenter:CGPointMake(self.beltView.center.x, self.view.height)];
     } completion:^(BOOL finished) {
         //[self.pantsImageView setUserInteractionEnabled:YES];
     }];
@@ -460,62 +473,48 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 
 -(void)showPantsAtHour:(int)hour{
     pantsOnHour = hour;
+    
     //Find placement of bar
+    self.quoteDistanceFromTop.constant = 80;
+    [self.view layoutIfNeeded];
+    float distanceFromTop = (246.0/568.0)*self.view.height;
     
-    NSDate *date = [NSDate date];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    
-    NSDateComponents *comps = [calendar components:NSHourCalendarUnit fromDate:date];
-    
-    int hoursLater = hour;
-    int hoursLeft = 24;
-    float spacing = 200;
-    
-    float distanceFromTop = (hoursLater*((self.view.bounds.size.height-(2*spacing))/hoursLeft))+spacing;
-    
-    //distanceFromTop = self.view.height/2;
-    
-    float noPantsCenter = distanceFromTop/2;
-    float pantsCenter = ((self.view.bounds.size.height-distanceFromTop)/2) + distanceFromTop;
-    
-    NSString *time = [NSString stringWithFormat:@"%d %@",(hour>12?hour-12:hour),(hour>12 ? @"PM":@"AM") ];
-    [self.timerLabel setText:time];
-    
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    
-    [mixpanel track:@"Showing Pants Time" properties:@{@"time": time}];
-    
+    if(hour==0){
+        [self setBeltBuckleTextWithTop:@"put on" middle:@"PANTS" andBottom:@"now!"];
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Showing Pants All Day" properties:nil];
+    }else{
+        NSString *time = [NSString stringWithFormat:@"at %d%@",(hour>12?hour-12:hour),(hour>12 ? @"pm":@"am") ];
+        [self setBeltBuckleTextWithTop:@"put on" middle:@"PANTS" andBottom:time];
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        [mixpanel track:@"Showing Pants Time" properties:@{@"time": time}];
+    }
    
     [self.pantsLabel setText:pantsString];
     [self.noPantsLabel setText:noPantsString];
     
-    float heightOfBGView = self.view.height-distanceFromTop;
-    
     [self stopLoading];
+    
+   [self showEmojiQuote:self.currentEmojiQuote];
     
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         [self.pantsLabel setAlpha:1];
-        [self.noPantsLabel setAlpha:1];
+        [self.noPantsLabel setAlpha:0];
         [self.beltView setAlpha:1];
-        [self.morningLabel setAlpha:1];
-        [self.nightLabel setAlpha:1];
         [self.infoButton setAlpha:1];
         
         [self.pantsImageView setTop:distanceFromTop];
-        [self.pantsImageView setHeight:heightOfBGView];
-        [self.noPantsImageView setHeight:distanceFromTop];
-        [self.noPantsImageView setTop:0];
         [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
         [self.view bringSubviewToFront:self.infoButton];
-        [self.view bringSubviewToFront:self.morningLabel];
-        [self.view bringSubviewToFront:self.nightLabel];
         [self.view bringSubviewToFront:self.beltView];
-        
+        self.beltView.centerY = self.pantsImageView.top;
+        [self.emojiImageView setAlpha:1];
+        [self.emojiQuote setAlpha:1];
         
         [self.pantsLabel setCenter:CGPointMake(self.pantsLabel.center.x, self.pantsImageView.height/2)];
-        [self.noPantsLabel setCenter:CGPointMake(self.noPantsLabel.center.x, self.noPantsImageView.height/2)];
-        
         
         [self.beltView setCenter:CGPointMake(self.beltView.center.x, distanceFromTop)];
     } completion:^(BOOL finished) {
@@ -702,28 +701,125 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     [self showPantsAtHour:hourToPutOnPants];
 }
 
+- (void)setBeltBuckleTextWithTop:(NSString*)topString middle:(NSString*)middle andBottom:(NSString*)bottom{
+    self.topTimerLabel.text = topString;
+    self.middleTimerLabel.text = middle;
+    self.bottomTimerLabel.text = bottom;
+    self.topDotsTimerLabel.text = @"•••••";
+    self.bottomDotsTimerLabel.text = @"•••••";
+    
+}
+
 - (UIImageView*)beltView{
     if(_beltView) return _beltView;
     
-    UIImageView *circleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self widthFromRatio:.4828125], [self heightFromRatio:.144366197])];
-    [circleImageView setBackgroundColor:DEFAULT_YELLOW_COLOR];
-    circleImageView.layer.cornerRadius = circleImageView.height/2;
+    self.beltBuckleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self widthFromRatio:.4828125], [self heightFromRatio:.144366197])];
+    [self.beltBuckleView setBackgroundColor:DEFAULT_BROWN_COLOR];
     
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.beltBuckleView.bounds];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = path.CGPath;
+    self.beltBuckleView.layer.mask = maskLayer;
+    
+    UIImageView *innerCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width-12, self.beltBuckleView.height-12)];
+    [innerCircleImageView setBackgroundColor:DEFAULT_OFFWHITE_COLOR];
+    innerCircleImageView.layer.cornerRadius = innerCircleImageView.height/2;
+
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithOvalInRect:innerCircleImageView.bounds];
+    CAShapeLayer *maskLayer2 = [CAShapeLayer layer];
+    maskLayer2.path = path2.CGPath;
+    innerCircleImageView.layer.mask = maskLayer2;
+    
+//    CGContextSaveGState(theCGContext);
+//    CGPoint center = CGPointMake(circleImageView.width / 2.0, y + height / 2.0);
+//    UIBezierPath* clip = [UIBezierPath bezierPathWithArcCenter:center
+//                                                        radius:max(width, height)
+//                                                    startAngle:startAngle
+//                                                      endAngle:endAngle
+//                                                     clockwise:YES];
+//    [clip addLineToPoint:center];
+//    [clip closePath];
+//    [clip addClip];
+//    
+//    UIBezierPath *arc = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, width, height)];
+//    [[UIColor blackColor] setStroke];
+//    [arc stroke];
+//    
+//    CGContextRestoreGState(theCGContext);
+
+    [self.beltBuckleView addSubview:innerCircleImageView];
     
     UIImageView *beltLine = [[UIImageView alloc] initWithFrame:CGRectMake([self widthFromRatio:0.0671875], 0, [self widthFromRatio:0.9546875-0.0671875], [self heightFromRatio:0.02728873239])];
-    beltLine.backgroundColor = DEFAULT_SUPER_LIGHT_BLUE;
-    _beltView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, circleImageView.height)];
-    circleImageView.center = CGPointMake(_beltView.centerX, _beltView.height/2);
+    beltLine.backgroundColor = DEFAULT_COPPER_COLOR;
+    _beltView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.beltBuckleView.height)];
+    self.beltBuckleView.center = CGPointMake(_beltView.centerX, _beltView.height/2);
+    innerCircleImageView.center = CGPointMake(self.beltBuckleView.width/2, self.beltBuckleView.height/2);
     beltLine.center = CGPointMake(_beltView.centerX, _beltView.height/2);
     [_beltView addSubview:beltLine];
-    [_beltView addSubview:circleImageView];
+    [_beltView addSubview:self.beltBuckleView];
     
-    self.timerLabel = [[UILabel alloc] initWithFrame:circleImageView.bounds];
-    [self.timerLabel setText:@""];
-    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.timerLabel setCenter:circleImageView.center];
-    [self.timerLabel setTextColor:[UIColor blackColor]];
-    [_beltView addSubview:self.timerLabel];
+    
+    self.middleTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width, 32)];
+    [self.middleTimerLabel setNumberOfLines:1];
+    [self.middleTimerLabel setTextAlignment:NSTextAlignmentCenter];
+    self.middleTimerLabel.center = CGPointMake(self.beltBuckleView.width/2, self.beltBuckleView.height/2);
+    [self.middleTimerLabel setTextColor:DEFAULT_BLUE_COLOR];
+    [self.middleTimerLabel setFont:[UIFont fontWithName:CABIN_FONT_BOLD size:32]];
+    [self.beltBuckleView addSubview:self.middleTimerLabel];
+    
+    self.topDotsTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width, 18)];
+    [self.topDotsTimerLabel setNumberOfLines:1];
+    [self.topDotsTimerLabel setTextAlignment:NSTextAlignmentCenter];
+    self.topDotsTimerLabel.centerX = self.middleTimerLabel.centerX;
+    self.topDotsTimerLabel.bottom = self.middleTimerLabel.top+5;
+    [self.topDotsTimerLabel setTextColor:DEFAULT_BROWN_COLOR];
+    [self.topDotsTimerLabel setFont:[UIFont fontWithName:CABIN_FONT_BOLD size:18]];
+    [self.beltBuckleView addSubview:self.topDotsTimerLabel];
+    
+    self.topTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width, 14)];
+    [self.topTimerLabel setNumberOfLines:1];
+    [self.topTimerLabel setTextAlignment:NSTextAlignmentCenter];
+    self.topTimerLabel.centerX = self.middleTimerLabel.centerX;
+    self.topTimerLabel.bottom = self.topDotsTimerLabel.top+3;
+    [self.topTimerLabel setTextColor:DEFAULT_BROWN_COLOR];
+    [self.topTimerLabel setFont:[UIFont fontWithName:CABIN_FONT_REGULAR size:12]];
+    [self.beltBuckleView addSubview:self.topTimerLabel];
+    
+    self.bottomDotsTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width, 18)];
+    [self.bottomDotsTimerLabel setNumberOfLines:1];
+    [self.bottomDotsTimerLabel setTextAlignment:NSTextAlignmentCenter];
+    self.bottomDotsTimerLabel.centerX = self.middleTimerLabel.centerX;
+    self.bottomDotsTimerLabel.top = self.middleTimerLabel.bottom-5;
+    [self.bottomDotsTimerLabel setTextColor:DEFAULT_BROWN_COLOR];
+    [self.bottomDotsTimerLabel setFont:[UIFont fontWithName:CABIN_FONT_BOLD size:18]];
+    [self.beltBuckleView addSubview:self.bottomDotsTimerLabel];
+    
+    self.bottomTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width, 14)];
+    [self.bottomTimerLabel setNumberOfLines:1];
+    [self.bottomTimerLabel setTextAlignment:NSTextAlignmentCenter];
+    self.bottomTimerLabel.centerX = self.middleTimerLabel.centerX;
+    self.bottomTimerLabel.top = self.bottomDotsTimerLabel.bottom-3;
+    [self.bottomTimerLabel setTextColor:DEFAULT_BROWN_COLOR];
+    [self.bottomTimerLabel setFont:[UIFont fontWithName:CABIN_FONT_REGULAR size:12]];
+    [self.beltBuckleView addSubview:self.bottomTimerLabel];
+    
+    
+    if(self.view.height>568){
+        self.topDotsTimerLabel.bottom = self.middleTimerLabel.top+8;
+        self.topTimerLabel.bottom = self.topDotsTimerLabel.top+5;
+        self.bottomDotsTimerLabel.top = self.middleTimerLabel.bottom-8;
+        self.bottomTimerLabel.top = self.bottomDotsTimerLabel.bottom-5;
+    }
+    
+    self.pantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.pantsImageView.width, self.pantsImageView.height)];
+    [self.pantsLabel setText:pantsString];
+    [self.pantsLabel setNumberOfLines:0];
+    [self.pantsLabel setTextColor:DEFAULT_LIGHT_BLUE_COLOR];
+    [self.pantsLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.pantsLabel setCenterY:(self.pantsImageView.height/2)];
+    [self.pantsLabel setCenterX:self.view.centerX];
+    //[_beltView addSubview:self.pantsLabel];
+
     
     return _beltView;
 }
@@ -731,7 +827,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
 - (UIImageView*)pantsImageView{
     if(_pantsImageView) return _pantsImageView;
     
-    _pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    _pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width+5, self.view.height)];
     _pantsImageView.backgroundColor = DEFAULT_BLUE_COLOR;
     
     UIBezierPath *maskPath;

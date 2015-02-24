@@ -80,8 +80,15 @@ CLLocationManager *locationManager;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLocationServicesError object:nil];
     
+    UILocalNotification* localNotification4 = [[UILocalNotification alloc] init];
+    localNotification4.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    localNotification4.alertBody = [NSString stringWithFormat:@"LOCATION FETCH FAILED %@",error.description];
+    localNotification4.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification4];
+    
     if(self.afterUpdateLocationBlock){
         self.afterUpdateLocationBlock(nil,nil);
+        self.afterUpdateLocationBlock = nil;
     }
 }
 
@@ -104,8 +111,15 @@ CLLocationManager *locationManager;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLocationServicesEnabled object:nil];
     
+    UILocalNotification* localNotification4 = [[UILocalNotification alloc] init];
+    localNotification4.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    localNotification4.alertBody = [NSString stringWithFormat:@"LOCATION FETCHED %@",currentLocation];
+    localNotification4.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification4];
+    
     if(self.afterUpdateLocationBlock){
         self.afterUpdateLocationBlock(myCurrentLatitude, myCurrentLongitude);
+        self.afterUpdateLocationBlock = nil;
     }
 }
 

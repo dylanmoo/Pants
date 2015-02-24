@@ -90,19 +90,51 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    if(![userInfo objectForKey:@"apns"]) completionHandler(UIBackgroundFetchResultNoData);
+    if(![userInfo objectForKey:@"aps"]) completionHandler(UIBackgroundFetchResultNoData);
     
-    NSDictionary *apns = [userInfo objectForKey:@"apns"];
+    NSDictionary *apns = [userInfo objectForKey:@"aps"];
+    
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    localNotification.alertBody = @"GOT PUSH";
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+
     
     if(![apns objectForKey:@"type"]) completionHandler(UIBackgroundFetchResultNoData);
     
     NSString *type = [apns objectForKey:@"type"];
     
+    UILocalNotification* localNotification2 = [[UILocalNotification alloc] init];
+    localNotification2.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    localNotification2.alertBody = @"TYPE FOUND";
+    localNotification2.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification2];
+    
     if(![type isEqualToString:@"update_location"]) completionHandler(UIBackgroundFetchResultNoData);
+    
+    UILocalNotification* localNotification3 = [[UILocalNotification alloc] init];
+    localNotification3.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    localNotification3.alertBody = @"UPDATE LOCATION";
+    localNotification3.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification3];
     
     if([[LocationClient sharedClient] currentLocation]){
         
+        UILocalNotification* localNotification4 = [[UILocalNotification alloc] init];
+        localNotification4.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+        localNotification4.alertBody = @"CURRENT LOCATION";
+        localNotification4.timeZone = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification4];
+        
         [[LocationClient sharedClient] updateLocationWithBlock:^(NSString *lat, NSString *lon) {
+            
+            UILocalNotification* localNotification5 = [[UILocalNotification alloc] init];
+            localNotification5.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            localNotification5.alertBody = [NSString stringWithFormat:@"AFTER LOCATION BLOCK"];
+            localNotification5.timeZone = [NSTimeZone defaultTimeZone];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification5];
+            
             [[APIClient sharedClient] updateLocationWithCompletion:^(NSError *error) {
                 if(!error){
                     completionHandler(UIBackgroundFetchResultNewData);

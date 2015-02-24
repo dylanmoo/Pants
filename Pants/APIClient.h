@@ -9,6 +9,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "PantsStore.h"
 #import "PantsWeather.h"
+#import "EmojiQuote.h"
 
 @interface APIClient : AFHTTPRequestOperationManager
 
@@ -22,7 +23,7 @@
 
 - (void)saveUbiquityToken:(NSData*)token;
 
-- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather))completionBlock;
+- (void)getWeatherWithCompletion:(void (^)(PantsWeather *weather, EmojiQuote *emojiQuote))completionBlock;
 
 - (void)signInWithCompletion:(void (^)(NSError *error))completionBlock;
 
