@@ -4,4 +4,6 @@ dependencies: /Users/dylan/Pants/Pants/PantsAppDelegate.m \
   /Users/dylan/Pants/Pants/PantsStore.h \
   /Users/dylan/Pants/Pants/CoreDataStore.h \
   /Users/dylan/Pants/Pants/APIClient.h \
-  /Users/dylan/Pants/Pants/PantsWeather.h
+  /Users/dylan/Pants/Pants/PantsWeather.h \
+  /Users/dylan/Pants/Pants/EmojiQuote.h \
+  /Users/dylan/Pants/Pants/LocationClient.h

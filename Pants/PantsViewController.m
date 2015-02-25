@@ -119,7 +119,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     viewAppeared = false;
     
-    [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.infoButton];
     
 }
@@ -462,7 +461,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.view bringSubviewToFront:self.pantsImageView];
         [self.view bringSubviewToFront:self.beltView];
         [self.view bringSubviewToFront:self.infoButton];
-        [self.infoButton setImage:[UIImage imageNamed:@"smiley_red"] forState:UIControlStateNormal];
         [self.pantsImageView setTop:self.view.height+100];
         self.beltView.centerY = self.pantsImageView.top;
         
@@ -475,7 +473,7 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     pantsOnHour = hour;
     
     //Find placement of bar
-    self.quoteDistanceFromTop.constant = 80;
+    self.quoteDistanceFromTop.constant = 60;
     [self.view layoutIfNeeded];
     float distanceFromTop = (246.0/568.0)*self.view.height;
     
@@ -507,7 +505,6 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
         [self.infoButton setAlpha:1];
         
         [self.pantsImageView setTop:distanceFromTop];
-        [self.infoButton setImage:[UIImage imageNamed:@"smiley_blue"] forState:UIControlStateNormal];
         [self.view bringSubviewToFront:self.infoButton];
         [self.view bringSubviewToFront:self.beltView];
         self.beltView.centerY = self.pantsImageView.top;
@@ -716,6 +713,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     self.beltBuckleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self widthFromRatio:.4828125], [self heightFromRatio:.144366197])];
     [self.beltBuckleView setBackgroundColor:DEFAULT_BROWN_COLOR];
     
+    UIImageView *buckleTextureImageView = [[UIImageView alloc] initWithFrame:self.beltBuckleView.bounds];
+    [buckleTextureImageView setImage:[UIImage imageNamed:@"outer_belt_buckle_texture"]];
+    buckleTextureImageView.backgroundColor = [UIColor clearColor];
+    [self.beltBuckleView addSubview:buckleTextureImageView];
+    
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.beltBuckleView.bounds];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = path.CGPath;
@@ -724,6 +726,11 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     UIImageView *innerCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.beltBuckleView.width-12, self.beltBuckleView.height-12)];
     [innerCircleImageView setBackgroundColor:DEFAULT_OFFWHITE_COLOR];
     innerCircleImageView.layer.cornerRadius = innerCircleImageView.height/2;
+    
+    UIImageView *innerBuckleTextureImageView = [[UIImageView alloc] initWithFrame:innerCircleImageView.bounds];
+    [innerBuckleTextureImageView setImage:[UIImage imageNamed:@"inner_belt_buckle_texture"]];
+    innerBuckleTextureImageView.backgroundColor = [UIColor clearColor];
+    [innerCircleImageView addSubview:innerBuckleTextureImageView];
 
     UIBezierPath *path2 = [UIBezierPath bezierPathWithOvalInRect:innerCircleImageView.bounds];
     CAShapeLayer *maskLayer2 = [CAShapeLayer layer];
@@ -751,6 +758,13 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     UIImageView *beltLine = [[UIImageView alloc] initWithFrame:CGRectMake([self widthFromRatio:0.0671875], 0, [self widthFromRatio:0.9546875-0.0671875], [self heightFromRatio:0.02728873239])];
     beltLine.backgroundColor = DEFAULT_COPPER_COLOR;
+    
+    UIImageView *beltTextureImageView = [[UIImageView alloc] initWithFrame:beltLine.bounds];
+    [beltTextureImageView setImage:[UIImage imageNamed:@"belt_texture"]];
+    beltTextureImageView.backgroundColor = [UIColor clearColor];
+    [beltLine addSubview:beltTextureImageView];
+    
+    
     _beltView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.beltBuckleView.height)];
     self.beltBuckleView.center = CGPointMake(_beltView.centerX, _beltView.height/2);
     innerCircleImageView.center = CGPointMake(self.beltBuckleView.width/2, self.beltBuckleView.height/2);
@@ -829,6 +843,12 @@ NSString *WEATHER_API_KEY = @"fb98ed1c58fd01aca10a0ede95cc4758";
     
     _pantsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width+5, self.view.height)];
     _pantsImageView.backgroundColor = DEFAULT_BLUE_COLOR;
+    
+    
+    UIImageView *textureImageView = [[UIImageView alloc] initWithFrame:_pantsImageView.bounds];
+    [textureImageView setImage:[UIImage imageNamed:@"pants_tex"]];
+    [_pantsImageView addSubview:textureImageView];
+    
     
     UIBezierPath *maskPath;
     

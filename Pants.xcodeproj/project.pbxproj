@@ -56,7 +56,6 @@
 		86C413CC19624D050011D9BE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CB19624D050011D9BE /* CFNetwork.framework */; };
 		86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CD19624D0C0011D9BE /* Security.framework */; };
 		86C413D019624D140011D9BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C413CF19624D140011D9BE /* SystemConfiguration.framework */; };
-		86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C413D11962511A0011D9BE /* trousers_pants-128.png */; };
 		86D1BA411A98045B00B7220D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D1BA401A98045B00B7220D /* MessageUI.framework */; };
 		86D1BA441A9BB56300B7220D /* CabinSketch-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D1BA421A9BB56300B7220D /* CabinSketch-Bold.ttf */; };
 		86D1BA451A9BB56300B7220D /* CabinSketch-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D1BA431A9BB56300B7220D /* CabinSketch-Regular.ttf */; };
@@ -122,10 +121,6 @@
 		86D1BAC31A9BD2F000B7220D /* 420.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D1BA851A9BD2F000B7220D /* 420.png */; };
 		86D1BAC81A9C2AA800B7220D /* PantsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D1BAC71A9C2AA800B7220D /* PantsWebViewController.m */; };
 		C6ECCE7B7E7638777C9D7678 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65389CA324B577F155575E9B /* libPods.a */; };
-		FC0E20B01A969955009ACF4D /* pantsContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */; };
-		FC0E20B11A969955009ACF4D /* pantsContainer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */; };
-		FC0E20B41A969BC8009ACF4D /* pants@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20B21A969BC8009ACF4D /* pants@3x.png */; };
-		FC0E20B51A969BC8009ACF4D /* pants@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0E20B31A969BC8009ACF4D /* pants@2x.png */; };
 		FC0E20B81A96D83A009ACF4D /* PantsOnboardingPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */; };
 		FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC3B5CAA1A90031400203F6A /* Launch Screen.xib */; };
 		FC3B5CAF1A92AA7600203F6A /* LocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3B5CAE1A92AA7600203F6A /* LocationClient.m */; };
@@ -147,12 +142,23 @@
 		FC4B97BF19C29E2F00A06304 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */; };
 		FC4B97C119C29E3600A06304 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97C019C29E3600A06304 /* QuartzCore.framework */; };
 		FC4B97C319C29E4200A06304 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97C219C29E4200A06304 /* StoreKit.framework */; };
+		FC7F5A4C1A9DB49A00255FF0 /* settings_notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4A1A9DB49A00255FF0 /* settings_notification@2x.png */; };
+		FC7F5A4D1A9DB49A00255FF0 /* settings_notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4B1A9DB49A00255FF0 /* settings_notification@3x.png */; };
+		FC7F5A581A9DBCA500255FF0 /* belt_texture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4E1A9DBCA400255FF0 /* belt_texture@2x.png */; };
+		FC7F5A591A9DBCA500255FF0 /* belt_texture@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4F1A9DBCA500255FF0 /* belt_texture@3x.png */; };
+		FC7F5A5A1A9DBCA500255FF0 /* inner_belt_buckle_texture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A501A9DBCA500255FF0 /* inner_belt_buckle_texture@2x.png */; };
+		FC7F5A5B1A9DBCA500255FF0 /* inner_belt_buckle_texture@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A511A9DBCA500255FF0 /* inner_belt_buckle_texture@3x.png */; };
+		FC7F5A5C1A9DBCA500255FF0 /* outer_belt_buckle_texture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A521A9DBCA500255FF0 /* outer_belt_buckle_texture@2x.png */; };
+		FC7F5A5D1A9DBCA500255FF0 /* outer_belt_buckle_texture@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A531A9DBCA500255FF0 /* outer_belt_buckle_texture@3x.png */; };
+		FC7F5A601A9DBCA500255FF0 /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A561A9DBCA500255FF0 /* settings_icon@2x.png */; };
+		FC7F5A611A9DBCA500255FF0 /* settings_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A571A9DBCA500255FF0 /* settings_icon@3x.png */; };
+		FC7F5A641A9DBF8C00255FF0 /* pants_tex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A621A9DBF8C00255FF0 /* pants_tex@2x.png */; };
+		FC7F5A651A9DBF8C00255FF0 /* pants_tex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A631A9DBF8C00255FF0 /* pants_tex@3x.png */; };
 		FCBCE6D619B6DB0F00787C3D /* PantsInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */; };
 		FCE93AAC19D8CEE500E29661 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE93AAB19D8CEE500E29661 /* UIImage+animatedGIF.m */; };
 		FCE93AAE19D8CF0500E29661 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE93AAD19D8CF0500E29661 /* ImageIO.framework */; };
 		FCF707CC19B54DDF00D60D5C /* PantsOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */; };
 		FCF707CF19B562B300D60D5C /* UIView+DSMViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */; };
-		FCFB98A719B9C52B000CE98C /* separator.png in Resources */ = {isa = PBXBuildFile; fileRef = FCFB98A619B9C52B000CE98C /* separator.png */; };
 		FCFB991A19B9C5D9000CE98C /* _MPTweakBindObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFB98AA19B9C5D9000CE98C /* _MPTweakBindObserver.m */; };
 		FCFB991B19B9C5D9000CE98C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCFB98AB19B9C5D9000CE98C /* Media.xcassets */; };
 		FCFB991C19B9C5D9000CE98C /* Mixpanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFB98AD19B9C5D9000CE98C /* Mixpanel.m */; };
@@ -280,7 +286,6 @@
 		86C413CB19624D050011D9BE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		86C413CD19624D0C0011D9BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		86C413CF19624D140011D9BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		86C413D11962511A0011D9BE /* trousers_pants-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trousers_pants-128.png"; sourceTree = "<group>"; };
 		86D1BA401A98045B00B7220D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		86D1BA421A9BB56300B7220D /* CabinSketch-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CabinSketch-Bold.ttf"; sourceTree = "<group>"; };
 		86D1BA431A9BB56300B7220D /* CabinSketch-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CabinSketch-Regular.ttf"; sourceTree = "<group>"; };
@@ -348,10 +353,6 @@
 		86D1BAC61A9C2AA800B7220D /* PantsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsWebViewController.h; sourceTree = "<group>"; };
 		86D1BAC71A9C2AA800B7220D /* PantsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsWebViewController.m; sourceTree = "<group>"; };
 		C7C334C35F60D3BC9DFE3368 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@2x.png"; sourceTree = "<group>"; };
-		FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pantsContainer@3x.png"; sourceTree = "<group>"; };
-		FC0E20B21A969BC8009ACF4D /* pants@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants@3x.png"; sourceTree = "<group>"; };
-		FC0E20B31A969BC8009ACF4D /* pants@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants@2x.png"; sourceTree = "<group>"; };
 		FC0E20B61A96D83A009ACF4D /* PantsOnboardingPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsOnboardingPushViewController.h; sourceTree = SOURCE_ROOT; };
 		FC0E20B71A96D83A009ACF4D /* PantsOnboardingPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsOnboardingPushViewController.m; sourceTree = SOURCE_ROOT; };
 		FC3B5CAA1A90031400203F6A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -382,6 +383,18 @@
 		FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		FC4B97C019C29E3600A06304 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC4B97C219C29E4200A06304 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FC7F5A4A1A9DB49A00255FF0 /* settings_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_notification@2x.png"; sourceTree = "<group>"; };
+		FC7F5A4B1A9DB49A00255FF0 /* settings_notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_notification@3x.png"; sourceTree = "<group>"; };
+		FC7F5A4E1A9DBCA400255FF0 /* belt_texture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "belt_texture@2x.png"; sourceTree = "<group>"; };
+		FC7F5A4F1A9DBCA500255FF0 /* belt_texture@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "belt_texture@3x.png"; sourceTree = "<group>"; };
+		FC7F5A501A9DBCA500255FF0 /* inner_belt_buckle_texture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner_belt_buckle_texture@2x.png"; sourceTree = "<group>"; };
+		FC7F5A511A9DBCA500255FF0 /* inner_belt_buckle_texture@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner_belt_buckle_texture@3x.png"; sourceTree = "<group>"; };
+		FC7F5A521A9DBCA500255FF0 /* outer_belt_buckle_texture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer_belt_buckle_texture@2x.png"; sourceTree = "<group>"; };
+		FC7F5A531A9DBCA500255FF0 /* outer_belt_buckle_texture@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer_belt_buckle_texture@3x.png"; sourceTree = "<group>"; };
+		FC7F5A561A9DBCA500255FF0 /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
+		FC7F5A571A9DBCA500255FF0 /* settings_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@3x.png"; sourceTree = "<group>"; };
+		FC7F5A621A9DBF8C00255FF0 /* pants_tex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants_tex@2x.png"; sourceTree = "<group>"; };
+		FC7F5A631A9DBF8C00255FF0 /* pants_tex@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants_tex@3x.png"; sourceTree = "<group>"; };
 		FCBCE6D419B6DB0F00787C3D /* PantsInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsInsetLabel.h; sourceTree = "<group>"; };
 		FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsInsetLabel.m; sourceTree = "<group>"; };
 		FCE93AAA19D8CEE500E29661 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
@@ -391,7 +404,6 @@
 		FCF707CB19B54DDF00D60D5C /* PantsOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsOnboardingViewController.m; sourceTree = "<group>"; };
 		FCF707CD19B562B300D60D5C /* UIView+DSMViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DSMViewAdditions.h"; sourceTree = "<group>"; };
 		FCF707CE19B562B300D60D5C /* UIView+DSMViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DSMViewAdditions.m"; sourceTree = "<group>"; };
-		FCFB98A619B9C52B000CE98C /* separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = separator.png; sourceTree = "<group>"; };
 		FCFB98A919B9C5D9000CE98C /* _MPTweakBindObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MPTweakBindObserver.h; sourceTree = "<group>"; };
 		FCFB98AA19B9C5D9000CE98C /* _MPTweakBindObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MPTweakBindObserver.m; sourceTree = "<group>"; };
 		FCFB98AB19B9C5D9000CE98C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -637,6 +649,18 @@
 				86D1BAC71A9C2AA800B7220D /* PantsWebViewController.m */,
 				86C413A3196246EF0011D9BE /* PantsViewController.h */,
 				86C413A4196246EF0011D9BE /* PantsViewController.m */,
+				FC7F5A621A9DBF8C00255FF0 /* pants_tex@2x.png */,
+				FC7F5A631A9DBF8C00255FF0 /* pants_tex@3x.png */,
+				FC7F5A4E1A9DBCA400255FF0 /* belt_texture@2x.png */,
+				FC7F5A4F1A9DBCA500255FF0 /* belt_texture@3x.png */,
+				FC7F5A501A9DBCA500255FF0 /* inner_belt_buckle_texture@2x.png */,
+				FC7F5A511A9DBCA500255FF0 /* inner_belt_buckle_texture@3x.png */,
+				FC7F5A521A9DBCA500255FF0 /* outer_belt_buckle_texture@2x.png */,
+				FC7F5A531A9DBCA500255FF0 /* outer_belt_buckle_texture@3x.png */,
+				FC7F5A561A9DBCA500255FF0 /* settings_icon@2x.png */,
+				FC7F5A571A9DBCA500255FF0 /* settings_icon@3x.png */,
+				FC7F5A4A1A9DB49A00255FF0 /* settings_notification@2x.png */,
+				FC7F5A4B1A9DB49A00255FF0 /* settings_notification@3x.png */,
 				86D1BA3E1A97C93500B7220D /* Onboarding */,
 				86D1BA3F1A97C93F00B7220D /* Settings */,
 				86BE60D51A900B6D001661EA /* APIClient.h */,
@@ -650,10 +674,6 @@
 				86A9C9A319D93EA70029239E /* DSMWeatherStore.h */,
 				86A9C9A419D93EA70029239E /* DSMWeatherStore.m */,
 				86C413A6196246EF0011D9BE /* Images.xcassets */,
-				FC0E20B21A969BC8009ACF4D /* pants@3x.png */,
-				FC0E20B31A969BC8009ACF4D /* pants@2x.png */,
-				FC0E20AE1A969955009ACF4D /* pantsContainer@2x.png */,
-				FC0E20AF1A969955009ACF4D /* pantsContainer@3x.png */,
 				FC429AD41A945D5D00487BC6 /* down@2x.png */,
 				FC429AD51A945D5D00487BC6 /* down@3x.png */,
 				FC3B5CC31A93297400203F6A /* smiley_blue@2x.png */,
@@ -676,9 +696,7 @@
 				FCE93AAA19D8CEE500E29661 /* UIImage+animatedGIF.h */,
 				FCE93AAB19D8CEE500E29661 /* UIImage+animatedGIF.m */,
 				FCFB98A819B9C5D9000CE98C /* Mixpanel */,
-				FCFB98A619B9C52B000CE98C /* separator.png */,
 				8642E9741979F3E400F09F62 /* SignPainter.otf */,
-				86C413D11962511A0011D9BE /* trousers_pants-128.png */,
 				86C41396196246EF0011D9BE /* Pants-Info.plist */,
 				86C41397196246EF0011D9BE /* InfoPlist.strings */,
 				86C4139A196246EF0011D9BE /* main.m */,
@@ -1028,13 +1046,15 @@
 				86D1BA941A9BD2F000B7220D /* 373.png in Resources */,
 				FC429ADC1A946B1A00487BC6 /* PantsSettingsCell.xib in Resources */,
 				86D1BAAD1A9BD2F000B7220D /* 398.png in Resources */,
+				FC7F5A601A9DBCA500255FF0 /* settings_icon@2x.png in Resources */,
 				86D1BAC01A9BD2F000B7220D /* 417.png in Resources */,
+				FC7F5A5D1A9DBCA500255FF0 /* outer_belt_buckle_texture@3x.png in Resources */,
 				86D1BAA01A9BD2F000B7220D /* 385.png in Resources */,
 				FC3B5CC91A93297400203F6A /* smiley_red@2x.png in Resources */,
-				FC0E20B41A969BC8009ACF4D /* pants@3x.png in Resources */,
 				86D1BAB01A9BD2F000B7220D /* 401.png in Resources */,
 				86D1BA451A9BB56300B7220D /* CabinSketch-Regular.ttf in Resources */,
 				86D1BAA71A9BD2F000B7220D /* 392.png in Resources */,
+				FC7F5A5A1A9DBCA500255FF0 /* inner_belt_buckle_texture@2x.png in Resources */,
 				86D1BA921A9BD2F000B7220D /* 371.png in Resources */,
 				86D1BA911A9BD2F000B7220D /* 370.png in Resources */,
 				86D1BA9D1A9BD2F000B7220D /* 382.png in Resources */,
@@ -1046,6 +1066,8 @@
 				8642E9751979F3F300F09F62 /* SignPainter.otf in Resources */,
 				86D1BA961A9BD2F000B7220D /* 375.png in Resources */,
 				86D1BA8E1A9BD2F000B7220D /* 367.png in Resources */,
+				FC7F5A591A9DBCA500255FF0 /* belt_texture@3x.png in Resources */,
+				FC7F5A641A9DBF8C00255FF0 /* pants_tex@2x.png in Resources */,
 				86D1BA9A1A9BD2F000B7220D /* 379.png in Resources */,
 				86D1BA8C1A9BD2F000B7220D /* 365.png in Resources */,
 				86D1BA991A9BD2F000B7220D /* 378.png in Resources */,
@@ -1053,9 +1075,11 @@
 				86D1BAAA1A9BD2F000B7220D /* 395.png in Resources */,
 				86D1BAB41A9BD2F000B7220D /* 405.png in Resources */,
 				86D1BABA1A9BD2F000B7220D /* 411.png in Resources */,
+				FC7F5A5C1A9DBCA500255FF0 /* outer_belt_buckle_texture@2x.png in Resources */,
 				FCFB994419B9C5D9000CE98C /* MPSurvey.storyboard in Resources */,
 				86D1BAC31A9BD2F000B7220D /* 420.png in Resources */,
 				86C413A7196246EF0011D9BE /* Images.xcassets in Resources */,
+				FC7F5A651A9DBF8C00255FF0 /* pants_tex@3x.png in Resources */,
 				FCFB991B19B9C5D9000CE98C /* Media.xcassets in Resources */,
 				FCFB993419B9C5D9000CE98C /* MPCloseBtn@2x.png in Resources */,
 				FC429AD71A945D5D00487BC6 /* down@3x.png in Resources */,
@@ -1063,12 +1087,13 @@
 				86D1BAB51A9BD2F000B7220D /* 406.png in Resources */,
 				86D1BAA91A9BD2F000B7220D /* 394.png in Resources */,
 				FCFB995619B9C5D9000CE98C /* test_variant.json in Resources */,
+				FC7F5A611A9DBCA500255FF0 /* settings_icon@3x.png in Resources */,
 				FC3B5CCA1A93297400203F6A /* smiley_red@3x.png in Resources */,
 				86D1BAC21A9BD2F000B7220D /* 419.png in Resources */,
 				86D1BAC11A9BD2F000B7220D /* 418.png in Resources */,
+				FC7F5A5B1A9DBCA500255FF0 /* inner_belt_buckle_texture@3x.png in Resources */,
 				86D1BA931A9BD2F000B7220D /* 372.png in Resources */,
 				86D1BA9C1A9BD2F000B7220D /* 381.png in Resources */,
-				FC0E20B01A969955009ACF4D /* pantsContainer@2x.png in Resources */,
 				FC3B5CB41A93086E00203F6A /* #PANTS@2x.png in Resources */,
 				86D1BAAE1A9BD2F000B7220D /* 399.png in Resources */,
 				86D1BABF1A9BD2F000B7220D /* 416.png in Resources */,
@@ -1078,10 +1103,9 @@
 				86D1BA8B1A9BD2F000B7220D /* 364.png in Resources */,
 				FC429AD61A945D5D00487BC6 /* down@2x.png in Resources */,
 				86D1BAB91A9BD2F000B7220D /* 410.png in Resources */,
-				86C413D21962511A0011D9BE /* trousers_pants-128.png in Resources */,
-				FCFB98A719B9C52B000CE98C /* separator.png in Resources */,
 				86D1BAAF1A9BD2F000B7220D /* 400.png in Resources */,
 				FCFB993719B9C5D9000CE98C /* MPNotification.storyboard in Resources */,
+				FC7F5A581A9DBCA500255FF0 /* belt_texture@2x.png in Resources */,
 				86C41399196246EF0011D9BE /* InfoPlist.strings in Resources */,
 				86D1BAB61A9BD2F000B7220D /* 407.png in Resources */,
 				86D1BAB21A9BD2F000B7220D /* 403.png in Resources */,
@@ -1090,7 +1114,9 @@
 				86D1BAA81A9BD2F000B7220D /* 393.png in Resources */,
 				86D1BA871A9BD2F000B7220D /* 360.png in Resources */,
 				86C413A2196246EF0011D9BE /* Main.storyboard in Resources */,
+				FC7F5A4D1A9DB49A00255FF0 /* settings_notification@3x.png in Resources */,
 				86D1BAAC1A9BD2F000B7220D /* 397.png in Resources */,
+				FC7F5A4C1A9DB49A00255FF0 /* settings_notification@2x.png in Resources */,
 				86D1BA9F1A9BD2F000B7220D /* 384.png in Resources */,
 				86D1BABD1A9BD2F000B7220D /* 414.png in Resources */,
 				86D1BA971A9BD2F000B7220D /* 376.png in Resources */,
@@ -1101,7 +1127,6 @@
 				FC3B5CC71A93297400203F6A /* smiley_blue@2x.png in Resources */,
 				86D1BA951A9BD2F000B7220D /* 374.png in Resources */,
 				86D1BA981A9BD2F000B7220D /* 377.png in Resources */,
-				FC0E20B11A969955009ACF4D /* pantsContainer@3x.png in Resources */,
 				86D1BA901A9BD2F000B7220D /* 369.png in Resources */,
 				86D1BA881A9BD2F000B7220D /* 361.png in Resources */,
 				86D1BA441A9BB56300B7220D /* CabinSketch-Bold.ttf in Resources */,
@@ -1111,7 +1136,6 @@
 				86D1BABB1A9BD2F000B7220D /* 412.png in Resources */,
 				86D1BA8D1A9BD2F000B7220D /* 366.png in Resources */,
 				FC3B5CAB1A90031400203F6A /* Launch Screen.xib in Resources */,
-				FC0E20B51A969BC8009ACF4D /* pants@2x.png in Resources */,
 				86D1BA9E1A9BD2F000B7220D /* 383.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

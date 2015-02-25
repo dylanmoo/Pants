@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="#PANTS.png" translatesAutoresizingMaskIntoConstraints="NO" id="DOy-SP-nnL">
-                    <rect key="frame" x="64" y="75" width="437" height="95"/>
+                    <rect key="frame" x="174" y="99" width="218" height="47"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.92549019607843142" green="0.69803921568627447" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
@@ -26,6 +26,6 @@
         </view>
     </objects>
     <resources>
-        <image name="#PANTS.png" width="437" height="95"/>
+        <image name="#PANTS.png" width="218" height="47"/>
     </resources>
 </document>

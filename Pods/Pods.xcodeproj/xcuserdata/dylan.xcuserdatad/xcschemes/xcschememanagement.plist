@@ -4,10 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Appirater.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Pods-AFNetworking.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>Pods-Appirater.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods.xcscheme_^#shared#^_</key>
 		<dict>
@@ -17,12 +27,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0796268EF55083CFD01E01E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7E8B80A6D801214401C4BAE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A1F323461684CB42C90DAD57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9995976F110DA643D654A4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F478856AB9B4B5A47BE541CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9A6AB828B08B9161AD964E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

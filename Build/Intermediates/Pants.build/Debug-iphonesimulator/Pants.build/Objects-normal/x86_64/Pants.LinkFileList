@@ -15,11 +15,13 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPUIEdgeInsetsToNSDictionaryValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPApplicationStateSerializer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPObjectSerializerContext.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/EmojiQuote.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPBOOLToNSNumberValueTransformer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPABTestDesignerTweakRequestMessage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPAbstractABTestDesignerMessage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsInsetLabel.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/Mixpanel.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsWebViewController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPSequenceGenerator.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPObjectSerializer.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPTweakStore.o
@@ -49,6 +51,7 @@
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPABTestDesignerChangeRequestMessage.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsWeather.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPCATransform3DToNSDictionaryValueTransformer.o
+/Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsOnboardingPushViewController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsPushSettingsViewController.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/PantsStore.o
 /Users/dylan/Pants/Build/Intermediates/Pants.build/Debug-iphonesimulator/Pants.build/Objects-normal/x86_64/MPSurveyQuestion.o

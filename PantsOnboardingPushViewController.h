@@ -21,9 +21,10 @@
 @property (nonatomic, weak) NSObject<PantsOnboardingPushDelegate> *delegate;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet PantsInsetLabel *mainLabel;
-@property (weak, nonatomic) IBOutlet PantsInsetLabel *subtitleLabel;
-@property (weak, nonatomic) IBOutlet LetterTileButton *acceptButton;
+@property (weak, nonatomic) IBOutlet UIImageView *sampleNotificationView;
 @property (weak, nonatomic) IBOutlet UIButton *skipButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet LetterTileButton *setTimeButton;
 
 @end
