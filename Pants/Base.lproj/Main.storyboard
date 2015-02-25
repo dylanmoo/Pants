@@ -187,17 +187,17 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose the time you’d like to get your custom" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smH-26-IKg" customClass="PantsInsetLabel">
-                                <rect key="frame" x="50" y="12" width="220" height="55"/>
+                                <rect key="frame" x="50" y="12" width="220" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="0ii-Q5-xWr"/>
-                                    <constraint firstAttribute="height" constant="55" id="lEG-4h-G2b"/>
+                                    <constraint firstAttribute="height" constant="60" id="lEG-4h-G2b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                 <color key="textColor" red="0.89019607840000003" green="0.33725490200000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#PANTSCAST" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-Ch-fAv" customClass="PantsInsetLabel">
-                                <rect key="frame" x="41" y="80" width="238" height="35"/>
+                                <rect key="frame" x="41" y="85" width="238" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="kGO-G2-ZR5"/>
                                 </constraints>
@@ -216,7 +216,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUc-Vx-ZPv" customClass="LetterTileButton">
-                                <rect key="frame" x="48" y="444" width="225" height="80"/>
+                                <rect key="frame" x="48" y="424" width="225" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="6dz-0E-meA"/>
                                     <constraint firstAttribute="height" constant="80" id="c0G-1F-zcT"/>
@@ -230,7 +230,7 @@
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="En5-nq-Xv0">
-                                <rect key="frame" x="0.0" y="268" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="248" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="464367600.97670102">
                                     <!--2015-09-19 15:00:00 +0000-->
                                 </date>
@@ -239,25 +239,25 @@
                                 </connections>
                             </datePicker>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qge-fb-RIJ">
-                                <rect key="frame" x="0.0" y="268" width="67" height="162"/>
+                                <rect key="frame" x="0.0" y="248" width="67" height="162"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.69803921570000005" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="BBF-u8-aGP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ru-D0-9tm">
-                                <rect key="frame" x="246" y="268" width="74" height="162"/>
+                                <rect key="frame" x="246" y="248" width="74" height="162"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.69803921570000005" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="99b-uN-tvH"/>
                                 </constraints>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Dq6-4F-nMW">
-                                <rect key="frame" x="150" y="474" width="20" height="20"/>
-                                <color key="color" red="0.31372549020000001" green="0.93725490199999995" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="150" y="454" width="20" height="20"/>
+                                <color key="color" red="0.89019607840000003" green="0.33725490200000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings_notification.png" translatesAutoresizingMaskIntoConstraints="NO" id="kPD-Au-uLd">
-                                <rect key="frame" x="0.0" y="130" width="320" height="113"/>
+                                <rect key="frame" x="0.0" y="135" width="320" height="113"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.69803921570000005" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -275,7 +275,7 @@
                             <constraint firstItem="6ru-D0-9tm" firstAttribute="centerY" secondItem="En5-nq-Xv0" secondAttribute="centerY" id="Gb6-MB-0e9"/>
                             <constraint firstAttribute="centerX" secondItem="En5-nq-Xv0" secondAttribute="centerX" id="HkR-2f-hzq"/>
                             <constraint firstItem="kPD-Au-uLd" firstAttribute="top" secondItem="Bve-Ch-fAv" secondAttribute="bottom" constant="15" id="TPg-nZ-REp"/>
-                            <constraint firstItem="En5-nq-Xv0" firstAttribute="top" secondItem="kPD-Au-uLd" secondAttribute="bottom" constant="25" id="fdN-ci-LFo"/>
+                            <constraint firstItem="En5-nq-Xv0" firstAttribute="top" secondItem="kPD-Au-uLd" secondAttribute="bottom" id="fdN-ci-LFo"/>
                             <constraint firstItem="Bve-Ch-fAv" firstAttribute="leading" secondItem="h89-KO-gwg" secondAttribute="leadingMargin" constant="25" id="hFo-PT-NIB"/>
                             <constraint firstAttribute="centerX" secondItem="oDO-Kv-pz4" secondAttribute="centerX" id="oNZ-fO-cJn"/>
                             <constraint firstItem="6ru-D0-9tm" firstAttribute="trailing" secondItem="En5-nq-Xv0" secondAttribute="trailing" id="oaa-MM-rVb"/>

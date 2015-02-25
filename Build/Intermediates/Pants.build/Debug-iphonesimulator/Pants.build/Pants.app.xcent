@@ -12,14 +12,10 @@
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
-		<string>CloudDocuments</string>
+		<string>CloudKit</string>
 	</array>
 	<key>com.apple.developer.team-identifier</key>
 	<string>PZ7N67B4VU</string>
-	<key>com.apple.developer.ubiquity-container-identifiers</key>
-	<array>
-		<string>iCloud.com.LetsAt.Pants</string>
-	</array>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
 	<string>PZ7N67B4VU.com.LetsAt.Pants</string>
 	<key>get-task-allow</key>

@@ -141,7 +141,6 @@
 		FC4B97BD19C29E2800A06304 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BC19C29E2800A06304 /* libz.dylib */; };
 		FC4B97BF19C29E2F00A06304 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */; };
 		FC4B97C119C29E3600A06304 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97C019C29E3600A06304 /* QuartzCore.framework */; };
-		FC4B97C319C29E4200A06304 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4B97C219C29E4200A06304 /* StoreKit.framework */; };
 		FC7F5A4C1A9DB49A00255FF0 /* settings_notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4A1A9DB49A00255FF0 /* settings_notification@2x.png */; };
 		FC7F5A4D1A9DB49A00255FF0 /* settings_notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4B1A9DB49A00255FF0 /* settings_notification@3x.png */; };
 		FC7F5A581A9DBCA500255FF0 /* belt_texture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A4E1A9DBCA400255FF0 /* belt_texture@2x.png */; };
@@ -154,6 +153,7 @@
 		FC7F5A611A9DBCA500255FF0 /* settings_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A571A9DBCA500255FF0 /* settings_icon@3x.png */; };
 		FC7F5A641A9DBF8C00255FF0 /* pants_tex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A621A9DBF8C00255FF0 /* pants_tex@2x.png */; };
 		FC7F5A651A9DBF8C00255FF0 /* pants_tex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7F5A631A9DBF8C00255FF0 /* pants_tex@3x.png */; };
+		FC7F5A671A9DC1DE00255FF0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F5A661A9DC1DE00255FF0 /* CloudKit.framework */; };
 		FCBCE6D619B6DB0F00787C3D /* PantsInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */; };
 		FCE93AAC19D8CEE500E29661 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE93AAB19D8CEE500E29661 /* UIImage+animatedGIF.m */; };
 		FCE93AAE19D8CF0500E29661 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE93AAD19D8CF0500E29661 /* ImageIO.framework */; };
@@ -382,7 +382,6 @@
 		FC4B97BC19C29E2800A06304 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		FC4B97C019C29E3600A06304 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		FC4B97C219C29E4200A06304 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FC7F5A4A1A9DB49A00255FF0 /* settings_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_notification@2x.png"; sourceTree = "<group>"; };
 		FC7F5A4B1A9DB49A00255FF0 /* settings_notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_notification@3x.png"; sourceTree = "<group>"; };
 		FC7F5A4E1A9DBCA400255FF0 /* belt_texture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "belt_texture@2x.png"; sourceTree = "<group>"; };
@@ -395,6 +394,7 @@
 		FC7F5A571A9DBCA500255FF0 /* settings_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@3x.png"; sourceTree = "<group>"; };
 		FC7F5A621A9DBF8C00255FF0 /* pants_tex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants_tex@2x.png"; sourceTree = "<group>"; };
 		FC7F5A631A9DBF8C00255FF0 /* pants_tex@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pants_tex@3x.png"; sourceTree = "<group>"; };
+		FC7F5A661A9DC1DE00255FF0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FCBCE6D419B6DB0F00787C3D /* PantsInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantsInsetLabel.h; sourceTree = "<group>"; };
 		FCBCE6D519B6DB0F00787C3D /* PantsInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantsInsetLabel.m; sourceTree = "<group>"; };
 		FCE93AAA19D8CEE500E29661 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
@@ -524,12 +524,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC7F5A671A9DC1DE00255FF0 /* CloudKit.framework in Frameworks */,
 				86D1BA411A98045B00B7220D /* MessageUI.framework in Frameworks */,
 				86A9C9A219D8E3840029239E /* Accounts.framework in Frameworks */,
 				86A9C9A019D8E3600029239E /* Social.framework in Frameworks */,
 				86A9C99E19D8E32A0029239E /* Twitter.framework in Frameworks */,
 				FCE93AAE19D8CF0500E29661 /* ImageIO.framework in Frameworks */,
-				FC4B97C319C29E4200A06304 /* StoreKit.framework in Frameworks */,
 				86C413CE19624D0C0011D9BE /* Security.framework in Frameworks */,
 				FC4B97C119C29E3600A06304 /* QuartzCore.framework in Frameworks */,
 				FC4B97BF19C29E2F00A06304 /* MobileCoreServices.framework in Frameworks */,
@@ -610,13 +610,13 @@
 		86C4138D196246EF0011D9BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC7F5A661A9DC1DE00255FF0 /* CloudKit.framework */,
 				86D1BA401A98045B00B7220D /* MessageUI.framework */,
 				86A9C9A119D8E3840029239E /* Accounts.framework */,
 				86A9C99F19D8E3600029239E /* Social.framework */,
 				86A9C99D19D8E32A0029239E /* Twitter.framework */,
 				86A9C99919D8E1BC0029239E /* Bolts.framework */,
 				FCE93AAD19D8CF0500E29661 /* ImageIO.framework */,
-				FC4B97C219C29E4200A06304 /* StoreKit.framework */,
 				FC4B97C019C29E3600A06304 /* QuartzCore.framework */,
 				FC4B97BE19C29E2F00A06304 /* MobileCoreServices.framework */,
 				FC4B97BC19C29E2800A06304 /* libz.dylib */,
@@ -1007,6 +1007,9 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
